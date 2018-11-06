@@ -1,0 +1,9 @@
+Raw file	Scan number	Sequence	Modifications	mod	Fixed_mod	Gene Names	label	Modified sequence	Charge
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P8:ox	C:Carbamidomethyl	asadfffff	1	_GGGGNFGP(ox)GPGSNFR_	2
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P10:ox	C:Carbamidomethyl	adsafffff	1	_GGGGNFGPGP(ox)GSNFR_	2
+ext/test.mzXML	10774	GGGGNFGPGPGSNFR	Unmodified		C:Carbamidomethyl	aas	1		2
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P8:ox	C:Carbamidomethyl	asadfffff	2	_GGGGNFGP(ox)GPGSNFR_	2
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P10:ox	C:Carbamidomethyl	adsafffff	2	_GGGGNFGPGP(ox)GSNFR_	2
+ext/test.mzXML	10774	GGGGNFGPGPGSNFR	Unmodified		C:Carbamidomethyl	c	3		2
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P8:ox	C:Carbamidomethyl	c	3	_GGGGNFGP(ox)GPGSNFR_	2
+ext/test.mzXML	10874	GGGGNFGPGPGSNFR	Oxid_11	P10:ox	C:Carbamidomethyl	c	3	_GGGGNFGPGP(ox)GSNFR_	2

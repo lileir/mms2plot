@@ -1,0 +1,31 @@
+Package: mms2plot
+Type: Package
+Title: Visualization of multiple MS2s for (un)modified peptides
+Version: 0.1.0
+Author: Lei Li, Yiming Zhao.
+Maintainer: Lei Li <lileime@hotmail.com>
+Description: Visualization of multiple tandem mass spectrometry (MS2) for 
+    unmodificated and modified peptides identified in the same raw MS files, 
+    annotated by Peptide identification algorithms. You can set the parameters
+    of the plots that output in PDF format.
+Authors@R: c(person(given = "Lei", family = "Li",
+    email = "lileime@hotmail.com",
+    role = c("aut","cre")),
+    person(given = "Yiming", family = "Zhao",
+    email = "530902730@qq.com",
+    role = c("aut", "ctb")))
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5)
+biocViews: MassSpectrometry
+Imports: xml2, data.table, DescTools, MSnbase, scales, Biobase, gsubfn, graphics, grDevices
+Suggests: 
+    knitr,
+    roxygen2,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.1.0
+BugReports: https://github.com/lileime/mms2plot/issues
+URL: https://github.com/lileime/mms2plot

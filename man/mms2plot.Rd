@@ -84,30 +84,30 @@ Visualization of multiple MS/MSs for (un)modified peptides
 See vignettes for more details
 }
 \examples{
-\dontrun{
 # Generate mms2plot for TMT labelling
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
-id_table_path = "inst/extdata/TMT/msms_TMT.txt"
-par_xml_path = "inst/extdata/modifications.xml" # Maxquant modifications.xml
+data_path = system.file( package = "mms2plot",dir = "extdata" )
+id_table_path = dir( data_path, "msms_TMT.txt", FALSE, TRUE, TRUE )
+par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
 # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
-mqpar_filepath = "inst/extdata/mqpar_batch.txt"
-output_path = "inst/extdata"
+mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
+output_path = data_path
 mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path)
 
 # Generate mms2plot for SILAC labelling
-id_table_path = "inst/extdata/silac/msms_SILAC.txt"
-par_xml_path = "inst/extdata/modifications.xml"
-mqpar_filepath = "inst/extdata/mqpar_batch.txt"
-output_path = "inst/extdata"
+data_path = system.file( package = "mms2plot",dir = "extdata" )
+id_table_path = dir( data_path, "msms_SILAC.txt", FALSE, TRUE, TRUE )
+par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
+mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
+output_path = data_path
 mms2plot(id_table_path,par_xml_path,mqpar_filepath,output_path,pdf_width=7)
 
 # Generate mms2plot for dimethyl labelling
-id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
-par_xml_path = "inst/extdata/modifications.xml"
-mqpar_filepath = "inst/extdata/mqpar_batch.txt"
-output_path = "inst/extdata"
+data_path = system.file( package = "mms2plot",dir = "extdata" )
+id_table_path = dir( data_path, "msms_dim.txt", FALSE, TRUE, TRUE )
+par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
+mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
 mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path )
-}
 }
 \author{
 Lei Li

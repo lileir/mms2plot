@@ -1,15 +1,15 @@
 Package: mms2plot
 Type: Package
 Title: Visualization of multiple MS2s for (un)modified peptides
-Version: 0.99.4
+Version: 0.99.5
 Author: Lei Li, Yiming Zhao.
-Maintainer: Lei Li <lileime@hotmail.com>
+Maintainer: Lei Li <leili@qdu.edu.cn>
 Description: Visualization of multiple tandem mass spectrometry (MS2) for 
     unmodificated and modified peptides identified in the same raw MS files, 
     annotated by Peptide identification algorithms. You can set the parameters
     of the plots that output in PDF format.
 Authors@R: c(person(given = "Lei", family = "Li",
-    email = "lileime@hotmail.com",
+    email = "leili@qdu.edu.cn",
     role = c("aut","cre")),
     person(given = "Yiming", family = "Zhao",
     email = "530902730@qq.com",

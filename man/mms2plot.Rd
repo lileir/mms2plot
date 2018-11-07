@@ -84,30 +84,32 @@ Visualization of multiple MS/MSs for (un)modified peptides
 See vignettes for more details
 }
 \examples{
+general_path = system.file( package = "mms2plot",dir = "extdata" )
 # Generate mms2plot for TMT labelling
+TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
-data_path = system.file( package = "mms2plot",dir = "extdata" )
-id_table_path = dir( data_path, "msms_TMT.txt", FALSE, TRUE, TRUE )
-par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
+id_table_path = dir( TMT_path, "msms_TMT.txt", full.names = TRUE )
+par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
-mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
+mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 output_path = data_path
-mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path)
+#mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path)
 
 # Generate mms2plot for SILAC labelling
-data_path = system.file( package = "mms2plot",dir = "extdata" )
-id_table_path = dir( data_path, "msms_SILAC.txt", FALSE, TRUE, TRUE )
-par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
-mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
+SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
+id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
+par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 output_path = data_path
-mms2plot(id_table_path,par_xml_path,mqpar_filepath,output_path,pdf_width=7)
+#mms2plot( id_table_path,par_xml_path,mqpar_filepath,output_path ) 
 
 # Generate mms2plot for dimethyl labelling
-data_path = system.file( package = "mms2plot",dir = "extdata" )
-id_table_path = dir( data_path, "msms_dim.txt", FALSE, TRUE, TRUE )
-par_xml_path = dir( data_path, "modifications.xml", FALSE, TRUE )
-mqpar_filepath = dir( data_path, "mqpar_batch.txt", FALSE, TRUE )
-mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path )
+dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
+id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
+par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+output_path = data_path
+mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path)
 }
 \author{
 Lei Li

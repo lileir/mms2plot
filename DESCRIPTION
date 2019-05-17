@@ -27,5 +27,5 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
-BugReports: https://github.com/lileime/mms2plot/issues
-URL: https://github.com/lileime/mms2plot
+BugReports: https://github.com/lileir/mms2plot/issues
+URL: https://github.com/lileir/mms2plot

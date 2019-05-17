@@ -62,6 +62,7 @@
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' 
 #' ###################################
 #' # Generate mms2plot for TMT labelling
 #' TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
@@ -72,6 +73,7 @@
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' 
 #' #####################################
 #' # Generate mms2plot for SILAC labelling
 #' SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
@@ -80,6 +82,7 @@
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot( id_table_path, par_xml_path,mqpar_filepath,output_path ) #not run
+#' 
 #' #####################################
 #' # Generate mms2plot for dimethyl labelling
 #' dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
@@ -88,6 +91,7 @@
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' 
 #roxygen2::roxygenise()
 #rm(list=ls())
 #.libPaths( c( .libPaths(), "D:/Rpackages_tmp") )

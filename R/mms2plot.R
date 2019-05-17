@@ -52,6 +52,17 @@
 #' @note See vignettes for more details
 #' @examples
 #' general_path = system.file( package = "mms2plot",dir = "extdata" )
+#' ###################################
+#' # Generate mms2plot for label-free data
+#' lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
+#' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
+#' id_table_path = dir( lf_path, "msms_TMT.txt", full.names = TRUE )
+#' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
+#' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+#' output_path = general_path
+#' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' ###################################
 #' # Generate mms2plot for TMT labelling
 #' TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
@@ -60,16 +71,16 @@
 #' # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) # not run
-#'
+#' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' #####################################
 #' # Generate mms2plot for SILAC labelling
 #' SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 #' id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
 #' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path,par_xml_path,mqpar_filepath,output_path ) #not run
-#'
+#' #mms2plot( id_table_path, par_xml_path,mqpar_filepath,output_path ) #not run
+#' #####################################
 #' # Generate mms2plot for dimethyl labelling
 #' dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 #' id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )

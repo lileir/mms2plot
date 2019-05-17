@@ -13,7 +13,7 @@ Authors@R: c(person(given = "Lei", family = "Li",
     role = c("aut","cre")),
     person(given = "Yiming", family = "Zhao",
     email = "530902730@qq.com",
-    role = c("aut", "ctb")))
+    role = c("aut", "ctb")),
     person(given = "Liya", family = "Ming",
     email = "liya_ming@163.com",
     role = c("aut", "ctb")))

@@ -14,6 +14,9 @@ Authors@R: c(person(given = "Lei", family = "Li",
     person(given = "Yiming", family = "Zhao",
     email = "530902730@qq.com",
     role = c("aut", "ctb")))
+    person(given = "Liya", family = "Ming",
+    email = "liya_ming@163.com",
+    role = c("aut", "ctb")))
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true

@@ -26,6 +26,6 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 BugReports: https://github.com/lileime/mms2plot/issues
 URL: https://github.com/lileime/mms2plot

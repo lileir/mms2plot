@@ -51,6 +51,7 @@
 #' @importFrom data.table fread
 #' @note See vignettes for more details
 #' @examples
+#' ###
 #' general_path = system.file( package = "mms2plot",dir = "extdata" )
 #' ###################################
 #' # Generate mms2plot for label-free data

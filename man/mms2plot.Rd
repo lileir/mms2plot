@@ -5,13 +5,13 @@
 \title{mms2plot}
 \usage{
 mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path,
-    min_intensity_ratio = 0.01, pdf_width = 3.35,
-    pdf_height = pdf_width/2.4, xmai = 0.15 * pdf_width/3.35,
-    ymai = 0.3 * pdf_width/3.35, ppm = 20, y_ion_col = "red",
-    b_ion_col = "blue", peaks_col = "grey", ymax = 1.6,
-    info_height = 1.5, peptide_height = 1.3, mod_height = 0.07,
-    len_annoSpace = 0.1, lwd = 1 * pdf_width/3.35, cex = 1 *
-    pdf_width/3.35, show_letterBY = FALSE)
+  min_intensity_ratio = 0.01, pdf_width = 3.35,
+  pdf_height = pdf_width/2.4, xmai = 0.15 * pdf_width/3.35,
+  ymai = 0.3 * pdf_width/3.35, ppm = 20, y_ion_col = "red",
+  b_ion_col = "blue", peaks_col = "grey", ymax = 1.6,
+  info_height = 1.5, peptide_height = 1.3, mod_height = 0.07,
+  len_annoSpace = 0.1, lwd = 1 * pdf_width/3.35, cex = 1 *
+  pdf_width/3.35, show_letterBY = FALSE)
 }
 \arguments{
 \item{id_table_path}{File path name of a table that contains MS2 information
@@ -85,6 +85,18 @@ See vignettes for more details
 }
 \examples{
 general_path = system.file( package = "mms2plot",dir = "extdata" )
+###################################
+# Generate mms2plot for label-free data
+lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
+# id_table_path expands the Maxqaunt output msms.txt by adding "label" column
+id_table_path = dir( lf_path, "msms_TMT.txt", full.names = TRUE )
+par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+# mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
+mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+output_path = general_path
+#mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+
+###################################
 # Generate mms2plot for TMT labelling
 TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
@@ -93,16 +105,18 @@ par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
 mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) # not run
+#mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
 
+#####################################
 # Generate mms2plot for SILAC labelling
 SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
 par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path,par_xml_path,mqpar_filepath,output_path ) #not run
+#mms2plot( id_table_path, par_xml_path,mqpar_filepath,output_path ) #not run
 
+#####################################
 # Generate mms2plot for dimethyl labelling
 dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
@@ -110,6 +124,7 @@ par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 output_path = general_path
 #mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+
 }
 \author{
 Lei Li

@@ -7,17 +7,17 @@ calculate_aa_mzs <-function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
     if(length(unique(aa_mw_mod_table$labelmod_group))>1){ # aa with label mod
         AA_mzs<-by(aa_mw_mod_table, aa_mw_mod_table$labelmod_group,
             calculate_AAmz_individual_label, seq, charge, Monoisotopicmz, ppm,
-            flag="labelmod", simplify=FALSE)
+            flag="labelmod")#, simplify=FALSE)
     }else if(length(unique(aa_mw_mod_table$reporterion_group))>1 ||
         grepl("plex|TMT", unique(aa_mw_mod_table$reporterion_group))){
         #browser()
         AA_mzs<-by(aa_mw_mod_table, aa_mw_mod_table$reporterion_group,
             calculate_AAmz_individual_label, seq, charge, Monoisotopicmz, ppm,
-            flag="reporterion", simplify = FALSE)
+            flag="reporterion")#, simplify = FALSE)
     }else{ # aa with label free
         #browser()
         AA_mzs<-calculate_AAmz_individual_label(aa_mw_mod_table, seq, charge,
-            Monoisotopicmz, ppm )
+            Monoisotopicmz, ppm, flag="")#, simplify = FALSE )
         AA_mzs<-list(AA_mzs)
     }
     #browser()
@@ -27,9 +27,9 @@ calculate_aa_mzs <-function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
     if(length(AA_mzs_final) == 1 ){
         return(AA_mzs_final[[1]])
     }else{
-        # browser()
+        #browser()
         stop("more than 1 labelling matches. Please contact the developer! \
-            [note:stopped in calculate_aa_mzs()].")
+            [note:stopped in the function calculate_aa_mzs()].")
     }
 }
 
@@ -44,7 +44,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
 
     #seq<-"AAAVLPVLDLAQR"
     #charge <- 3
-    ms1_mzThreshold <- 0.5 # therotical ms1 m/z minus measured ms1 m/z
+    ms1_mzThreshold <- 1#0.5 # therotical ms1 m/z minus measured ms1 m/z
     PPM_denominator <- 1E6
     mz_range <- ppm/PPM_denominator
     #browser()
@@ -71,6 +71,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     seq_sep <- strsplit(unlist(strsplit(seq, "\\(\\w\\w\\)")), "")
     mod <- unlist(strsplit(seq, "[A-Z]+"))
     tmp <- paste(mod,collapse ="")
+    #browser()
     AA <- vector()
     if(nchar(tmp) != 0 ){ # contain mod
         mod <- c(mod[2:length(mod)],"")
@@ -80,7 +81,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
             subseq[length(subseq)] <- paste(subseq[length(subseq)], mod, sep="")
             return(subseq)
         }
-        AA<-unlist(mapply(add_mod_C, seq_sep, mod))
+        AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
 
         if(nchar(mod_N) > 0 ){AA <- c(mod_N, AA)}
     }else{
@@ -89,7 +90,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     }
     #calculate theoretical m/z of b ions and y ions
     AA_seq <- data.table::data.table(aa_varmod=AA, index=seq_len(length(AA)))
-
+    #browser()
     AA_mz <- data.table::setDT(aa_mw_mod_table)[AA_seq, on="aa_varmod"]
     AA_mz_NA<-subset(AA_mz, is.na(AA_mz$weight)) #extract rows with NA weight
     if(nrow(AA_mz_NA)>0){
@@ -132,7 +133,9 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     mz_ideal <- sum(sum( AA_mz$weight) + H2O_weight + H_weight*charge )/charge
     # If ideal MS1 Monoisotopic mz is not similar to measured Monoisotopic mz,
     # this type of labelling does not fit.
+    
     if(abs(mz_ideal-Monoisotopicmz) > ms1_mzThreshold){
+        stop(paste0("The difference of therotical MS1 m/z ", mz_ideal, " and measured m/z ", Monoisotopicmz, " is larger than 1. It is probably due to the setting of variable modifications in mqpar.xml"))
         return(NULL)
     } else{
         # sort and calculate MW for b ion

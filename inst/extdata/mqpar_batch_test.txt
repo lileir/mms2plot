@@ -1,0 +1,5 @@
+mqpar_path	ppm
+inst/extdata/silac/mqpar.xml	20
+inst/extdata/TMT/mqpar.xml	300
+inst/extdata/Dimethyl_Labelling/mqpar.xml	20
+inst/extdata/label_free/mqpar.xml	20

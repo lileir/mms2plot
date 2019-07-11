@@ -77,12 +77,14 @@ check_input_table<-function(input_table, id_table_path, mqpar_ppm){
     #print(mqpar_ppm)
     #browser()
     unique_rawfiles <-
-        tools::file_path_sans_ext(basename(input_table$`Raw file`))
+        base::unique(tools::file_path_sans_ext(basename(input_table$`Raw file`)))
     parfile <-
-        tools::file_path_sans_ext(unlist(strsplit(mqpar_ppm$rawfile, ",")))
+        base::unique(tools::file_path_sans_ext(unlist(strsplit(mqpar_ppm$rawfile, ","))))
+    
     if(! all(unique_rawfiles %in% parfile)){
-        stop("The mqpar.xml files of Some rawMSfiles are not included by \
-            readPar()! [note:stopped in check_input_table()].")
+        rawfiles=base::setdiff(unique_rawfiles, parfile)
+        rawfiles_collapse = base::paste(rawfiles, collapse = "/")
+        stop(paste0("The raw file(s) '",rawfiles_collapse, "' in ", id_table_path, " are not included in mqpar file(s) of ",mqpar_filepath))
     }
 
     col_check <- c("Raw file","Scan number","Sequence","Modifications",
@@ -164,6 +166,14 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  par_xml_path,
     #browser()
     # change list as data.frame, each row contain one MS2 info
     mzIntensity <- do.call(rbind, mzIntensity_list)
+    scannumber_charge = base::unique(base::subset(input_table_sameRawFile, select=c("Scan number", "Charge")))
+    ### charge retrieved from MS raw file is replaced by the charge determined by users
+    mzIntensity_tmp  = base::merge(mzIntensity, scannumber_charge, by="Scan number")
+    if(nrow(mzIntensity_tmp) == nrow(mzIntensity) ){
+        mzIntensity = mzIntensity_tmp
+    }else{
+        stop("There is an error in adding charge from user input file! Please contact the developer!")
+    }
     # merge input_table and mzIntensity
     input_table_sameRawFile <-
         data.table::setDT(mzIntensity)[input_table_sameRawFile,on="Scan number"]
@@ -195,10 +205,11 @@ get_ms2info <- function(scan_number, ms2_samefile){
     ms2_info_table <- data.table::data.table("Scan number"=scan_number,
         max_intensity = max( ms2_info@intensity ), `Retention time`=ms2_info@rt,
         `m/z` = ifelse(is.na(MS1_mz), ms2_info@precursorMz, MS1_mz),
-        Charge = ms2_info@precursorCharge,
+        #Charge = ms2_info@precursorCharge, # replace the charge from the raw file by the charge determined by the user 
         Monoisotopicmz = ms2_info@precursorMz,
         mz=paste(round( ms2_info@mz, digits = 3), collapse=";" ),
         intensity = paste( round( ms2_info@intensity, digits=3 ), collapse=";"))
+    #browser()
     return(ms2_info_table)
 }
 
@@ -229,7 +240,8 @@ plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
     min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, y_ion_col,
     b_ion_col, peaks_col, ymax, peptide_height, info_height, mod_height,
     len_annoSpace, lwd, cex, show_letterBY, srt){
-    #  browser()
+    
+    #browser()
     outputFilename <- paste(input_table$base_rawFile[1], input_table$label[1],
         input_table$Sequence[1], "mirror", sep = "_")
     outputFilename <- paste(output_path, outputFilename, sep="/")

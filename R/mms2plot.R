@@ -57,7 +57,7 @@
 #' # Generate mms2plot for label-free data
 #' lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
-#' id_table_path = dir( lf_path, "msms_TMT.txt", full.names = TRUE )
+#' id_table_path = dir( lf_path, "msms_labelfree.txt", full.names = TRUE )
 #' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
@@ -95,13 +95,13 @@
 #' 
 #roxygen2::roxygenise()
 #rm(list=ls())
-#.libPaths( c( .libPaths(), "D:/Rpackages_tmp") )
-#library(xml2)
-#library(MSnbase)
-#library(data.table)
-#library(DescTools)  # MixColor
-#library(gsubfn)
-
+#.libPaths( c( .libPaths(), "E:/mms2plot/MMS2plot/inst/extdata") )
+# library(xml2)
+# library(MSnbase)
+# library(data.table)
+# library(DescTools)  # MixColor
+# library(gsubfn)
+# setwd("e:/mms2plot/MMS2plot/")
 mms2plot <-function(id_table_path,
                     par_xml_path,
                     mqpar_filepath,
@@ -134,12 +134,32 @@ mms2plot <-function(id_table_path,
     }
     mqpar_files<-data.table::fread(mqpar_filepath, na.strings = "NA",
         sep = "\t", fill = TRUE, header = TRUE)
-
+    #browser()
     mqpar_ppm <- data.table::rbindlist(apply(mqpar_files, 1, readMQPar_ppm))
-
+    #browser()
+    
     input_table <- data.table::fread(id_table_path, na.strings = "NA",
         sep = "\t", fill = TRUE, header = TRUE)
-
+    
+    # check the columns in id_table_path
+    msms_file = base::basename(id_table_path)
+    if(! any(colnames(input_table) %in% "Raw file")){
+        stop(paste0("The column 'Raw file' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "label")){
+        stop(paste0("The column 'label' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Scan number")){
+        stop(paste0("The column 'Scan number' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Sequence")){
+        stop(paste0("The column 'Sequence' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Modifications")){
+        stop(paste0("The column 'Modifications' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Modified sequence")){
+        stop(paste0("The column 'Modified sequence' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Gene Names")){
+        stop(paste0("The column 'Gene Names' does not exist in ", msms_file, "!"))
+    }else if(! any(colnames(input_table) %in% "Charge")){
+        stop(paste0("The column 'Charge' does not exist in ", msms_file, "!"))
+    }
     input_table$base_rawFile <- basename(input_table$`Raw file`)
     #browser()
     input_table <- check_input_table(input_table, id_table_path, mqpar_ppm)
@@ -153,28 +173,37 @@ mms2plot <-function(id_table_path,
 }
 
 #rm(list=ls())
-#load("data/data.rda")
+#load("data/aa_mw_table.rda")
+#load("data/atom_mw_table.rda")
 #save(aa_mw_table, atom_mw_table, PPM_denominator, file = "data/data.rda")
 # load aa_mw and atom_mw files
 # aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
 #                                    fill = TRUE, header = TRUE)
 # atom_mw_table <- data.table::fread("inst/extdata/atom_MW.txt", sep = "\t",
 #                                    fill = TRUE, header = TRUE)
-# PPM_denominator=1E6
-#
+#PPM_denominator=1E6
+
 #source("R/plot_mirror_or_group.R")
 #source("R/add_mod_aa.R")
 #source("R/psm_calculation.R")
 #source("R/plot_components.R")
 
-#mqpar_filepath = "inst/extdata/mqpar_batch.txt"
 #par_xml_path = "inst/extdata/modifications.xml"
-#id_table_path = "inst/extdata/TMT/msms_TMT.txt"
-#id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
-#id_table_path = "inst/extdata/silac/msms_SILAC.txt"
+#mqpar_filepath = "inst/extdata/mqpar_batch_test.txt"
+# id_table_path = "inst/extdata/TMT/msms_TMT.txt"
+# id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
+# id_table_path = "inst/extdata/silac/msms_SILAC.txt"
+#id_table_path = "inst/extdata/label_free/msms.txt"
 
+#mqpar_filepath = "E:/mms2plot/MMS2plot/test/ABHD15/mqpar_batch_test.txt"
+#id_table_path = "E:/mms2plot/MMS2plot/test/ABHD15/msms_ABHD15_b11184_.txt"
+
+#mqpar_filepath = "E:/mms2plot/MMS2plot/test_liya/mqpar_batch_11.txt"
+#id_table_path = "E:/mms2plot/MMS2plot/test_liya/msms_A4GALT.txt"
+
+#output_path = "d:"
 #mms2plot(id_table_path=id_table_path, par_xml_path=par_xml_path,
-#          mqpar_filepath=mqpar_filepath, output_path="d:", pdf_width=7)
+#          mqpar_filepath=mqpar_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")

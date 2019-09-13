@@ -68,12 +68,9 @@ readMQPar_ppm <- function(mqpar_filename) {
 
 
 # check if the input_table has the expected format
-check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepath){
+check_input_table<-function(input_table, id_table_path, mqpar_ppm ){
     #browser()
     
-    if(! file.exists(mqpar_filepath)){
-        stop(paste0("The file '", mqpar_filepath, "' does NOT exist."))
-    }
     if(nrow(input_table) == 0){ stop(paste("The file", id_table_path,
         "is empty! Please see the example file. \
         [note:stopped in check_input_table()].")) }

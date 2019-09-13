@@ -132,6 +132,11 @@ mms2plot <-function(id_table_path,
                 exist!"))
         }
     }
+    
+    if(! file.exists(mqpar_filepath)){
+        stop(paste0("The file '", mqpar_filepath, "' does NOT exist."))
+    }
+    
     mqpar_files<-data.table::fread(mqpar_filepath, na.strings = "NA",
         sep = "\t", fill = TRUE, header = TRUE)
     #browser()

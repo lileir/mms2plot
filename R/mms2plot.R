@@ -94,8 +94,8 @@
 #' #mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
 #' 
 #roxygen2::roxygenise()
-#rm(list=ls())
-#.libPaths( c( .libPaths(), "E:/mms2plot/MMS2plot/inst/extdata") )
+# rm(list=ls())
+# .libPaths( c( .libPaths(), "E:/mms2plot/MMS2plot/inst/extdata") )
 # library(xml2)
 # library(MSnbase)
 # library(data.table)
@@ -178,37 +178,37 @@ mms2plot <-function(id_table_path,
 }
 
 #rm(list=ls())
-#load("data/aa_mw_table.rda")
-#load("data/atom_mw_table.rda")
+# load("data/aa_mw_table.rda")
+# load("data/atom_mw_table.rda")
 #save(aa_mw_table, atom_mw_table, PPM_denominator, file = "data/data.rda")
 # load aa_mw and atom_mw files
 # aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
 #                                    fill = TRUE, header = TRUE)
 # atom_mw_table <- data.table::fread("inst/extdata/atom_MW.txt", sep = "\t",
 #                                    fill = TRUE, header = TRUE)
-#PPM_denominator=1E6
-
-#source("R/plot_mirror_or_group.R")
-#source("R/add_mod_aa.R")
-#source("R/psm_calculation.R")
-#source("R/plot_components.R")
-
-#par_xml_path = "inst/extdata/modifications.xml"
-#mqpar_filepath = "inst/extdata/mqpar_batch_test.txt"
+# PPM_denominator=1E6
+# 
+# source("R/plot_mirror_or_group.R")
+# source("R/add_mod_aa.R")
+# source("R/psm_calculation.R")
+# source("R/plot_components.R")
+# 
+# par_xml_path = "inst/extdata/modifications.xml"
+# mqpar_filepath = "inst/extdata/mqpar_batch_test.txt"
 # id_table_path = "inst/extdata/TMT/msms_TMT.txt"
-# id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
-# id_table_path = "inst/extdata/silac/msms_SILAC.txt"
-#id_table_path = "inst/extdata/label_free/msms.txt"
-
-#mqpar_filepath = "E:/mms2plot/MMS2plot/test/ABHD15/mqpar_batch_test.txt"
-#id_table_path = "E:/mms2plot/MMS2plot/test/ABHD15/msms_ABHD15_b11184_.txt"
-
-#mqpar_filepath = "E:/mms2plot/MMS2plot/test_liya/mqpar_batch_11.txt"
-#id_table_path = "E:/mms2plot/MMS2plot/test_liya/msms_A4GALT.txt"
-
-#output_path = "d:"
-#mms2plot(id_table_path=id_table_path, par_xml_path=par_xml_path,
-#          mqpar_filepath=mqpar_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
+# #id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
+# #id_table_path = "inst/extdata/silac/msms_SILAC.txt"
+# #id_table_path = "inst/extdata/label_free/msms.txt"
+# 
+# #mqpar_filepath = "E:/mms2plot/MMS2plot/test/ABHD15/mqpar_batch_test.txt"
+# #id_table_path = "E:/mms2plot/MMS2plot/test/ABHD15/msms_ABHD15_b11184_.txt"
+# 
+# #mqpar_filepath = "E:/mms2plot/MMS2plot/test_liya/mqpar_batch_11.txt"
+# #id_table_path = "E:/mms2plot/MMS2plot/test_liya/msms_A4GALT.txt"
+# 
+# output_path = "d:"
+# mms2plot(id_table_path=id_table_path, par_xml_path=par_xml_path,
+#           mqpar_filepath=mqpar_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")

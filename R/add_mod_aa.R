@@ -95,7 +95,9 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
         mod_attrs <- mod_attrs[,c("title", "description","composition", "type")]
 
         calculate_composition<-function(composition){ #eg 15.99
+            composition = base::trimws(composition) # remove leading/trailing whitespaces
             mod_comp_split <- unlist(strsplit(composition, "\\s"))
+            #browser()
             mod_comp_mw <- sum(mapply(calculate_atom_mw, mod_comp_split))
         }
 
@@ -148,8 +150,8 @@ extract_mod_xml <-function(Mod, xmlurl){
 
     b<-xml2::xml_find_all(f1[[1]] , "//*[name()='position']")
     cd<-unique(xml2::xml_text(b))
-    #browser()
     mod_comp <- xml2::xml_attr(f1,"composition")
+    #browser()
     mod_comp_split <- unlist(strsplit(mod_comp, "\\s"))
     mod_comp_mw <- sum(mapply(calculate_atom_mw, mod_comp_split)) # e.g. 15.99
     mod_abb <- xml2::xml_attr(f1,"title")
@@ -256,6 +258,7 @@ calculate_atom_mw <-function(atom){
         monoisotopic <- monoisotopic * atom_number
     }
     if(length(monoisotopic) == 0 ){
+        #browser()
         stop(paste("This atom type '", atom_name, "' has not been included \
             in the package! Please contact the author! \
             [note:stopped in calculate_atom_mw()].", sep=""))}

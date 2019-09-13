@@ -1,6 +1,6 @@
 #attach mod to AA (including before or after AA) and calculate theoretical m/z
 #of b ions and y ions with charge 1 or 2
-calculate_aa_mzs <-function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
+calculate_aa_mzs <- function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
 
     #browser()
     AA_mzs <- list()
@@ -134,11 +134,12 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     # If ideal MS1 Monoisotopic mz is not similar to measured Monoisotopic mz,
     # this type of labelling does not fit.
     
-    if(abs(mz_ideal-Monoisotopicmz) > ms1_mzThreshold){
-        stop(paste0("The difference of therotical MS1 m/z ", mz_ideal, " and measured m/z ", Monoisotopicmz, " is larger than 1. It is probably due to the setting of variable modifications in mqpar.xml"))
-        return(NULL)
-    } else{
-        # sort and calculate MW for b ion
+    #if(abs(mz_ideal-Monoisotopicmz) > ms1_mzThreshold){
+    #browser()
+    #stop(paste0("The difference between therotical m/z value ", mz_ideal, " and measured ms1 m/z value ", Monoisotopicmz, " is larger than 1."))
+    #return(NULL)
+    #} else {
+    ##sort and calculate MW for b ion
         AA_mz_b <- AA_mz[with(AA_mz, order(AA_mz$index)),]
         AA_mz_b$mz_b <- cumsum(AA_mz_b$weight)
         AA_mz_b$mz_b <- AA_mz_b$mz_b + H_weight
@@ -170,7 +171,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
         AA_mz <- AA_mz[order(AA_mz$charge,AA_mz$index)]
         #browser()
         return(AA_mz)
-    }
+    #}
 }
 
 
@@ -264,7 +265,7 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, b_ion_col, y_ion_col){
 
 # add intensity_perc column as values/max &
 # (intensity_perc * -1 for downMS2 in mirrorplot)
-get_intensity_perc<-function(input_table, min_intensity_ratio){
+get_intensity_perc <- function(input_table, min_intensity_ratio){
 
     # funtion to retrieve mz, intensity and intensity_perc
     #for each row of input_table

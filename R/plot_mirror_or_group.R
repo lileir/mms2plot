@@ -102,9 +102,9 @@ check_input_table<-function(input_table, id_table_path, mqpar_ppm){
     #browser()
     unique_rawFile <-
         input_table[, unique(input_table$`Raw file`), by = input_table$label]
-    if(nrow(unique_rawFile) != nrow(unique(unique_rawFile[,1]))) {
-        stop("MS2 IDs in each group should be derived from the same MS file! \
-            [note:stopped in check_input_table()].")}
+    #if(nrow(unique_rawFile) != nrow(unique(unique_rawFile[,1]))) {
+        #stop("MS2 IDs in each group should be derived from the same MS file! \
+            #[note:stopped in check_input_table()].")}
 
     input_table$`Modified sequence` <-
         gsub("_","", input_table$`Modified sequence`)

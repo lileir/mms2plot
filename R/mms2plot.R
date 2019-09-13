@@ -1,6 +1,6 @@
 #' @author Lei Li
 #' @title mms2plot
-#' @description Visualization of multiple MS/MSs for (un)modified peptides
+#' @description Visualization of multiple MS/MS spectra for groups of modified and non-modified peptides
 #' @export mms2plot
 #' @param id_table_path File path name of a table that contains MS2 information
 #'        of identified (un)modified peptides plus a group labelling. The format

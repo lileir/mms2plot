@@ -162,7 +162,7 @@ mms2plot <-function(id_table_path,
     }
     input_table$base_rawFile <- basename(input_table$`Raw file`)
     #browser()
-    input_table <- check_input_table(input_table, id_table_path, mqpar_ppm)
+    input_table <- check_input_table(input_table, id_table_path, mqpar_ppm, mqpar_filepath)
     #browser()
     lapply(unique(input_table$`Raw file`), drawms2plot_samerawfile, input_table,
         par_xml_path, output_path, mqpar_ppm, min_intensity_ratio, pdf_width,
@@ -207,5 +207,5 @@ mms2plot <-function(id_table_path,
 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")
-#BiocCheck::BiocCheck("E:/Lei_rpackages/mms2plot")
+#BiocCheck::BiocCheck("E:/lei_packages3/MMS2plot")
 

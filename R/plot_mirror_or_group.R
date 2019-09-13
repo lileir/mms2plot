@@ -68,9 +68,12 @@ readMQPar_ppm <- function(mqpar_filename) {
 
 
 # check if the input_table has the expected format
-check_input_table<-function(input_table, id_table_path, mqpar_ppm){
+check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepath){
     #browser()
-
+    
+    if(! file.exists(mqpar_filepath)){
+        stop(paste0("The file '", mqpar_filepath, "' does NOT exist."))
+    }
     if(nrow(input_table) == 0){ stop(paste("The file", id_table_path,
         "is empty! Please see the example file. \
         [note:stopped in check_input_table()].")) }
@@ -315,7 +318,7 @@ plot_group <-function(input_table, output_path, aa_mw_mod_table,
 
     #browser()
     outputFilename <- paste(input_table$base_rawFile[1], input_table$label[1],
-        input_table$Sequence[1], "group", sep = "_")
+        input_table$Sequence[1], "align", sep = "_")
     outputFilename <- paste(output_path, outputFilename, sep="/")
     outputFilename <- paste(outputFilename,"pdf",sep=".")
     # set intensity value range between 0 to 1

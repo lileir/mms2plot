@@ -68,7 +68,7 @@ readMQPar_ppm <- function(mqpar_filename) {
 
 
 # check if the input_table has the expected format
-check_input_table<-function(input_table, id_table_path, mqpar_ppm ){
+check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepath ){
     #browser()
     
     if(nrow(input_table) == 0){ stop(paste("The file", id_table_path,

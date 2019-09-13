@@ -135,7 +135,7 @@ check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepat
 # call plot_mms2 for each label type
 # aa_mw_mod_table <- list_aaMwModTable_ppm[[1]]
 # ppm <- list_aaMwModTable_ppm[[2]]
-drawms2plot_samerawfile <- function(MS2FileName, input_table,  par_xml_path,
+drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     output_path, mqpar_ppm, min_intensity_ratio, pdf_width, pdf_height,
     xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax, peptide_height,
     info_height, mod_height, len_annoSpace, lwd, cex, show_letterBY, srt){
@@ -147,7 +147,7 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  par_xml_path,
     # And read site, title, composition and merge into aa_mw_table.
     # add mod_aa to the table, labelling data are annotated by group flag
     #browser()
-    list_aaMwModTable_ppm<-add_mod_aa(par_xml_path, basename(MS2FileName),
+    list_aaMwModTable_ppm<-add_mod_aa(mod_xml_path, basename(MS2FileName),
         mms2plot::aa_mw_table, mqpar_ppm)
     #browser()
 

@@ -2,16 +2,15 @@
 #' @title mms2plot
 #' @description Visualization of multiple MS/MS spectra for groups of modified and non-modified peptides
 #' @export mms2plot
-#' @param id_table_path File path name of a table that contains MS2 information
-#'        of identified (un)modified peptides plus a group labelling. The format
-#'        of MS2 information is referred to as the output file ms2.txt from
-#'        the Maxquant search software.
-#' @param par_xml_path Xml file path of parameters for modifications and
-#'        labelling. The file is the Maxquant parameter file modifications.xml.
-#' @param mqpar_filepath File path name that includes a list of parameter files
-#'        for search engines. The parameter file format is referred to as
-#'        mqpar.xml in Maxquant.
-#' @param output_path path of output files.
+#' @param id_table_path File path of the table that contains the information of 
+#'        peptide-spectrum matches (PSMs) and number labels. The PSM information 
+#'        is referred to as the output file msms.txt from Maxquant.
+#' @param mod_xml_path File path of the modification file. The Maxquant 
+#'        mdification xml file modifications.xml can be directly used.
+#' @param mqpar_filepath File path of of the parameter batch table that includes
+#'        the parameter xml file and the fragment mass tolerance (ppm). The 
+#'        parameter file format is referred to as mqpar.xml in Maxquant.
+#' @param output_path Folder Path that stores the output image files.
 #' @param min_intensity_ratio minimal percentage threshold of MS2 intensity,
 #'        compared with the highest intensity. (default=0.01).
 #' @param pdf_width The width of a single PSM figure area in inches. The area
@@ -19,9 +18,9 @@
 #'        for a single column. The width is 7 for double-column.
 #' @param pdf_height The height of a single PSM figure area in inches. The
 #'        default is pdf_width/2.4.
-#' @param xmai margin of the figure in number of inches for x axis.
+#' @param xmai Margin of the figure in number of inches for x axis.
 #'        (default=pdf_width*0.15/3.35).
-#' @param ymai margin of the figure in number of inches for y axis.
+#' @param ymai Margin of the figure in number of inches for y axis.
 #'        (default=pdf_width*0.15/3.35).
 #' @param ppm The threshold of mass error in parts per million(ppm):
 #'        (exactMass-accurateMass)/exactMass*1E6. (default=20).
@@ -58,40 +57,40 @@
 #' lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 #' id_table_path = dir( lf_path, "msms_labelfree.txt", full.names = TRUE )
-#' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' #mms2plot( id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
 #' 
 #' ###################################
 #' # Generate mms2plot for TMT labelling
 #' TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 #' id_table_path = dir( TMT_path, "msms_TMT.txt", full.names = TRUE )
-#' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' # mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' #mms2plot( id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
 #' 
 #' #####################################
 #' # Generate mms2plot for SILAC labelling
 #' SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 #' id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
-#' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, par_xml_path,mqpar_filepath,output_path ) #not run
+#' #mms2plot( id_table_path, mod_xml_path,mqpar_filepath,output_path ) #not run
 #' 
 #' #####################################
 #' # Generate mms2plot for dimethyl labelling
 #' dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 #' id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
-#' par_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot(id_table_path, par_xml_path, mqpar_filepath, output_path) #not run
+#' #mms2plot(id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
 #' 
 #roxygen2::roxygenise()
 # rm(list=ls())
@@ -103,7 +102,7 @@
 # library(gsubfn)
 # setwd("e:/mms2plot/MMS2plot/")
 mms2plot <-function(id_table_path,
-                    par_xml_path,
+                    mod_xml_path,
                     mqpar_filepath,
                     output_path,
                     min_intensity_ratio=0.01,
@@ -170,7 +169,7 @@ mms2plot <-function(id_table_path,
     input_table <- check_input_table(input_table, id_table_path, mqpar_ppm, mqpar_filepath)
     #browser()
     lapply(unique(input_table$`Raw file`), drawms2plot_samerawfile, input_table,
-        par_xml_path, output_path, mqpar_ppm, min_intensity_ratio, pdf_width,
+        mod_xml_path, output_path, mqpar_ppm, min_intensity_ratio, pdf_width,
         pdf_height, xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax,
         peptide_height, info_height, mod_height, len_annoSpace, lwd, cex,
         show_letterBY, srt) # call for individual raw_files
@@ -193,7 +192,7 @@ mms2plot <-function(id_table_path,
 # source("R/psm_calculation.R")
 # source("R/plot_components.R")
 # 
-# par_xml_path = "inst/extdata/modifications.xml"
+# mod_xml_path = "inst/extdata/modifications.xml"
 # mqpar_filepath = "inst/extdata/mqpar_batch_test.txt"
 # id_table_path = "inst/extdata/TMT/msms_TMT.txt"
 # #id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim.txt"
@@ -207,7 +206,7 @@ mms2plot <-function(id_table_path,
 # #id_table_path = "E:/mms2plot/MMS2plot/test_liya/msms_A4GALT.txt"
 # 
 # output_path = "d:"
-# mms2plot(id_table_path=id_table_path, par_xml_path=par_xml_path,
+# mms2plot(id_table_path=id_table_path, mod_xml_path=mod_xml_path,
 #           mqpar_filepath=mqpar_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
 
 #library(BiocCheck)

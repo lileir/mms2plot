@@ -85,6 +85,7 @@ See vignettes for more details
 \examples{
 ###
 general_path = system.file( package = "mms2plot",dir = "extdata" )
+setwd( general_path )
 ###################################
 # Generate mms2plot for label-free data
 lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )

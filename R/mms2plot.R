@@ -134,7 +134,7 @@ mms2plot <- function(id_table_path,
                     cex=1*pdf_width/3.35,
                     show_letterBY=FALSE){
     srt <- 0
-    browser()
+    #browser()
     if(! file.exists(output_path)) {
         output_path = paste(output_path, "/", sep="")
         if(! file.exists(output_path)){
@@ -176,9 +176,9 @@ mms2plot <- function(id_table_path,
         stop(paste0("The column 'Charge' does not exist in ", msms_file, "!"))
     }
     input_table$base_rawFile <- basename(input_table$`Raw file`)
-    browser()
+    #browser()
     input_table <- check_input_table(input_table, id_table_path, par_ppm, par_filepath)
-    browser()
+    #browser()
     lapply(unique(input_table$`Raw file`), drawms2plot_samerawfile, input_table,
         mod_xml_path, output_path, par_ppm, min_intensity_ratio, pdf_width,
         pdf_height, xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax,

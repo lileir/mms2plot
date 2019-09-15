@@ -149,7 +149,7 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     #browser()
     list_aaMwModTable_ppm<-add_mod_aa(mod_xml_path, basename(MS2FileName),
         mms2plot::aa_mw_table, par_ppm)
-    browser()
+    #browser()
 
     # unique MS2 scan_number from the extract MS2 info
     scan_number <- unique(input_table_sameRawFile$`Scan number`)

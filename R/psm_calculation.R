@@ -4,7 +4,7 @@ calculate_aa_mzs <- function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
 
     #browser()
     AA_mzs <- list()
-    if(length(unique(aa_mw_mod_table$labelmod_group))>1){ # aa with label mod
+    if(length(unique(aa_mw_mod_table$labelmod_group))>1){ # mod or SILAC
         AA_mzs<-by(aa_mw_mod_table, aa_mw_mod_table$labelmod_group,
             calculate_AAmz_individual_label, seq, charge, Monoisotopicmz, ppm,
             flag="labelmod")#, simplify=FALSE)
@@ -23,11 +23,11 @@ calculate_aa_mzs <- function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
     #browser()
     # remove empty elements in the list AA_mz
     AA_mzs_final <- AA_mzs[lengths(AA_mzs) != 0]
-
+    return(AA_mzs_final)
     if(length(AA_mzs_final) == 1 ){
         return(AA_mzs_final[[1]])
     }else{
-        #browser()
+        browser()
         stop("more than 1 labelling matches. Please contact the developer! \
             [note:stopped in the function calculate_aa_mzs()].")
     }
@@ -174,9 +174,17 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     #}
 }
 
+test_Ions <- function(AA_mz, mz_intensity_percent, b_ion_col, y_ion_col){
+    #browser()
+    psm <- apply( mz_intensity_percent,1, test_individualIon, AA_mz,  
+            b_ion_col, y_ion_col ) 
+    psm <- data.table::rbindlist(psm) # can remove NULL elements
+    #browser()
+    return(psm)
+}
 
 # Find matched b/y ions from MS2 peaks
-test_individualIon<-function(mz_intensity_percent, AA_mz, b_ion_col, y_ion_col){
+test_individualIon<-function( mz_intensity_percent, AA_mz, b_ion_col, y_ion_col){
     #browser()
     # intensity
     MIP <- data.frame(as.list(mz_intensity_percent))
@@ -223,12 +231,24 @@ test_individualIon<-function(mz_intensity_percent, AA_mz, b_ion_col, y_ion_col){
 # find matched ions from MS2
 find_matchedIons<-function(AA_mz, mz_intensity_percent, b_ion_col, y_ion_col){
     #browser()
+    if( length(AA_mz) == 1 ){
+        psm <- apply( mz_intensity_percent,1,test_individualIon, AA_mz[[1]],  
+            b_ion_col, y_ion_col ) 
+        psm <- data.table::rbindlist(psm) # can remove NULL elements
+    }else{
+        psm_list <- lapply(AA_mz, test_Ions, mz_intensity_percent, b_ion_col, y_ion_col ) 
+        nrow_psm_df=unlist(lapply(psm_list, nrow)) # count rows of data.frame in list
+        psm_max_row_df_pos=which(nrow_psm_df == max(nrow_psm_df)) # find the index of max 
+        psm = psm_list[[psm_max_row_df_pos]]
+        #psms <- mapply(test_Ions, AA_mz, MoreArgs = list( mz_intensity_percent, b_ion_col, y_ion_col ) )
+    }
+    #browser()
+    #AA_mz = AA_mz[[1]]
     # find b/y ions with info
-    psm <- apply( mz_intensity_percent, 1, test_individualIon, AA_mz, b_ion_col,
-        y_ion_col)
-    psm <- data.table::rbindlist(psm) # can remove NULL elements
+    # psm <- apply( mz_intensity_percent, 1, test_individualIon, AA_mz, b_ion_col,
+    #     y_ion_col)
     if(nrow(psm)<4){stop("The matched ion peaks are limited (<4). Please check \
-        the ppm threshold. [note:stopped in the function find_matchedIons].")}
+         the ppm threshold. [note:stopped in the function find_matchedIons].")}
 
     #browser()
     # Keep the mz with the largest intensity if multiple mzs match same b/y ion

@@ -4,7 +4,7 @@
 \alias{mms2plot}
 \title{mms2plot}
 \usage{
-mms2plot(id_table_path, mod_xml_path, mqpar_filepath, output_path,
+mms2plot(id_table_path, mod_xml_path, par_filepath, output_path,
   min_intensity_ratio = 0.01, pdf_width = 3.35,
   pdf_height = pdf_width/2.4, xmai = 0.15 * pdf_width/3.35,
   ymai = 0.3 * pdf_width/3.35, ppm = 20, y_ion_col = "red",
@@ -21,9 +21,9 @@ is referred to as the output file msms.txt from Maxquant.}
 \item{mod_xml_path}{File path of the modification file. The Maxquant 
 mdification xml file modifications.xml can be directly used.}
 
-\item{mqpar_filepath}{File path of of the parameter batch table that includes
+\item{par_filepath}{File path of of the parameter batch table that includes
 the parameter xml file and the fragment mass tolerance (ppm). The 
-parameter file format is referred to as mqpar.xml in Maxquant.}
+parameter file format is referred to as par.xml in Maxquant.}
 
 \item{output_path}{Folder Path that stores the output image files.}
 
@@ -77,7 +77,8 @@ peak annotation? The default is FALSE.}
 No value is returned.
 }
 \description{
-Visualization of multiple MS/MS spectra for groups of modified and non-modified peptides
+Visualization of multiple MS/MS spectra for groups of modified 
+and non-modified peptides
 }
 \note{
 See vignettes for more details
@@ -92,10 +93,10 @@ lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 id_table_path = dir( lf_path, "msms_labelfree.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
-# mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
-mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+# par_filepath contains par.xml with full file path and PPM cutoff
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
+#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
 
 ###################################
 # Generate mms2plot for TMT labelling
@@ -103,28 +104,28 @@ TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 id_table_path = dir( TMT_path, "msms_TMT.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
-# mqpar_filepath contains mqpar.xml with full file path and PPM cutoff
-mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+# par_filepath contains par.xml with full file path and PPM cutoff
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
+#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
 
 #####################################
 # Generate mms2plot for SILAC labelling
 SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
-mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path,mqpar_filepath,output_path ) #not run
+#mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) #not run
 
 #####################################
 # Generate mms2plot for dimethyl labelling
 dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
-mqpar_filepath = dir( general_path, "mqpar_batch.txt", full.names = TRUE )
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot(id_table_path, mod_xml_path, mqpar_filepath, output_path) #not run
+#mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) #not run
 
 }
 \author{

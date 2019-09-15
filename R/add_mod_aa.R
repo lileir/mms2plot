@@ -1,21 +1,21 @@
 # add modAA information to aa_mw_table and return aa_mw_mod_table
-add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
+add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
     #browser()
     #  Modifications<-c("Acetyl (Protein N-term),Phospho (STY)",
     # "Unmodified", "", NA)
-    mqpar <- subset(mqpar_ppm, grepl(tools::file_path_sans_ext(MS2FileName),
-        tools::file_path_sans_ext(mqpar_ppm$rawfile)))
-    if(nrow(mqpar) != 1){
+    par <- subset(par_ppm, grepl(tools::file_path_sans_ext(MS2FileName),
+        tools::file_path_sans_ext(par_ppm$rawfile)))
+    if(nrow(par) != 1){
         stop( paste("The mod/label information of the raw file ",
-            MS2FileName, " extracted from mqpar.xml using readmqpar_ppm().
+            MS2FileName, " extracted from par.xml using readpar_ppm().
             [note:stopped in the function add_mod_aa].", sep="") )
     }
-    ppm <- as.numeric(mqpar$ppm)
+    ppm <- as.numeric(par$ppm)
 
     empty <- c("", NA, "NA")
 
-    if(!mqpar$fixedModifications %in% empty ) { # contains fixed modifications
-        Mod <- unique(unlist(strsplit(mqpar$fixedModifications, ",")))
+    if(!par$fixedModifications %in% empty ) { # contains fixed modifications
+        Mod <- unique(unlist(strsplit(par$fixedModifications, ",")))
 
         # Mod="Carbamidomethyl (C)"
         modifications <- mapply(extract_mod_xml, Mod,
@@ -47,8 +47,8 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
     #contains variable modifications # Mod="Phospho (STY)"
     #modifications:df
     #Mod:Acetyl (N-term);mod_abb:(ac);mod_comp_mw:42.01;mod_aa:-;mod_pos:Nterm
-    if(!mqpar$variableModifications %in% empty ) {
-        Mod <- unique(unlist(strsplit(mqpar$variableModifications, ",")))
+    if(!par$variableModifications %in% empty ) {
+        Mod <- unique(unlist(strsplit(par$variableModifications, ",")))
         modifications <- mapply(extract_mod_xml, Mod,
             MoreArgs=list(mod_parameter_xml), SIMPLIFY=FALSE)
         modifications <- do.call(rbind, modifications)
@@ -77,9 +77,9 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
         }
     }
     # contains reporter ion, e.g. TMT, iTRAQ;TMT10plex-Nter128,TMT10plex-Nter130
-    if(!mqpar$isobaricLabels %in% empty ){
+    if(!par$isobaricLabels %in% empty ){
         #browser()
-        Mods <- unique(unlist(strsplit(mqpar$isobaricLabels, ",")))
+        Mods <- unique(unlist(strsplit(par$isobaricLabels, ",")))
         # read parameter.xml and collect isobaricLabels info
         #                  title description composition        type        mw
         #               Acetyl (K) Acetylation C(2) H(2) O Acetylation 42.010565
@@ -104,7 +104,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
         mod_attrs$mw <- mapply(calculate_composition, mod_attrs$composition)
 
         #browser()
-        # extract infomation of isobaricLabels in mqpar.xml/arameter.xml
+        # extract infomation of isobaricLabels in par.xml/arameter.xml
         # IsobaricLabels with same wm are clustered as a single string or
         # separated and stored in a vector, by aggregate and paste
         isolabelType <- unique(subset(mod_attrs,
@@ -127,8 +127,8 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, mqpar_ppm){
         aa_mw_mod_table <- data.table::rbindlist(aa_mw_mod_table)
         #browser()
 
-    }else if(!mqpar$labelMods %in% empty){ #labelMods: Dimethlys or SILAC
-        Mods <- unique(unlist(strsplit(mqpar$labelMods, ","))) # mods:Arg10;Lys8
+    }else if(!par$labelMods %in% empty){ #labelMods: Dimethlys or SILAC
+        Mods <- unique(unlist(strsplit(par$labelMods, ","))) # mods:Arg10;Lys8
         #browser()
         aa_mw_mod_table<-lapply(Mods, calculate_aa_wm_label, mod_parameter_xml,
             aa_mw_mod_table, flag = "labelMods")

@@ -67,6 +67,8 @@ draw_peak_ionL<-function(psm, lwd, len_annoSpace, srt,show_letterBY){
 # generate and draw PSM labels
 draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
     len_annoSpace, y_ion_col, b_ion_col, lwd){
+    #browser()
+    AA_mz = AA_mz[[1]] # change a list of data.frame to data.frame
     # for peptide annotation, only consider aa with charge 1 for printing
     AA_mz <- subset(AA_mz, AA_mz$charge == 1)
     direction <- PSM$direction[1] # draw MS2 on upplot (1) or downplot (-1)

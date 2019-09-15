@@ -1,5 +1,0 @@
-mqpar_path	ppm
-silac/mqpar.xml	20
-TMT/mqpar.xml	300
-Dimethyl_Labelling/mqpar.xml	20
-label_free/mqpar.xml	20

@@ -1,4 +1,4 @@
-# readmqpar_ppm function for individual mqpar.xml files and ppms
+# readpar_ppm function for individual par.xml files and ppms
 # output:
 #      rawfile  variableModifications             isobaricLabels       labelMods
 #   test.mzXML                Oxid_11                         NA              NA
@@ -6,10 +6,10 @@
 #
 # comma(,) separae filenames, different types of labelling or reporter ion
 # semicolon(;) used in maxquant to separate labelled aa in the same label types
-readMQPar_ppm <- function(mqpar_filename) {
+readpar_ppm <- function(par_filename) {
     #browser()
-    ppm <- mqpar_filename["ppm"]
-    xmlread <- xml2::read_xml(mqpar_filename["mqpar_path"])
+    ppm <- par_filename["ppm"]
+    xmlread <- xml2::read_xml(par_filename["par_path"])
     filePaths <-  xml2::xml_find_all(xmlread, "//filePaths") # for files
     variableModifications <-
         xml2::xml_find_all(xmlread, "//variableModifications")
@@ -59,7 +59,7 @@ readMQPar_ppm <- function(mqpar_filename) {
             isobaricLabels, labelMods, fixedModifications, ppm)
         return(output)
     } else{
-        stop("No raw file is included in this mqpar.xml!")
+        stop("No raw file is included in this par.xml!")
     }
     #browser()
     return(NULL)
@@ -68,23 +68,23 @@ readMQPar_ppm <- function(mqpar_filename) {
 
 
 # check if the input_table has the expected format
-check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepath ){
+check_input_table<-function(input_table, id_table_path, par_ppm, par_filepath ){
     #browser()
     
     if(nrow(input_table) == 0){ stop(paste("The file", id_table_path,
         "is empty! Please see the example file. \
         [note:stopped in check_input_table()].")) }
-    #print(mqpar_ppm)
+    #print(par_ppm)
     #browser()
     unique_rawfiles <-
         base::unique(tools::file_path_sans_ext(basename(input_table$`Raw file`)))
     parfile <-
-        base::unique(tools::file_path_sans_ext(unlist(strsplit(mqpar_ppm$rawfile, ","))))
+        base::unique(tools::file_path_sans_ext(unlist(strsplit(par_ppm$rawfile, ","))))
     
     if(! all(unique_rawfiles %in% parfile)){
         rawfiles=base::setdiff(unique_rawfiles, parfile)
         rawfiles_collapse = base::paste(rawfiles, collapse = "/")
-        stop(paste0("The raw file(s) '",rawfiles_collapse, "' in ", id_table_path, " are not included in mqpar file(s) of ",mqpar_filepath))
+        stop(paste0("The raw file(s) '",rawfiles_collapse, "' in ", id_table_path, " are not included in par file(s) of ",par_filepath))
     }
 
     col_check <- c("Raw file","Scan number","Sequence","Modifications",
@@ -136,7 +136,7 @@ check_input_table<-function(input_table, id_table_path, mqpar_ppm, mqpar_filepat
 # aa_mw_mod_table <- list_aaMwModTable_ppm[[1]]
 # ppm <- list_aaMwModTable_ppm[[2]]
 drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
-    output_path, mqpar_ppm, min_intensity_ratio, pdf_width, pdf_height,
+    output_path, par_ppm, min_intensity_ratio, pdf_width, pdf_height,
     xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax, peptide_height,
     info_height, mod_height, len_annoSpace, lwd, cex, show_letterBY, srt){
 
@@ -148,8 +148,8 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     # add mod_aa to the table, labelling data are annotated by group flag
     #browser()
     list_aaMwModTable_ppm<-add_mod_aa(mod_xml_path, basename(MS2FileName),
-        mms2plot::aa_mw_table, mqpar_ppm)
-    #browser()
+        mms2plot::aa_mw_table, par_ppm)
+    browser()
 
     # unique MS2 scan_number from the extract MS2 info
     scan_number <- unique(input_table_sameRawFile$`Scan number`)
@@ -163,7 +163,7 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     mzIntensity_list <-  lapply(scan_number, get_ms2info, MS2s_frFile)
     # Garbage Collection for MS2s_frFile
     rm(MS2s_frFile);  invisible(gc())
-    #browser()
+    browser()
     # change list as data.frame, each row contain one MS2 info
     mzIntensity <- do.call(rbind, mzIntensity_list)
     scannumber_charge = base::unique(base::subset(input_table_sameRawFile, select=c("Scan number", "Charge")))

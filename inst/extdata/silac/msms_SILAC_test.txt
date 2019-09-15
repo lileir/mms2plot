@@ -1,0 +1,3 @@
+Raw file	Scan number	Sequence	Modifications	Modified sequence	Gene Names	label	Charge
+inst/extdata/silac/20110715_EXQ1_TaGe_SA_PC42_1.mzML	84794	AEEGIAAGGVMDVNTALQEVLK	Acetyl (Protein N-term),Oxidation (M)	_(ac)AEEGIAAGGVM(ox)DVNTALQEVLK_	RPS12	1	3
+inst/extdata/silac/20110715_EXQ1_TaGe_SA_PC42_1.mzML	84869	AEEGIAAGGVMDVNTALQEVLK	Acetyl (Protein N-term),Oxidation (M)	_(ac)AEEGIAAGGVM(ox)DVNTALQEVLK_	RPS12	1	3

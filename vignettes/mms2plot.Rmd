@@ -16,13 +16,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-The package mms2plot visualizes multiple tandem mass spectrometry (MS2s) for 
-modificated and/or unmodified peptides identified from the same raw MS files, 
-annotated by peptide identification algorithms. It will output a mirror-style 
-plot for two PSMs and a multiple-parallal plot for more than two PSMs. Based on
-these plots, users can check and compare these matches. The output is set in PDF
-format and the output file width is recommended as 3.35 inch (single column) or 
-7 inch (double column). 
+The package mms2plot visualizes multiple tandem mass spectrometry (MSs) for 
+modificated and non-modified peptides identified from the same raw MS files, 
+annotated by peptide identification algorithms (e.g. Maxquant). It will output 
+a mirror-style plot for two PSMs and a aligned plot for more than two PSMs. Using
+these plots, users can evaulate these PSMs. The output is set in PDF format and 
+the output file width is recommended as 3.35 inch (single column) or 7 inch 
+(double column). 
 
 The input files for mms2plot are referred to as two Maxquant parameter files 
 (i.e. parameters.xml and mqpar.xml) and one maxquant output file (msms.txt). 
@@ -32,8 +32,8 @@ converted to the maxquant styles and as the input files for mms2plot.
 
 ## Input files
 
-The package mms2plot requires three input files: id_table_path, par_xml_path,
-mqpar_filepath, where are introduced below. 
+The package mms2plot requires three input files: id_table_path, mod_xml_path,
+par_filepath, where are introduced below. 
 
 ## id_table_path
 The id_table_path contains seven essential columns. The first six columns are 
@@ -49,19 +49,19 @@ input_table <- data.table::fread(id_table_path, na.strings = "NA",
 knitr::kable(input_table)
 ```
 
-## par_xml_path
-The par_xml_path is the Maxquant parameter file modifications.xml.
+## mod_xml_path
+The mod_xml_path is the Maxquant parameter file modifications.xml.
 
-## mqpar_filepath
-mqpar_filepath includes a list of Maxquant parameter files mqpar.xml with full
-file path as well as ppm cutoffs. Users can generate the mqpar_filepath 
+## par_filepath
+par_filepath includes a list of Maxquant parameter files mqpar.xml with full
+file path as well as ppm cutoffs. Users can generate the par_filepath 
 according to the following example.
 ```{r, echo=TRUE, results='asis'}
 getwd()
-mqpar_filepath = "../inst/extdata/mqpar_batch.txt"
-mqpar_files<-data.table::fread(mqpar_filepath, na.strings = "NA",
+par_filepath = "../inst/extdata/par_batch.txt"
+par_files<-data.table::fread(par_filepath, na.strings = "NA",
         sep = "\t", fill = TRUE, header = TRUE)
-knitr::kable(mqpar_files)
+knitr::kable(par_files)
 ```
 
 ## Input parameters

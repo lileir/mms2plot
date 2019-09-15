@@ -163,7 +163,7 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     mzIntensity_list <-  lapply(scan_number, get_ms2info, MS2s_frFile)
     # Garbage Collection for MS2s_frFile
     rm(MS2s_frFile);  invisible(gc())
-    browser()
+    #browser()
     # change list as data.frame, each row contain one MS2 info
     mzIntensity <- do.call(rbind, mzIntensity_list)
     scannumber_charge = base::unique(base::subset(input_table_sameRawFile, select=c("Scan number", "Charge")))

@@ -150,6 +150,9 @@ mms2plot <- function(id_table_path,
     par_files<-data.table::fread(par_filepath, na.strings = "NA",
         sep = "\t", fill = TRUE, header = TRUE)
     #browser()
+    if(! any(colnames(par_files) == "ppm")){stop(paste0("The 'ppm' column does NOT exist in ", par_filepath))}
+    if(! any(colnames(par_files) == "par_path")){stop(paste0("The 'par_path' column dos NOT exist in ", par_filepath))}
+
     par_ppm <- data.table::rbindlist(apply(par_files, 1, readpar_ppm))
     #browser()
     

@@ -247,8 +247,8 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, b_ion_col, y_ion_col){
     # find b/y ions with info
     # psm <- apply( mz_intensity_percent, 1, test_individualIon, AA_mz, b_ion_col,
     #     y_ion_col)
-    if(nrow(psm)<4){stop("The matched ion peaks are limited (<4). Please check \
-         the ppm threshold. [note:stopped in the function find_matchedIons].")}
+    if(nrow(psm)<4){warnings("The matched ion peaks are limited (<4). May check \
+         the ppm threshold.")}
 
     #browser()
     # Keep the mz with the largest intensity if multiple mzs match same b/y ion

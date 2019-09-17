@@ -18,19 +18,13 @@ calculate_aa_mzs <- function(seq, charge, Monoisotopicmz, ppm, aa_mw_mod_table){
         #browser()
         AA_mzs<-calculate_AAmz_individual_label(aa_mw_mod_table, seq, charge,
             Monoisotopicmz, ppm, flag="")#, simplify = FALSE )
+        #browser()
         AA_mzs<-list(AA_mzs)
     }
     #browser()
     # remove empty elements in the list AA_mz
     AA_mzs_final <- AA_mzs[lengths(AA_mzs) != 0]
     return(AA_mzs_final)
-    if(length(AA_mzs_final) == 1 ){
-        return(AA_mzs_final[[1]])
-    }else{
-        browser()
-        stop("more than 1 labelling matches. Please contact the developer! \
-            [note:stopped in the function calculate_aa_mzs()].")
-    }
 }
 
 # for label-free, labelled or reportor ions (e.g. TMT)
@@ -81,8 +75,20 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
             subseq[length(subseq)] <- paste(subseq[length(subseq)], mod, sep="")
             return(subseq)
         }
-        AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
-
+        #browser()
+        if(length(seq_sep) == length(mod)){ # mod in the middle of the seq
+            AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
+        }else if( length(mod) - length(seq_sep) == 1  ){ # mod at end of the seq
+            if(any(mod == "")){
+                mod = paste0(mod, collapse = "")
+                AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
+            } else{
+                stop("Please contact developer. The function calculate_AAmz_individual_label is wrong.")
+            }   
+        }else{
+            stop("Please contact developer. The function calculate_AAmz_individual_label is wrong.")
+        }
+        #browser()
         if(nchar(mod_N) > 0 ){AA <- c(mod_N, AA)}
     }else{
         AA <- unlist(seq_sep)
@@ -139,12 +145,12 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     #stop(paste0("The difference between therotical m/z value ", mz_ideal, " and measured ms1 m/z value ", Monoisotopicmz, " is larger than 1."))
     #return(NULL)
     #} else {
-    ##sort and calculate MW for b ion
+    ##sort and accumulate MW for b ion
         AA_mz_b <- AA_mz[with(AA_mz, order(AA_mz$index)),]
         AA_mz_b$mz_b <- cumsum(AA_mz_b$weight)
         AA_mz_b$mz_b <- AA_mz_b$mz_b + H_weight
 
-        # sort and calculate MW for y ion for
+        # sort and accumulate MW for y ion for
         AA_mz_y <- AA_mz[with(AA_mz, order(-AA_mz$index)),]
         AA_mz_y$mz_y <- cumsum(AA_mz_y$weight)
         AA_mz_y$mz_y <- AA_mz_y$mz_y + H2O_weight + H_weight

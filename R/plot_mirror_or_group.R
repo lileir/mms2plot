@@ -255,11 +255,11 @@ plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
         input_table$Charge, input_table$Monoisotopicmz,
         MoreArgs=list(ppm, aa_mw_mod_table), SIMPLIFY = FALSE )
     # calcualte PSM for each MS2 plot iteratively
-    #browser()
+    browser()
     PSMs <- mapply(find_matchedIons, AA_mzs, mz_intensity_percent,
         MoreArgs=list(b_ion_col, y_ion_col), SIMPLIFY = FALSE )
     two_PSMs <- do.call(rbind, PSMs)
-    #browser()
+    browser()
     grDevices::graphics.off()
     pdf(file=outputFilename, width=pdf_width, height=pdf_height*2)
 

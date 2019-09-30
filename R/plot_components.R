@@ -112,57 +112,62 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
         substring(subset(PSMlabel, PSMlabel$bion %in% PSM$ion)$bion,2)
     PSManno_ysmall <-
         substring(subset(PSMlabel, PSMlabel$yion %in% PSM$ion)$yion,2)
-
+    #browser()
     if(direction ==1){
-        segments(PSManno_bion, rep(peptide_height, length(PSManno_bion)),
-            PSManno_bion,rep(peptide_height-len_annoSpace,length(PSManno_bion)),
-            col=b_ion_col, lwd=lwd)
-        segments(bion_xsmall, rep(peptide_height-len_annoSpace,
-            length(PSManno_bion)), PSManno_bion,
-            rep(peptide_height-len_annoSpace, length(PSManno_bion)),
-            col=b_ion_col, lwd=lwd)
-
-        text((bion_xsmall+PSManno_bion)/2, rep(peptide_height-len_annoSpace,
-            length(PSManno_bion)), PSManno_bsmall, cex = 0.25, adj=c(0.5, 1.3),
-            col=b_ion_col)
-
-        segments(PSManno_yion, rep(peptide_height, length(PSManno_yion)),
-            PSManno_yion,rep(peptide_height+len_annoSpace,length(PSManno_yion)),
-            col=y_ion_col, lwd=lwd)
-        segments(yion_xlarge,
-            rep(peptide_height+len_annoSpace, length(PSManno_yion)),
-            PSManno_yion, rep(peptide_height+len_annoSpace,
-            length(PSManno_yion)), col=y_ion_col, lwd=lwd)
-
-        text((yion_xlarge+PSManno_yion)/2,
-            rep(peptide_height+len_annoSpace, length(PSManno_yion)),
-            PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),col=y_ion_col)
-
+        if(length(PSManno_bion)>0){
+            segments(PSManno_bion, rep(peptide_height, length(PSManno_bion)),
+                PSManno_bion,rep(peptide_height-len_annoSpace,length(PSManno_bion)),
+                col=b_ion_col, lwd=lwd)
+            segments(bion_xsmall, rep(peptide_height-len_annoSpace,
+                length(PSManno_bion)), PSManno_bion,
+                rep(peptide_height-len_annoSpace, length(PSManno_bion)),
+                col=b_ion_col, lwd=lwd)
+    
+            text((bion_xsmall+PSManno_bion)/2, rep(peptide_height-len_annoSpace,
+                length(PSManno_bion)), PSManno_bsmall, cex = 0.25, adj=c(0.5, 1.3),
+                col=b_ion_col)
+        }
+        if(length(PSManno_yion) > 0 ) {
+            segments(PSManno_yion, rep(peptide_height, length(PSManno_yion)),
+                PSManno_yion,rep(peptide_height+len_annoSpace,length(PSManno_yion)),
+                col=y_ion_col, lwd=lwd)
+            segments(yion_xlarge,
+                rep(peptide_height+len_annoSpace, length(PSManno_yion)),
+                PSManno_yion, rep(peptide_height+len_annoSpace,
+                length(PSManno_yion)), col=y_ion_col, lwd=lwd)
+    
+            text((yion_xlarge+PSManno_yion)/2,
+                rep(peptide_height+len_annoSpace, length(PSManno_yion)),
+                PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),col=y_ion_col)
+        }
     }else{
-        segments(PSManno_bion, rep(peptide_height*-1, length(PSManno_bion)),
-            PSManno_bion,
-            rep((peptide_height+len_annoSpace)*-1, length(PSManno_bion)),
-            col=b_ion_col, lwd=lwd)
-        segments(bion_xsmall,
-            rep((peptide_height+len_annoSpace)*-1, length(PSManno_bion)),
-            PSManno_bion, rep((peptide_height+len_annoSpace)*-1,
-            length(PSManno_bion)), col=b_ion_col, lwd=lwd)
-
-        text((bion_xsmall+PSManno_bion)/2,rep((peptide_height+len_annoSpace)*-1,
-            length(PSManno_bion)), PSManno_bsmall, cex = 0.25, adj=c(0.5, 1.3),
-            col=b_ion_col)
-
-        segments(PSManno_yion, rep(peptide_height*-1, length(PSManno_yion)),
-            PSManno_yion, rep((peptide_height-len_annoSpace)*-1,
-            length(PSManno_yion)), col=y_ion_col, lwd=lwd)
-        segments(yion_xlarge, rep((peptide_height-len_annoSpace)*-1,
-            length(PSManno_yion)), PSManno_yion,
-            rep((peptide_height-len_annoSpace)*-1, length(PSManno_yion)),
-            col=y_ion_col, lwd=lwd)
-
-        text((yion_xlarge+PSManno_yion)/2,rep((peptide_height-len_annoSpace)*-1,
-            length(PSManno_yion)), PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),
-            col=y_ion_col)
+        if(length(PSManno_bion)>0){
+            segments(PSManno_bion, rep(peptide_height*-1, length(PSManno_bion)),
+                PSManno_bion,
+                rep((peptide_height+len_annoSpace)*-1, length(PSManno_bion)),
+                col=b_ion_col, lwd=lwd)
+            segments(bion_xsmall,
+                rep((peptide_height+len_annoSpace)*-1, length(PSManno_bion)),
+                PSManno_bion, rep((peptide_height+len_annoSpace)*-1,
+                length(PSManno_bion)), col=b_ion_col, lwd=lwd)
+    
+            text((bion_xsmall+PSManno_bion)/2,rep((peptide_height+len_annoSpace)*-1,
+                length(PSManno_bion)), PSManno_bsmall, cex = 0.25, adj=c(0.5, 1.3),
+                col=b_ion_col)
+        }
+        if(length(PSManno_yion) > 0 ) {
+            segments(PSManno_yion, rep(peptide_height*-1, length(PSManno_yion)),
+                PSManno_yion, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_yion)), col=y_ion_col, lwd=lwd)
+            segments(yion_xlarge, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_yion)), PSManno_yion,
+                rep((peptide_height-len_annoSpace)*-1, length(PSManno_yion)),
+                col=y_ion_col, lwd=lwd)
+    
+            text((yion_xlarge+PSManno_yion)/2,rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_yion)), PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),
+                col=y_ion_col)
+        }
     }
 }
 

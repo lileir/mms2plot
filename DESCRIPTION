@@ -1,7 +1,7 @@
 Package: mms2plot
 Type: Package
 Title: Visualization of multiple MS/MS spectra for modified and non-modified peptides
-Version: 1.00.06
+Version: 1.00.07
 Author: Lei Li, Yiming Zhao.
 Maintainer: Lei Li <leili@qdu.edu.cn>
 Description: Visualization of multiple tandem mass spectrometry (MS2) for 

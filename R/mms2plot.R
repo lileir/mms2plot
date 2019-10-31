@@ -63,7 +63,7 @@
 #' # par_filepath contains par.xml with full file path and PPM cutoff
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #' ###################################
 #' # Generate mms2plot for TMT labelling
@@ -74,7 +74,7 @@
 #' # par_filepath contains par.xml with full file path and PPM cutoff
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #' #####################################
 #' # Generate mms2plot for SILAC labelling
@@ -83,7 +83,7 @@
 #' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) #not run
+#' #mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) # Only run for testing
 #' 
 #' #####################################
 #' # Generate mms2plot for dimethyl labelling
@@ -92,7 +92,7 @@
 #' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
-#' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #roxygen2::roxygenise()
 # rm(list=ls())
@@ -203,15 +203,15 @@ mms2plot <- function(id_table_path,
 # 
 # mod_xml_path = "inst/extdata/modifications.xml"
 # par_filepath = "inst/extdata/par_batch_test.txt"
-# id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
-# id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
-# id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
-# #id_table_path = "inst/extdata/label_free/msms_labelfree_test.txt"
+# #id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
+# #id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
+# #id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
+# id_table_path = "inst/extdata/label_free/msms_labelfree_test.txt"
 # #
 # output_path = "d:"
 # mms2plot(id_table_path=id_table_path, mod_xml_path=mod_xml_path,
 #        par_filepath=par_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
-# 
+# # 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")
 #BiocCheck::BiocCheck("E:/lei_packages3/MMS2plot")

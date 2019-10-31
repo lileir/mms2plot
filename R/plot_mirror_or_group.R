@@ -18,7 +18,8 @@ readpar_ppm <- function(par_filename) {
     labelMods <- xml2::xml_find_all(xmlread, "//labelMods") #labelling: Arg10
     fixedModifications <- xml2::xml_find_all(xmlread, "//fixedModifications")
 
-    filePaths <- basename(xml2::xml_text(xml2::xml_children(filePaths)))
+    filePaths_to_generalpaths = gsub("\\", "/", xml2::xml_text(xml2::xml_children(filePaths)), fixed = T)
+    filePaths <- basename(filePaths_to_generalpaths)
     variableModifications <-
         xml2::xml_text(xml2::xml_children(variableModifications))
     isobaricLabels <- xml2::xml_text(xml2::xml_children(isobaricLabels))

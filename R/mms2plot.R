@@ -55,7 +55,7 @@
 #' general_path = system.file( package = "mms2plot",dir = "extdata" )
 #' setwd( general_path )
 #' ###################################
-#' # Generate mms2plot for label-free data
+#' # Generate a mirrored-spectra pdf file for label-free data
 #' lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 #' id_table_path = dir( lf_path, "msms_labelfree.txt", full.names = TRUE )
@@ -66,7 +66,7 @@
 #' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #' ###################################
-#' # Generate mms2plot for TMT labelling
+#' # Generate an aligned-spectra plot pdf file for TMT labelling
 #' TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 #' # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 #' id_table_path = dir( TMT_path, "msms_TMT.txt", full.names = TRUE )
@@ -77,7 +77,7 @@
 #' #mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #' #####################################
-#' # Generate mms2plot for SILAC labelling
+#' # Generate a mirrored-spectra pdf file for SILAC labelling
 #' SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 #' id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
 #' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
@@ -86,7 +86,7 @@
 #' #mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) # Only run for testing
 #' 
 #' #####################################
-#' # Generate mms2plot for dimethyl labelling
+#' # Generate a couple of spectra pdf files for dimethyl labelling
 #' dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 #' id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
 #' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )

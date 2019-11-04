@@ -2,4 +2,4 @@ The package mms2plot visualizes multiple tandem mass spectrometry (MS/MS or MS2)
 
 NOte: If you fail to install mms2plot on Windows OS, please install it by re-running R or RStudio with admin rights.
 
-MMS2 user guide is included as well as a packed example of MMS2plot required files as Supplemenary file 1. 
+MMS2plot user guide is included as well as a packed example of MMS2plot required files as Supplemenary file 1. 

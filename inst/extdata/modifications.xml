@@ -48,13 +48,13 @@
          <diagnostic_collection />
       </modification_site>
       <modification_site site="T">
-         <neutralloss_collection>
-            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
-         </neutralloss_collection>
+         <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
       <modification_site site="Y">
-         <neutralloss_collection />
+         <neutralloss_collection>
+            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
+         </neutralloss_collection>
          <diagnostic_collection>
             <diagnostic name="C(8) H(10) O(4) N P" shortname="pY" composition="C(8) H(10) O(4) N P" />
          </diagnostic_collection>

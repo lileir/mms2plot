@@ -1,0 +1,2 @@
+par_path	ppm
+F:/zhangluna/Msms3/mzML_output/mqpar_K_ala.xml	20

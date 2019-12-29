@@ -11,6 +11,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
             [note:stopped in the function add_mod_aa].", sep="") )
     }
     ppm <- as.numeric(par$ppm)
+    ion_type <- par$ion_type  # y or z or by ions
 
     empty <- c("", NA, "NA")
 
@@ -21,7 +22,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
         modifications <- mapply(extract_mod_xml, Mod,
             MoreArgs=list(mod_parameter_xml), SIMPLIFY=FALSE)
         modifications <- do.call(rbind, modifications) #
-
+        #browser()
         # for modifications occurring dependent of specific AA
         aa_mw_table_fixed <-
             subset(aa_mw_table, aa_mw_table$aa %in% modifications$mod_aa)
@@ -44,6 +45,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
     }
 
     aa_mw_mod_table <- aa_mw_table
+    #browser()
     #contains variable modifications # Mod="Phospho (STY)"
     #modifications:df
     #Mod:Acetyl (N-term);mod_abb:(ac);mod_comp_mw:42.01;mod_aa:-;mod_pos:Nterm
@@ -52,7 +54,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
         modifications <- mapply(extract_mod_xml, Mod,
             MoreArgs=list(mod_parameter_xml), SIMPLIFY=FALSE)
         modifications <- do.call(rbind, modifications)
-
+        #browser()
         # for modifications occurring dependent of specific AA
         aa_mw_table_mod <-
             subset(aa_mw_table, aa_mw_table$aa %in% modifications$mod_aa)
@@ -63,9 +65,20 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
                 paste(aa_mw_table_mod$aa, aa_mw_table_mod$mod_abb, sep="")
             aa_mw_table_mod$weight <- as.numeric(aa_mw_table_mod$mod_comp_mw) +
                 as.numeric(aa_mw_table_mod$weight)
-            aa_mw_mod_table <-
-                rbind(aa_mw_table,aa_mw_table_mod[,c("aa", "weight","aa_varmod",
-                "labelmod","reporterion","reporterion_group","labelmod_group")])
+            #browser()
+            
+            if("neutralloss" %in% colnames(aa_mw_table_mod)){ 
+                aa_mw_mod_table <-
+                    rbind(aa_mw_table,aa_mw_table_mod[,c("aa", "weight","aa_varmod",
+                    "labelmod","reporterion","reporterion_group","labelmod_group",
+                    "neutralloss")], fill=T)
+                aa_mw_mod_table$neutralloss[is.na(aa_mw_mod_table$neutralloss)] <- 0
+            }else{
+                aa_mw_mod_table <-
+                    rbind(aa_mw_table,aa_mw_table_mod[,c("aa", "weight","aa_varmod",
+                    "labelmod","reporterion","reporterion_group","labelmod_group")])
+            }
+            #browser()
         }
         # for modifications occurring independent of AA
         mod_anypos <- subset(modifications, modifications$mod_aa %in% "-")
@@ -135,7 +148,7 @@ add_mod_aa<-function(mod_parameter_xml, MS2FileName, aa_mw_table, par_ppm){
         aa_mw_mod_table <- data.table::rbindlist(aa_mw_mod_table)
     }
     #browser()
-    output <- list(aa_mw_mod_table, ppm)
+    output <- list(aa_mw_mod_table, ppm, ion_type)
     return(output)
 }
 
@@ -150,10 +163,11 @@ extract_mod_xml <-function(Mod, xmlurl){
 
     b<-xml2::xml_find_all(f1[[1]] , "//*[name()='position']")
     cd<-unique(xml2::xml_text(b))
-    mod_comp <- xml2::xml_attr(f1,"composition")
-    #browser()
-    mod_comp_split <- unlist(strsplit(mod_comp, "\\s"))
+    mod_comp <- xml2::xml_attr(f1,"composition") # "C(2) H(3) N O"
+    # calculate mod molecular weight
+    mod_comp_split <- unlist(strsplit(mod_comp, "\\s"))  # list "C(2)" "H(3)" "N"    "O"
     mod_comp_mw <- sum(mapply(calculate_atom_mw, mod_comp_split)) # e.g. 15.99
+    
     mod_abb <- xml2::xml_attr(f1,"title")
     mod_abb <- substr(mod_abb,1,2)
     mod_abb <- tolower(mod_abb)             #e.g. ox
@@ -161,8 +175,33 @@ extract_mod_xml <-function(Mod, xmlurl){
 
     f2 <- xml2::xml_find_all(f1,"modification_site")
     mod_aa <- xml2::xml_attr(f2,"site")
-    mod_detail <-
-        data.table::data.table(cbind(Mod,mod_abb,mod_comp_mw, mod_aa, mod_pos))
+    #browser()
+    aa_neutralloss=xml2::xml_find_all(f2,"neutralloss_collection")
+    if(length(xml2::xml_children(aa_neutralloss))>0){ # if containing neutral loss
+        neutralloss = NA
+        composition_mw = 0
+        for(i in 1:length(aa_neutralloss)){
+            tmp=xml2::xml_children(aa_neutralloss[[i]])
+            if(length(tmp)>0){
+                composition = xml2::xml_attr(tmp,"composition")
+                composition_split <- unlist(strsplit(composition, "\\s"))  # list "C(2)" "H(3)" "N"    "O"
+                composition_mw <- sum(mapply(calculate_atom_mw, composition_split)) # e.g. 15.99
+
+            }else{
+                composition_mw = 0   
+            }
+            if(all(is.na(neutralloss))){
+                neutralloss = composition_mw
+            }else{
+                neutralloss = c(neutralloss, composition_mw)
+            }
+        }
+        mod_detail <-
+            data.table::data.table(cbind(Mod,mod_abb,mod_comp_mw, mod_aa, mod_pos, neutralloss))
+    }else{
+        mod_detail <-
+            data.table::data.table(cbind(Mod,mod_abb,mod_comp_mw, mod_aa, mod_pos))
+    }
     return(mod_detail)
 }
 

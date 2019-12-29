@@ -1,5 +1,8 @@
-par_path	ppm
-inst/extdata/silac/mqpar.xml	20
-inst/extdata/TMT/mqpar.xml	300
-inst/extdata/Dimethyl_Labelling/mqpar.xml	20
-inst/extdata/label_free/mqpar.xml	20
+par_path	ppm	ion_type
+inst/extdata/label_free/mqpar.xml	20	y
+inst/extdata/label_free_ETD/mqpar.xml	300	yz
+inst/extdata/silac/mqpar.xml	20	y
+inst/extdata/TMT/mqpar.xml	300	y
+inst/extdata/Dimethyl_Labelling/mqpar.xml	20	y
+inst/extdata/phospho/mqpar.xml	20	y
+inst/extdata/kal/mqpar_K_ala.xml	20	y

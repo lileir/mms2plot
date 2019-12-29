@@ -35,10 +35,83 @@ label_axis<-function(max_intensity, xlab, ylab, max_mz, cex,lwd){
     }
 }
 
-# peaks annotation
-####################
-draw_peak_ionL<-function(psm, lwd, len_annoSpace, srt,show_letterBY){
+generate_ionLabel <- function(ionLabel_peak, show_iontype){
     #browser()
+    
+#    ionLabel_peaks_split = unlist(strsplit(ionLabel_peak), ",")
+#    for(i in 1:length(ionLabel_peaks_split)){
+        # ionLabel_peak = ionLabel_peaks_split[i]
+        # ion_name <- substr(ionLabel_peak, 1, regexpr(pattern ='\\+', ionLabel_peak)-1)
+        # number_plus <- substring(ionLabel_peak, regexpr(pattern ='\\+',ionLabel_peak))
+        # if(number_plus == "+"){number_plus = ""}
+        # else if(number_plus == "+*"){number_plus="*"}
+        # else if(number_plus == "++"){number_plus="2+"}
+        # else if(number_plus == "++*"){number_plus="2+*"}
+        # 
+        # if(grepl("^z0", ion_name )){
+        #     ion_number = substring(ion_name, 3)
+        #     if(show_iontype){
+        #         label = as.expression(bquote('z'^o*.(ion_number)^.(number_plus)))
+        #     }else{
+        #         label = as.expression(bquote(.(ion_number)^.(number_plus)))
+        #     }
+        # }else{
+        #     if(show_iontype){
+        #         label = as.expression(bquote(.(ion_name)^.(number_plus)))
+        #     }else{
+        #         ion_name = substring(ion_name, 2)
+        #         label = as.expression(bquote(.(ion_name)^.(number_plus)))
+        #     }
+        # }
+#    }
+    show_iontype=T
+ #   ionLabel_peak = "z08++,y7+"
+ #   ionLabel_peak = "z08++"
+    ionLabel_peak = gsub("z0", "w", ionLabel_peak)
+    if(grepl(",", ionLabel_peak)){    
+        ionLabel_peak = unlist(strsplit(ionLabel_peak, ","))
+    }
+    ionLabel <- substr(ionLabel_peak, 1, 1)
+    ionLabel_style  <- ifelse(ionLabel == "w", "o", "")
+    ionLabel = gsub("w", "z", ionLabel)
+    ionLabel_number <- substr(ionLabel_peak, 2, regexpr(pattern ='\\+', ionLabel_peak)-1)
+    number_plus <- substring(ionLabel_peak, regexpr(pattern ='\\+',ionLabel_peak))
+    number_plus = gsub("^\\+\\+", "2+", number_plus)
+    number_plus = gsub("^\\+", "", number_plus)
+    
+    if(length(ionLabel) == 1){
+        label = as.expression(bquote(.(ionLabel)^.(ionLabel_style)*.(ionLabel_number)^.(number_plus)))
+    }else if(length(ionLabel) == 2){
+        label = as.expression(bquote(paste(.(ionLabel[1])^.(ionLabel_style[1])*.(ionLabel_number[1])^.(number_plus[2]),",",.(ionLabel[2])^.(ionLabel_style[2])*.(ionLabel_number[2])^.(number_plus[2]),sep="")))
+        
+#        label = as.expression(bquote(.(ionLabel[1])^.(ionLabel_style[1])*.(ionLabel_number[1])^.(number_plus[2]),.(ionLabel[2])^.(ionLabel_style[2])*.(ionLabel_number[2])^.(number_plus[2])))
+    }
+
+    # if(length(ionLabel_peak) == 1){
+    #     if(grepl("^z0", ion_name )){
+    #      ion_number = substring(ion_name, 3)
+    #         if(show_iontype){
+    #             label = as.expression(bquote('z'^o*.(ion_number)^.(number_plus)))
+    #         }else{
+    #             label = as.expression(bquote(.(ion_number)^.(number_plus)))
+    #         }
+    #     }else{
+    #         if(show_iontype){
+    #             label = as.expression(bquote(.(ion_name)^.(number_plus)))
+    #         }else{
+    #             ion_name = substring(ion_name, 2)
+    #             label = as.expression(bquote(.(ion_name)^.(number_plus)))
+    #         }
+    #     }
+    # }
+    
+    return(label)
+}
+# peaks annotation  plot(rnorm(30), xlab = as.expression(bquote(.(a)^th*.(b))))
+####################
+draw_peak_ionL<-function(psm, lwd, len_annoSpace, srt,show_iontype){
+    #browser()
+    len_annoSpace = 0.05 #  len_annoSpace / 2   distance between peak and label
     ion_unique<-unique(psm, select=c("mz", "abs_intensity_prc_ext", "direction",
         "intensity_perc","ionLabel_peak","col"))
     lines(ion_unique$mz, ion_unique$intensity_perc, type = "h",las=1,
@@ -46,22 +119,12 @@ draw_peak_ionL<-function(psm, lwd, len_annoSpace, srt,show_letterBY){
     segments(ion_unique$mz,ion_unique$intensity_perc, ion_unique$mz,
         ion_unique$abs_intensity_prc_ext*ion_unique$direction,
         col=ion_unique$col, lwd = lwd/2, lty=3) # draw peak extention segments
-    ion_name <- substr(ion_unique$ionLabel_peak, 1, regexpr(pattern ='\\+',
-        ion_unique$ionLabel_peak)-1)
-    number_plus <- substring(ion_unique$ionLabel_peak,
-        regexpr(pattern ='\\+',ion_unique$ionLabel_peak))
-    if(show_letterBY){# b/y ion,e.g.b3+
-        text( ion_unique$mz, (ion_unique$abs_intensity_prc_ext+len_annoSpace)
-            *ion_unique$direction,
-            labels <- mapply(function(x,y)  as.expression(bquote(.(x)^.(y))),
-            ion_name, number_plus), cex = 0.3, col=ion_unique$col,adj=0.5,srt=0)
-    }else{
-        text( ion_unique$mz, (ion_unique$abs_intensity_prc_ext+len_annoSpace)
-            *ion_unique$direction,
-            labels <- mapply(function(x,y)  as.expression(bquote(.(x)^.(y))),
-            substring(ion_name,2), number_plus), cex = 0.3, col=ion_unique$col,
-            adj=0.5, srt=0) # b/y ion,e.g.b3+
-    }
+    labels = mapply(generate_ionLabel, ion_unique$ionLabel_peak, show_iontype)
+
+    text( ion_unique$mz, (ion_unique$abs_intensity_prc_ext+len_annoSpace)
+        *ion_unique$direction,
+        labels <- labels, cex = 0.3, col=ion_unique$col,adj=0.5,srt=0)
+    #browser()
 }
 
 # generate and draw PSM labels
@@ -74,8 +137,11 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
     direction <- PSM$direction[1] # draw MS2 on upplot (1) or downplot (-1)
     peptide <- c("-", as.character(AA_mz$aa_varmod), "-")
     peptide_list <- vector("list", length(peptide)*2-1) # set peptide + two dash
-    peptide_list_b <- peptide_list # set b ions
-    peptide_list_y <- peptide_list # set y ions
+    peptide_list_b <- peptide_list # preset NULL for b ions
+    peptide_list_y <- peptide_list # preset NULL for y ions
+    peptide_list_c <- peptide_list # preset NULL for c ions
+    peptide_list_z0 <- peptide_list # preset NULL for z0 ions
+    peptide_list_z1 <- peptide_list # preset NULL for z1 ions
     # set peptide
     peptide_list[c(TRUE,FALSE)] <- as.list(peptide)
     peptide_list[c(FALSE,TRUE)] <- as.list(".")
@@ -86,6 +152,15 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
     peptide_list_y[c(FALSE,TRUE)] <-
         paste("y", rev(seq(0,length(peptide)-2,by=1)), sep="")
 
+    # set c ions
+    peptide_list_c[c(FALSE,TRUE)] <-
+        paste("c", seq(0,length(peptide)-2,by=1),sep="")
+    # set z ions
+    peptide_list_z0[c(FALSE,TRUE)] <-
+        paste("z0", rev(seq(0,length(peptide)-2,by=1)), sep="")
+    peptide_list_z1[c(FALSE,TRUE)] <-
+        paste("z'", rev(seq(0,length(peptide)-2,by=1)), sep="")
+
     # set the width of AA sequence in the plot
     x_quarter<-seq(0,max_mz, length.out = 20)[c(3,18)]  # seq from 5/20 to 17/20
     AA_pos <- seq(x_quarter[1], x_quarter[2], length.out=length(peptide_list))
@@ -94,27 +169,51 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
 
     # integrate as data.table
     PSMlabel<-data.table::data.table(AA_pos=AA_pos, peptide=peptide_list,
-        bion=peptide_list_b, yion=peptide_list_y)
+        bion=peptide_list_b, yion=peptide_list_y, cion = peptide_list_c, 
+        z0ion = peptide_list_z0, z1ion = peptide_list_z1)
     #browser()
 
     apply(PSMlabel, 1, print_modpeptide,  peptide_height, mod_height,
         pos_start_dash, pos_end_dash, direction)# print AA letters for labelling
 
-    # draw b/y ions between AA letters
+    # draw b ions between AA letters
     PSManno_bion <- subset(PSMlabel, PSMlabel$bion %in% PSM$ion)$AA_pos
     index <- match(PSManno_bion,PSMlabel$AA_pos)-1
     bion_xsmall <- (PSMlabel$AA_pos[index] + PSManno_bion)/2
+    PSManno_bsmall <-
+        substring(subset(PSMlabel, PSMlabel$bion %in% PSM$ion)$bion,2)
+
+        # draw y ions between AA letters
     PSManno_yion <- subset(PSMlabel, PSMlabel$yion %in% PSM$ion)$AA_pos
     index <- match(PSManno_yion,PSMlabel$AA_pos)+1
     yion_xlarge <- (PSMlabel$AA_pos[index] + PSManno_yion)/2
-
-    PSManno_bsmall <-
-        substring(subset(PSMlabel, PSMlabel$bion %in% PSM$ion)$bion,2)
     PSManno_ysmall <-
         substring(subset(PSMlabel, PSMlabel$yion %in% PSM$ion)$yion,2)
+
+    # draw c ions between AA letters
+    PSManno_cion <- subset(PSMlabel, PSMlabel$cion %in% PSM$ion)$AA_pos
+    index <- match(PSManno_cion,PSMlabel$AA_pos)-1
+    cion_xsmall <- (PSMlabel$AA_pos[index] + PSManno_cion)/2
+    PSManno_csmall <-
+        substring(subset(PSMlabel, PSMlabel$cion %in% PSM$ion)$cion,2)
+    
+    # draw z0 ions between AA letters
+    PSManno_z0ion <- subset(PSMlabel, PSMlabel$z0ion %in% PSM$ion)$AA_pos
+    index <- match(PSManno_z0ion,PSMlabel$AA_pos)+1
+    z0ion_xlarge <- (PSMlabel$AA_pos[index] + PSManno_z0ion)/2
+    PSManno_z0small <-
+        substring(subset(PSMlabel, PSMlabel$z0ion %in% PSM$ion)$z0ion,3) # removing z'
+
+    # draw z1 ions between AA letters
+    PSManno_z1ion <- subset(PSMlabel, PSMlabel$z1ion %in% PSM$ion)$AA_pos
+    index <- match(PSManno_z1ion,PSMlabel$AA_pos)+1
+    z1ion_xlarge <- (PSMlabel$AA_pos[index] + PSManno_z1ion)/2
+    PSManno_z1small <-
+        substring(subset(PSMlabel, PSMlabel$z1ion %in% PSM$ion)$z1ion,3) # removing z'
+
     #browser()
     if(direction ==1){
-        if(length(PSManno_bion)>0){
+        if(length(PSManno_bion)>0){ # bion
             segments(PSManno_bion, rep(peptide_height, length(PSManno_bion)),
                 PSManno_bion,rep(peptide_height-len_annoSpace,length(PSManno_bion)),
                 col=b_ion_col, lwd=lwd)
@@ -127,7 +226,7 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
                 length(PSManno_bion)), PSManno_bsmall, cex = 0.25, adj=c(0.5, 1.3),
                 col=b_ion_col)
         }
-        if(length(PSManno_yion) > 0 ) {
+        if(length(PSManno_yion) > 0 ) {  # y ion
             segments(PSManno_yion, rep(peptide_height, length(PSManno_yion)),
                 PSManno_yion,rep(peptide_height+len_annoSpace,length(PSManno_yion)),
                 col=y_ion_col, lwd=lwd)
@@ -139,6 +238,45 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
             text((yion_xlarge+PSManno_yion)/2,
                 rep(peptide_height+len_annoSpace, length(PSManno_yion)),
                 PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),col=y_ion_col)
+        }
+        if(length(PSManno_cion)>0){ # c ion
+            segments(PSManno_cion, rep(peptide_height, length(PSManno_cion)),
+                PSManno_cion,rep(peptide_height-len_annoSpace,length(PSManno_cion)),
+                col=b_ion_col, lwd=lwd)
+            segments(cion_xsmall, rep(peptide_height-len_annoSpace,
+                length(PSManno_cion)), PSManno_cion,
+                rep(peptide_height-len_annoSpace, length(PSManno_cion)),
+                col=b_ion_col, lwd=lwd)
+    
+            text((cion_xsmall+PSManno_cion)/2, rep(peptide_height-len_annoSpace,
+                length(PSManno_cion)), PSManno_csmall, cex = 0.25, adj=c(0.5, 1.3),
+                col=b_ion_col)
+        }
+        if(length(PSManno_z0ion) > 0 ) { #z0 ion
+            segments(PSManno_z0ion, rep(peptide_height, length(PSManno_z0ion)),
+                PSManno_z0ion,rep(peptide_height+len_annoSpace,length(PSManno_z0ion)),
+                col=y_ion_col, lwd=lwd)
+            segments(z0ion_xlarge,
+                rep(peptide_height+len_annoSpace, length(PSManno_z0ion)),
+                PSManno_z0ion, rep(peptide_height+len_annoSpace,
+                length(PSManno_z0ion)), col=y_ion_col, lwd=lwd)
+    
+            text((z0ion_xlarge+PSManno_z0ion)/2,
+                rep(peptide_height+len_annoSpace, length(PSManno_z0ion)),
+                PSManno_z0small, cex = 0.25, adj=c(0.5, -0.3),col=y_ion_col)
+        }
+        if(length(PSManno_z1ion) > 0 ) { # z1 ion
+            segments(PSManno_z1ion, rep(peptide_height, length(PSManno_z1ion)),
+                PSManno_z1ion,rep(peptide_height+len_annoSpace,length(PSManno_z1ion)),
+                col=y_ion_col, lwd=lwd)
+            segments(z1ion_xlarge,
+                rep(peptide_height+len_annoSpace, length(PSManno_z1ion)),
+                PSManno_z1ion, rep(peptide_height+len_annoSpace,
+                length(PSManno_z1ion)), col=y_ion_col, lwd=lwd)
+    
+            text((z1ion_xlarge+PSManno_z1ion)/2,
+                rep(peptide_height+len_annoSpace, length(PSManno_z1ion)),
+                PSManno_z1small, cex = 0.25, adj=c(0.5, -0.3),col=y_ion_col)
         }
     }else{
         if(length(PSManno_bion)>0){
@@ -166,6 +304,46 @@ draw_psmanno<-function(AA_mz, PSM, max_mz, peptide_height, mod_height,
     
             text((yion_xlarge+PSManno_yion)/2,rep((peptide_height-len_annoSpace)*-1,
                 length(PSManno_yion)), PSManno_ysmall, cex = 0.25, adj=c(0.5, -0.3),
+                col=y_ion_col)
+        }
+        if(length(PSManno_cion)>0){
+            segments(PSManno_cion, rep(peptide_height*-1, length(PSManno_cion)),
+                PSManno_cion,
+                rep((peptide_height+len_annoSpace)*-1, length(PSManno_cion)),
+                col=b_ion_col, lwd=lwd)
+            segments(cion_xsmall,
+                rep((peptide_height+len_annoSpace)*-1, length(PSManno_cion)),
+                PSManno_cion, rep((peptide_height+len_annoSpace)*-1,
+                length(PSManno_cion)), col=b_ion_col, lwd=lwd)
+    
+            text((cion_xsmall+PSManno_cion)/2,rep((peptide_height+len_annoSpace)*-1,
+                length(PSManno_cion)), PSManno_csmall, cex = 0.25, adj=c(0.5, 1.3),
+                col=b_ion_col)
+        }
+        if(length(PSManno_z0ion) > 0 ) {
+            segments(PSManno_z0ion, rep(peptide_height*-1, length(PSManno_z0ion)),
+                PSManno_z0ion, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z0ion)), col=y_ion_col, lwd=lwd)
+            segments(z0ion_xlarge, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z0ion)), PSManno_z0ion,
+                rep((peptide_height-len_annoSpace)*-1, length(PSManno_z0ion)),
+                col=y_ion_col, lwd=lwd)
+    
+            text((z0ion_xlarge+PSManno_z0ion)/2,rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z0ion)), PSManno_z0small, cex = 0.25, adj=c(0.5, -0.3),
+                col=y_ion_col)
+        }
+        if(length(PSManno_z1ion) > 0 ) {
+            segments(PSManno_z1ion, rep(peptide_height*-1, length(PSManno_z1ion)),
+                PSManno_z1ion, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z1ion)), col=y_ion_col, lwd=lwd)
+            segments(z1ion_xlarge, rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z1ion)), PSManno_z1ion,
+                rep((peptide_height-len_annoSpace)*-1, length(PSManno_z1ion)),
+                col=y_ion_col, lwd=lwd)
+    
+            text((z1ion_xlarge+PSManno_z1ion)/2,rep((peptide_height-len_annoSpace)*-1,
+                length(PSManno_z1ion)), PSManno_z1small, cex = 0.25, adj=c(0.5, -0.3),
                 col=y_ion_col)
         }
     }
@@ -267,7 +445,7 @@ draw_ms2generalinfo<-function(rt, scan, mz, charge, gene, PSM, info_height){
 plot_group_individual<-function(mz_intensity_percent, AA_mz,  PSM,
     max_intensity, base_rawFile, rt, scan, mz, charge, gene, y_ion_col,
     b_ion_col, peaks_col, ymax, lwd, peptide_height, mod_height, len_annoSpace,
-    srt, cex, max_mz, info_height, show_letterBY){
+    srt, cex, max_mz, info_height, show_iontype){
     #browser()
     graphics::plot(mz_intensity_percent$mz, mz_intensity_percent$intensity_perc,
         type = "h",las = 1, xlab = "", ylab = "", xlim = c(0, max_mz), xaxt="n",
@@ -278,7 +456,7 @@ plot_group_individual<-function(mz_intensity_percent, AA_mz,  PSM,
 
     label_axis(max_intensity, xlab="", ylab="", max_mz, cex, lwd)
     # draw and color peak extension line
-    draw_peak_ionL(PSM, lwd, len_annoSpace, srt, show_letterBY)
+    draw_peak_ionL(PSM, lwd, len_annoSpace, srt, show_iontype)
     ## draw PSM annotation (peptide, mod, b ions and y ions)
     draw_psmanno( AA_mz, PSM, max_mz, peptide_height, mod_height, len_annoSpace,
         y_ion_col, b_ion_col, lwd=lwd/2 )

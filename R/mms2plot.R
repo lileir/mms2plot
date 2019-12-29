@@ -39,7 +39,7 @@
 #' @param lwd line width relative to the default. (default=pdf_width/3.35).
 #' @param cex A numerical value giving the amount by which plotting text and
 #'        symbols is magnified relative to the default.(default=pdf_width/3.35).
-#' @param show_letterBY Logical: should "b" or "y" characters are shown on the
+#' @param show_iontype Logical: should "b" or "y" characters are shown on the
 #'        peak annotation? The default is FALSE.
 #'
 #' @return No value is returned.
@@ -93,6 +93,22 @@
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+#' #####################################
+#' # Generate a couple of spectra pdf files for ETD (ie. c/z ions)
+#' dim_path = system.file(package="mms2plot",dir="extdata/label_free_ETD")
+#' id_table_path = dir( dim_path, "msms_lf_ETD.txt", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
+#' output_path = general_path
+#' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+#' #####################################
+#' # an example for showing neutral loss (e.g. phosphorylation)
+#' dim_path = system.file(package="mms2plot",dir="extdata/phospho")
+#' id_table_path = dir( dim_path, "msms_phospho.txt", full.names = TRUE )
+#' mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+#' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
+#' output_path = general_path
+#' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 #' 
 #roxygen2::roxygenise()
 # rm(list=ls())
@@ -109,8 +125,10 @@
 # source("R/add_mod_aa.R")
 # source("R/psm_calculation.R")
 # source("R/plot_components.R")
-# 
-# setwd("e:/lei_package4/MMS2plot/")
+
+#getwd()
+#browser()
+#setwd("e:/lei_package5/MMS2plot/")
 
 mms2plot <- function(id_table_path,
                     mod_xml_path,
@@ -132,7 +150,7 @@ mms2plot <- function(id_table_path,
                     len_annoSpace = 0.1,
                     lwd=1*pdf_width/3.35,
                     cex=1*pdf_width/3.35,
-                    show_letterBY=FALSE){
+                    show_iontype = T){
     srt <- 0
     #browser()
     if(! file.exists(output_path)) {
@@ -152,7 +170,9 @@ mms2plot <- function(id_table_path,
     #browser()
     if(! any(colnames(par_files) == "ppm")){stop(paste0("The 'ppm' column does NOT exist in ", par_filepath))}
     if(! any(colnames(par_files) == "par_path")){stop(paste0("The 'par_path' column dos NOT exist in ", par_filepath))}
-
+    if(! any(colnames(par_files) == "ion_type")){stop(paste0("The 'ion_type' column dos NOT exist in ", par_filepath))}
+    if(! all(base::grepl("y|z", par_files$ion_type))){stop("Three labels (y, z or yz) are accepted only in the 'ion_type' column of ", par_filepath)}
+    
     par_ppm <- data.table::rbindlist(apply(par_files, 1, readpar_ppm))
     #browser()
     
@@ -186,7 +206,7 @@ mms2plot <- function(id_table_path,
         mod_xml_path, output_path, par_ppm, min_intensity_ratio, pdf_width,
         pdf_height, xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax,
         peptide_height, info_height, mod_height, len_annoSpace, lwd, cex,
-        show_letterBY, srt) # call for individual raw_files
+        show_iontype, srt) # call for individual raw_files
     invisible(gc())
 }
 
@@ -195,22 +215,26 @@ mms2plot <- function(id_table_path,
 # load("data/atom_mw_table.rda")
 # ##save(aa_mw_table, atom_mw_table, PPM_denominator, file = "data/data.rda")
 # ##load aa_mw and atom_mw files
-# ##aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
-# ##                                   fill = TRUE, header = TRUE)
+#aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
+#                                   fill = TRUE, header = TRUE)
+#save(aa_mw_table, file = "data/aa_mw_table.rda")
 # ##atom_mw_table <- data.table::fread("inst/extdata/atom_MW.txt", sep = "\t",
 # ##                                   fill = TRUE, header = TRUE)
 # 
-# 
 # mod_xml_path = "inst/extdata/modifications.xml"
 # par_filepath = "inst/extdata/par_batch_test.txt"
-# #id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
-# #id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
-# #id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
+# id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
+# id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
+# id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
 # id_table_path = "inst/extdata/label_free/msms_labelfree_test.txt"
-# #
+# id_table_path = "inst/extdata/phospho/msms_phospho.txt"
+# id_table_path = "inst/extdata/label_free_ETD/msms_lf_ETD.txt"
+# id_table_path = "inst/extdata/kal/CRTAC1.txt"
+# 
+# ##
 # output_path = "d:"
 # mms2plot(id_table_path=id_table_path, mod_xml_path=mod_xml_path,
-#        par_filepath=par_filepath, output_path="d:", pdf_width=7, show_letterBY=T)
+#     par_filepath=par_filepath, output_path="d:", pdf_width=7, show_iontype=T)
 # # 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")

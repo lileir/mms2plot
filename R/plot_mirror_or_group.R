@@ -8,6 +8,14 @@
 # semicolon(;) used in maxquant to separate labelled aa in the same label types
 readpar_ppm <- function(par_filename) {
     #browser()
+#    ion_type <-par_filename["ion_type"]  
+    ion_type = switch(par_filename["ion_type"],  # y or z or yz for b/y or c/z or b/y/c/z
+       "y" = par_filename["ion_type"],
+       "z" = par_filename["ion_type"],
+       "yz" = par_filename["ion_type"],
+       stop(paste0("'", par_filename["ion_type"], "' is not included as the aceptable labels (y, z or yz) in the 'ion_type' column for '", par_filename["par_path"], "'!"))
+    )
+    
     ppm <- par_filename["ppm"]
     xmlread <- xml2::read_xml(par_filename["par_path"])
     filePaths <-  xml2::xml_find_all(xmlread, "//filePaths") # for files
@@ -57,12 +65,13 @@ readpar_ppm <- function(par_filename) {
         }
 
         output <- data.table::data.table(rawfile, variableModifications,
-            isobaricLabels, labelMods, fixedModifications, ppm)
+            isobaricLabels, labelMods, fixedModifications, ppm, ion_type)
+#        browser()
         return(output)
     } else{
         stop("No raw file is included in this par.xml!")
     }
-    #browser()
+    browser()
     return(NULL)
 }
 
@@ -139,7 +148,7 @@ check_input_table<-function(input_table, id_table_path, par_ppm, par_filepath ){
 drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     output_path, par_ppm, min_intensity_ratio, pdf_width, pdf_height,
     xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax, peptide_height,
-    info_height, mod_height, len_annoSpace, lwd, cex, show_letterBY, srt){
+    info_height, mod_height, len_annoSpace, lwd, cex, show_iontype, srt){
 
     # extract from input_table MS2 info from the same file
     input_table_sameRawFile <-
@@ -150,6 +159,10 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     #browser()
     list_aaMwModTable_ppm<-add_mod_aa(mod_xml_path, basename(MS2FileName),
         mms2plot::aa_mw_table, par_ppm)
+
+    aa_mw_mod_table = list_aaMwModTable_ppm[[1]] ## aa plus modaa
+    ppm = list_aaMwModTable_ppm[[2]]  ##  ppm
+    ion_type = list_aaMwModTable_ppm[[3]] # y, z or yz ion
     #browser()
 
     # unique MS2 scan_number from the extract MS2 info
@@ -178,12 +191,12 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     # merge input_table and mzIntensity
     input_table_sameRawFile <-
         data.table::setDT(mzIntensity)[input_table_sameRawFile,on="Scan number"]
-
+    #browser()
     tmp<-by(input_table_sameRawFile, input_table_sameRawFile$label, plot_mms2,
-        output_path, list_aaMwModTable_ppm[[1]], min_intensity_ratio, pdf_width,
-        pdf_height, xmai, ymai, list_aaMwModTable_ppm[[2]], y_ion_col,
+        output_path, aa_mw_mod_table, min_intensity_ratio, pdf_width,
+        pdf_height, xmai, ymai, ppm, ion_type, y_ion_col,
         b_ion_col, peaks_col, ymax, peptide_height, info_height, mod_height,
-        len_annoSpace, lwd, cex, show_letterBY, srt)
+        len_annoSpace, lwd, cex, show_iontype, srt)
     invisible(gc())
 }
 
@@ -217,20 +230,20 @@ get_ms2info <- function(scan_number, ms2_samefile){
 
 # plot_mms2 function
 plot_mms2 <- function(input_table, output_path, aa_mw_mod_table,
-    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, y_ion_col,
+    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, ion_type, y_ion_col,
     b_ion_col, peaks_col, ymax, peptide_height, info_height, mod_height,
-    len_annoSpace, lwd, cex, show_letterBY, srt){
+    len_annoSpace, lwd, cex, show_iontype, srt){
     #browser()
-    if(nrow(input_table) == 2){
+    if(nrow(input_table) == 2){ # for mirror plot
         plot_mirror(input_table, output_path, aa_mw_mod_table,
-            min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm,
+            min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, ion_type,
             y_ion_col, b_ion_col, peaks_col, ymax, peptide_height, info_height,
-            mod_height, len_annoSpace, lwd, cex, show_letterBY, srt)
-    }else{
+            mod_height, len_annoSpace, lwd, cex, show_iontype, srt)
+    }else{ # for aligned plot
         plot_group(input_table, output_path, aa_mw_mod_table,
-            min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm,
+            min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, ion_type, 
             y_ion_col, b_ion_col, peaks_col, ymax, peptide_height, info_height,
-            mod_height, len_annoSpace, lwd, cex, show_letterBY, srt)
+            mod_height, len_annoSpace, lwd, cex, show_iontype, srt)
     }
     invisible(gc())
 }
@@ -238,9 +251,9 @@ plot_mms2 <- function(input_table, output_path, aa_mw_mod_table,
 
 # the main function to draw mirror_plot
 plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
-    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, y_ion_col,
+    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, ion_type, y_ion_col,
     b_ion_col, peaks_col, ymax, peptide_height, info_height, mod_height,
-    len_annoSpace, lwd, cex, show_letterBY, srt){
+    len_annoSpace, lwd, cex, show_iontype, srt){
     
     #browser()
     outputFilename <- paste(input_table$base_rawFile[1], input_table$label[1],
@@ -252,13 +265,14 @@ plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
     mz_intensity_percent <- get_intensity_perc(input_table, min_intensity_ratio)
     two_mz_intensity_percent <- do.call(rbind, mz_intensity_percent)
     # calculate therotical b/y ions for the given peptides and ppm is considered
+    #browser()
     AA_mzs <- mapply(calculate_aa_mzs,input_table$`Modified sequence`,
         input_table$Charge, input_table$Monoisotopicmz,
-        MoreArgs=list(ppm, aa_mw_mod_table), SIMPLIFY = FALSE )
-    # calcualte PSM for each MS2 plot iteratively
+        MoreArgs=list(ppm, ion_type, aa_mw_mod_table), SIMPLIFY = FALSE )
     #browser()
+    # calcualte PSM for each MS2 plot iteratively
     PSMs <- mapply(find_matchedIons, AA_mzs, mz_intensity_percent,
-        MoreArgs=list(b_ion_col, y_ion_col), SIMPLIFY = FALSE )
+        MoreArgs=list(ion_type, b_ion_col, y_ion_col), SIMPLIFY = FALSE )
     two_PSMs <- do.call(rbind, PSMs)
     #browser()
     grDevices::graphics.off()
@@ -289,7 +303,7 @@ plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
         cex, lwd)
     abline(h = 0, lwd=0.5)
     # draw peaks, extension lines and ionLabel
-    draw_peak_ionL(two_PSMs, lwd, len_annoSpace, srt, show_letterBY)
+    draw_peak_ionL(two_PSMs, lwd, len_annoSpace, srt, show_iontype)
     ## draw PSM annotation (peptide, mod, b ions and y ions)
     #browser()
     mapply(draw_psmanno, AA_mzs, PSMs, max_mz, peptide_height, mod_height,
@@ -311,9 +325,9 @@ plot_mirror <- function(input_table, output_path, aa_mw_mod_table,
 }
 
 plot_group <-function(input_table, output_path, aa_mw_mod_table,
-    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, y_ion_col,
+    min_intensity_ratio, pdf_width, pdf_height, xmai, ymai, ppm, ion_type, y_ion_col,
     b_ion_col, peaks_col, ymax, peptide_height, info_height, mod_height,
-    len_annoSpace, lwd, cex, show_letterBY, srt){
+    len_annoSpace, lwd, cex, show_iontype, srt){
 
     #browser()
     outputFilename <- paste(input_table$base_rawFile[1], input_table$label[1],
@@ -325,11 +339,11 @@ plot_group <-function(input_table, output_path, aa_mw_mod_table,
     # calculate therotical b/y ions for the given peptides and ppm is considered
     AA_mzs <- mapply(calculate_aa_mzs,input_table$`Modified sequence`,
         input_table$Charge, input_table$Monoisotopicmz,
-        MoreArgs=list(ppm, aa_mw_mod_table), SIMPLIFY = FALSE )
+        MoreArgs=list(ppm, ion_type, aa_mw_mod_table), SIMPLIFY = FALSE )
     #browser()
     # calcualte PSM for each MS2 plot iteratively
     PSMs <- mapply(find_matchedIons, AA_mzs, mz_intensity_percent,
-        MoreArgs=list(b_ion_col, y_ion_col), SIMPLIFY = FALSE )
+        MoreArgs=list(ion_type, b_ion_col, y_ion_col), SIMPLIFY = FALSE )
     #browser()
     #max_mz<-max(input_table$`m/z` * input_table$Charge)
     max_mz<-max(unlist(lapply(mz_intensity_percent, `[[`, 1)))+100 # max mz
@@ -353,7 +367,7 @@ plot_group <-function(input_table, output_path, aa_mw_mod_table,
         input_table$`m/z`, input_table$Charge, input_table$`Gene Names`,
         MoreArgs=list(y_ion_col, b_ion_col, peaks_col, ymax, lwd,
         peptide_height, mod_height, len_annoSpace, srt, cex, max_mz,
-        info_height, show_letterBY))
+        info_height, show_iontype))
 
     # title outside oma
     graphics::mtext("m/z", side=1, line=1, cex=0.5*cex, outer=TRUE)

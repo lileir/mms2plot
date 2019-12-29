@@ -1,5 +1,7 @@
-par_path	ppm
-silac/mqpar.xml	20
-TMT/mqpar.xml	300
-Dimethyl_Labelling/mqpar.xml	20
-label_free/mqpar.xml	20
+par_path	ppm	ion_type
+label_free/mqpar.xml	20	y
+label_free_ETD/mqpar.xml	300	yz
+silac/mqpar.xml	20	y
+TMT/mqpar.xml	300	y
+Dimethyl_Labelling/mqpar.xml	20	y
+phospho/mqpar.xml	20	y

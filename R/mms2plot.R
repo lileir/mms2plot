@@ -118,17 +118,17 @@
 # library(data.table)
 # library(DescTools)  # MixColor
 # library(gsubfn)
-# 
+# #
 # PPM_denominator=1E6
 # 
 # source("R/plot_mirror_or_group.R")
 # source("R/add_mod_aa.R")
 # source("R/psm_calculation.R")
 # source("R/plot_components.R")
-
-#getwd()
+# 
+# getwd()
 #browser()
-#setwd("e:/lei_package5/MMS2plot/")
+#setwd("e:/lei_package6/MMS2plot/")
 
 mms2plot <- function(id_table_path,
                     mod_xml_path,
@@ -209,31 +209,31 @@ mms2plot <- function(id_table_path,
     invisible(gc())
 }
 
-
-# load("data/aa_mw_table.rda")
-# load("data/atom_mw_table.rda")
-# ##save(aa_mw_table, atom_mw_table, PPM_denominator, file = "data/data.rda")
-# ##load aa_mw and atom_mw files
-#aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
-#                                   fill = TRUE, header = TRUE)
-#save(aa_mw_table, file = "data/aa_mw_table.rda")
-# ##atom_mw_table <- data.table::fread("inst/extdata/atom_MW.txt", sep = "\t",
-# ##                                   fill = TRUE, header = TRUE)
 # 
-# mod_xml_path = "inst/extdata/modifications.xml"
-# par_filepath = "inst/extdata/par_batch_test.txt"
-# id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
-# id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
-# id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
-# id_table_path = "inst/extdata/label_free/msms_labelfree_test.txt"
-# id_table_path = "inst/extdata/phospho/msms_phospho.txt"
-# id_table_path = "inst/extdata/label_free_ETD/msms_lf_ETD.txt"
-# id_table_path = "inst/extdata/kal/CRTAC1.txt"
-# 
-# ##
+#  load("data/aa_mw_table.rda")
+#  load("data/atom_mw_table.rda")
+# # ##save(aa_mw_table, atom_mw_table, PPM_denominator, file = "data/data.rda")
+# # ##load aa_mw and atom_mw files
+# #aa_mw_table <-   data.table::fread("inst/extdata/AA_MW.txt", sep = "\t",
+# #                                   fill = TRUE, header = TRUE)
+# #save(aa_mw_table, file = "data/aa_mw_table.rda")
+# # ##atom_mw_table <- data.table::fread("inst/extdata/atom_MW.txt", sep = "\t",
+# # ##                                   fill = TRUE, header = TRUE)
+# #
+#  mod_xml_path = "inst/extdata/modifications.xml"
+#  par_filepath = "inst/extdata/par_batch_test.txt"
+# # id_table_path = "inst/extdata/TMT/msms_TMT_test.txt"
+# # id_table_path = "inst/extdata/Dimethyl_Labelling/msms_dim_test.txt"
+# # id_table_path = "inst/extdata/silac/msms_SILAC_test.txt"
+# # id_table_path = "inst/extdata/label_free/msms_labelfree_test.txt"
+#  id_table_path = "inst/extdata/phospho/msms_phospho_test.txt"
+# # id_table_path = "inst/extdata/label_free_ETD/msms_lf_ETD_test.txt"
+# # id_table_path = "inst/extdata/kal/CRTAC1.txt"
+# #
+# # ##
 # output_path = "d:"
 # mms2plot(id_table_path=id_table_path, mod_xml_path=mod_xml_path,
-#     par_filepath=par_filepath, output_path="d:", pdf_width=7, show_iontype=T)
+#      par_filepath=par_filepath, output_path=output_path, pdf_width=7)
 # # 
 #library(BiocCheck)
 #BiocCheck::BiocCheck("e:/r_packages/mms2plot")

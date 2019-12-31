@@ -216,11 +216,11 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
     #browser()
 
     if(ion_type == "y"){ # for b/y ions
-        col_wo_cz = ! grepl("^mz_z|^mz_c", colnames(AA_mz)) # 用这种方法去掉其它离子包括loss
+        col_wo_cz = ! grepl("^mz_z|^mz_c", colnames(AA_mz)) # remove c/z ion annotations
         
         AA_mz <- subset(AA_mz, select = col_wo_cz)
     }else if(ion_type == "z"){ # for c/z ions
-         col_wo_by = ! grepl("^mz_b|^mz_y", colnames(AA_mz)) # 用这种方法去掉其它离子包括loss
+         col_wo_by = ! grepl("^mz_b|^mz_y", colnames(AA_mz)) # remove b/y ion annotations
         AA_mz <- subset(AA_mz, select = col_wo_by)
     }
     AA_mz <- AA_mz[order(AA_mz$charge,AA_mz$index)]

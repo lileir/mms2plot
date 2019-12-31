@@ -4,14 +4,28 @@
 \alias{mms2plot}
 \title{mms2plot}
 \usage{
-mms2plot(id_table_path, mod_xml_path, par_filepath, output_path,
-  min_intensity_ratio = 0.01, pdf_width = 3.35,
-  pdf_height = pdf_width/2.4, xmai = 0.15 * pdf_width/3.35,
-  ymai = 0.3 * pdf_width/3.35, ppm = 20, y_ion_col = "red",
-  b_ion_col = "blue", peaks_col = "grey", ymax = 1.6,
-  info_height = 1.5, peptide_height = 1.3, mod_height = 0.07,
-  len_annoSpace = 0.1, lwd = 1 * pdf_width/3.35, cex = 1 *
-  pdf_width/3.35, show_letterBY = FALSE)
+mms2plot(
+  id_table_path,
+  mod_xml_path,
+  par_filepath,
+  output_path,
+  min_intensity_ratio = 0.01,
+  pdf_width = 3.35,
+  pdf_height = pdf_width/2.4,
+  xmai = 0.15 * pdf_width/3.35,
+  ymai = 0.3 * pdf_width/3.35,
+  ppm = 20,
+  y_ion_col = "red",
+  b_ion_col = "blue",
+  peaks_col = "grey",
+  ymax = 1.6,
+  info_height = 1.5,
+  peptide_height = 1.3,
+  mod_height = 0.07,
+  len_annoSpace = 0.1,
+  lwd = 1 * pdf_width/3.35,
+  cex = 1 * pdf_width/3.35
+)
 }
 \arguments{
 \item{id_table_path}{File path of the table that contains the information of 
@@ -69,9 +83,6 @@ location where peptide sequence is annotation. (default=0.07).}
 
 \item{cex}{A numerical value giving the amount by which plotting text and
 symbols is magnified relative to the default.(default=pdf_width/3.35).}
-
-\item{show_letterBY}{Logical: should "b" or "y" characters are shown on the
-peak annotation? The default is FALSE.}
 }
 \value{
 No value is returned.
@@ -88,7 +99,7 @@ See vignettes for more details
 general_path = system.file( package = "mms2plot",dir = "extdata" )
 setwd( general_path )
 ###################################
-# Generate mms2plot for label-free data
+# Generate a mirrored-spectra pdf file for label-free data
 lf_path = system.file( package = "mms2plot",dir = "extdata/label_free" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 id_table_path = dir( lf_path, "msms_labelfree.txt", full.names = TRUE )
@@ -96,10 +107,10 @@ mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 # par_filepath contains par.xml with full file path and PPM cutoff
 par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 
 ###################################
-# Generate mms2plot for TMT labelling
+# Generate an aligned-spectra plot pdf file for TMT labelling
 TMT_path = system.file( package = "mms2plot",dir = "extdata/TMT" )
 # id_table_path expands the Maxqaunt output msms.txt by adding "label" column
 id_table_path = dir( TMT_path, "msms_TMT.txt", full.names = TRUE )
@@ -107,25 +118,43 @@ mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 # par_filepath contains par.xml with full file path and PPM cutoff
 par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#mms2plot( id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 
 #####################################
-# Generate mms2plot for SILAC labelling
+# Generate a mirrored-spectra pdf file for SILAC labelling
 SILAC_path = system.file( package = "mms2plot",dir = "extdata/silac" )
 id_table_path = dir( SILAC_path, "msms_SILAC.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) #not run
+#mms2plot( id_table_path, mod_xml_path,par_filepath,output_path ) # Only run for testing
 
 #####################################
-# Generate mms2plot for dimethyl labelling
+# Generate a couple of spectra pdf files for dimethyl labelling
 dim_path = system.file(package="mms2plot",dir="extdata/Dimethyl_Labelling")
 id_table_path = dir( dim_path, "msms_dim.txt", full.names = TRUE )
 mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
 par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 output_path = general_path
-#mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) #not run
+#mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+
+#####################################
+# Generate a couple of spectra pdf files for ETD (ie. c/z ions)
+dim_path = system.file(package="mms2plot",dir="extdata/label_free_ETD")
+id_table_path = dir( dim_path, "msms_lf_ETD.txt", full.names = TRUE )
+mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
+output_path = general_path
+#mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+
+#####################################
+# an example for showing neutral loss (e.g. phosphorylation)
+dim_path = system.file(package="mms2plot",dir="extdata/phospho")
+id_table_path = dir( dim_path, "msms_phospho.txt", full.names = TRUE )
+mod_xml_path = dir( general_path, "modifications.xml", full.names = TRUE )
+par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
+output_path = general_path
+#mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
 
 }
 \author{

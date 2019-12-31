@@ -18,11 +18,11 @@ test_that("check input table and path", {
   # test for check_input_table
   expect_equal(input_table, input_table_check)
 
-  # test for add_mod_aa
-
-    MS2FileName<-unique(input_table$`Raw file`)[1]
-    list_aaMwModTable_ppm_ama<-add_mod_aa(par_xml_path, basename(MS2FileName),
-        mms2plot::aa_mw_table, mqpar_ppm)
-    list_aaMwModTable_ppm=readRDS(file = "list_aaMwModTable_ppm.rds")
-    expect_equal(list_aaMwModTable_ppm, list_aaMwModTable_ppm_ama)
+  # # test for add_mod_aa
+  # 
+  #   MS2FileName<-unique(input_table$`Raw file`)[1]
+  #   list_aaMwModTable_ppm_ama<-add_mod_aa(par_xml_path, basename(MS2FileName),
+  #       mms2plot::aa_mw_table, mqpar_ppm)
+  #   list_aaMwModTable_ppm=readRDS(file = "list_aaMwModTable_ppm.rds")
+  #   expect_equal(list_aaMwModTable_ppm, list_aaMwModTable_ppm_ama)
 })

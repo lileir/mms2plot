@@ -1,7 +1,7 @@
 Package: mms2plot
 Type: Package
 Title: Visualization of multiple MS/MS spectra for modified and non-modified peptides
-Version: 1.01.04
+Version: 1.01.05
 Author: Lei Li.
 Maintainer: Lei Li <leili@qdu.edu.cn>
 Description: Visualization of multiple tandem mass spectrometry (MS2) for 
@@ -26,6 +26,6 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 BugReports: https://github.com/lileir/mms2plot/issues
 URL: https://github.com/lileir/mms2plot

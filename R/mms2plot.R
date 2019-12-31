@@ -39,8 +39,6 @@
 #' @param lwd line width relative to the default. (default=pdf_width/3.35).
 #' @param cex A numerical value giving the amount by which plotting text and
 #'        symbols is magnified relative to the default.(default=pdf_width/3.35).
-#' @param show_iontype Logical: should "b" or "y" characters are shown on the
-#'        peak annotation? The default is FALSE.
 #'
 #' @return No value is returned.
 #' @import xml2
@@ -93,6 +91,7 @@
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+#' 
 #' #####################################
 #' # Generate a couple of spectra pdf files for ETD (ie. c/z ions)
 #' dim_path = system.file(package="mms2plot",dir="extdata/label_free_ETD")
@@ -101,6 +100,7 @@
 #' par_filepath = dir( general_path, "par_batch.txt", full.names = TRUE )
 #' output_path = general_path
 #' #mms2plot(id_table_path, mod_xml_path, par_filepath, output_path) # Only run for testing
+#' 
 #' #####################################
 #' # an example for showing neutral loss (e.g. phosphorylation)
 #' dim_path = system.file(package="mms2plot",dir="extdata/phospho")

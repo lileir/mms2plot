@@ -233,7 +233,9 @@ test_Ions <- function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_ion_co
     psm <- apply( mz_intensity_percent,1, test_individualIon, AA_mz, ion_type,
             b_ion_col, y_ion_col ) 
     psm <- data.table::rbindlist(psm) # can remove NULL elements
-    if(nrow(psm)<4){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+    if(nrow(psm)==0){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+        paste(AA_mz$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
+    else if(nrow(psm)<4){warning(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
         paste(AA_mz$aa, collapse="") ,"', which is really limited. Please check 
         the ppm threshold or identification results from the search engine.", sep=""))}
     #browser()

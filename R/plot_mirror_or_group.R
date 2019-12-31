@@ -163,7 +163,7 @@ drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     aa_mw_mod_table = list_aaMwModTable_ppm[[1]] ## aa plus modaa
     ppm = list_aaMwModTable_ppm[[2]]  ##  ppm
     ion_type = list_aaMwModTable_ppm[[3]] # y, z or yz ion
-    #browser()
+    browser()
 
     # unique MS2 scan_number from the extract MS2 info
     scan_number <- unique(input_table_sameRawFile$`Scan number`)

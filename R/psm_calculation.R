@@ -464,8 +464,10 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_i
             b_ion_col, y_ion_col ) 
         #browser()
         psm <- data.table::rbindlist(psm) # can remove NULL elements
-        if(nrow(psm)<4){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
-            paste(AA_mz[[1]]$aa, collapse="") ,"', which is really limited. Please check 
+        if(nrow(psm)==0){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+            paste(AA_mz$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
+        else if(nrow(psm)<4){warning(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+            paste(AA_mz$aa, collapse="") ,"', which is really limited. Please check 
             the ppm threshold or identification results from the search engine.", sep=""))}
     }else{ ## list(AA_mz) >= 2; SILAC go this way
         #browser()

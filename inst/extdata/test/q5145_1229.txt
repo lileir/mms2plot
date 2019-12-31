@@ -1,0 +1,15 @@
+Raw file	label	Scan number	Sequence	Modified sequence	Charge	Modifications	Gene Names
+inst/extdata/test/q5145.mzML	5	10243	MTIEIDFLQKK	MTIEIDFLQKK	2	Unmodified	NSF
+inst/extdata/test/q5145.mzML	5	10244	MTIEIDFLQKK	M(ox)TIEIDFLQKK	2	Oxidation(M)	NSF
+inst/extdata/test/q5145.mzML	6	10655	NQVAMNPTNTVFDAK	NQVAM(ox)NPTNTVFDAK	2	Oxidation(M)	HSPA8
+inst/extdata/test/q5145.mzML	6	10660	NQVAMNPTNTVFDAK	NQVAMNPTNTVFDAK	2	Unmodified	HSPA8
+inst/extdata/test/q5145.mzML	7	10665	QIGKMLNAREPK	QIGKM(ox)LNAREPK	3	Oxidation(M)	NSF
+inst/extdata/test/q5145.mzML	7	10685	QIGKMLNAREPK	QIGKMLNAREPK	3	Unmodified	NSF
+inst/extdata/test/q5145.mzML	1	10700	HWPFMVVNDAGRPK	HWPFMVVNDAGRPK	3	Unmodified	HSPA8
+inst/extdata/test/q5145.mzML	1	10766	HWPFMVVNDAGRPK	HWPFM(ox)VVNDAGRPK	3	Oxidation(M)	HSPA8
+inst/extdata/test/q5145.mzML	2	10884	HWPFMVVNDAGRPK	HWPFMVVNDAGRPK	4	Unmodified	HSPA8
+inst/extdata/test/q5145.mzML	2	10916	HWPFMVVNDAGRPK	HWPFM(ox)VVNDAGRPK	4	Oxidation(M)	HSPA8
+inst/extdata/test/q5145.mzML	3	10365	LAVNMVPFPR	LAVNMVPFPR	2	Unmodified	TUBB4A
+inst/extdata/test/q5145.mzML	3	10871	LAVNMVPFPR	LAVNM(ox)VPFPR	2	Oxidation(M)	TUBB4A
+inst/extdata/test/q5145.mzML	4	10252	LHFFMPGFAPLTAR	LHFFMPGFAPLTAR	3	Unmodified	TUBB3
+inst/extdata/test/q5145.mzML	4	10335	LHFFMPGFAPLTAR	LHFFM(ox)PGFAPLTAR	3	Oxidation(M)	TUBB3

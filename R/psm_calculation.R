@@ -233,6 +233,9 @@ test_Ions <- function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_ion_co
     psm <- apply( mz_intensity_percent,1, test_individualIon, AA_mz, ion_type,
             b_ion_col, y_ion_col ) 
     psm <- data.table::rbindlist(psm) # can remove NULL elements
+    if(nrow(psm)<4){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+        paste(AA_mz$aa, collapse="") ,"', which is really limited. Please check 
+        the ppm threshold or identification results from the search engine.", sep=""))}
     #browser()
     return(psm)
 }
@@ -459,6 +462,9 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_i
             b_ion_col, y_ion_col ) 
         #browser()
         psm <- data.table::rbindlist(psm) # can remove NULL elements
+        if(nrow(psm)<4){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
+            paste(AA_mz[[1]]$aa, collapse="") ,"', which is really limited. Please check 
+            the ppm threshold or identification results from the search engine.", sep=""))}
     }else{ ## list(AA_mz) >= 2; SILAC go this way
         #browser()
         psm_list <- lapply(AA_mz, test_Ions, mz_intensity_percent, ion_type, b_ion_col, y_ion_col ) 
@@ -467,13 +473,6 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_i
         psm = psm_list[[psm_max_row_df_pos]]
         #psms <- mapply(test_Ions, AA_mz, MoreArgs = list( mz_intensity_percent, b_ion_col, y_ion_col ) )
     }
-    #browser()
-    #AA_mz = AA_mz[[1]]
-    # find b/y ions with info
-    # psm <- apply( mz_intensity_percent, 1, test_individualIon, AA_mz, b_ion_col,
-    #     y_ion_col)
-    if(nrow(psm)<4){warnings("The matched ion peaks are limited (<4). May check \
-         the ppm threshold.")}
 
     #browser()
     # Keep the mz with the largest intensity if multiple mzs match same b/y ion

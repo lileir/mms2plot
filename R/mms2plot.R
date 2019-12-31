@@ -149,8 +149,7 @@ mms2plot <- function(id_table_path,
                     mod_height = 0.07,
                     len_annoSpace = 0.1,
                     lwd=1*pdf_width/3.35,
-                    cex=1*pdf_width/3.35,
-                    show_iontype = T){
+                    cex=1*pdf_width/3.35){
     srt <- 0
     #browser()
     if(! file.exists(output_path)) {
@@ -206,7 +205,7 @@ mms2plot <- function(id_table_path,
         mod_xml_path, output_path, par_ppm, min_intensity_ratio, pdf_width,
         pdf_height, xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax,
         peptide_height, info_height, mod_height, len_annoSpace, lwd, cex,
-        show_iontype, srt) # call for individual raw_files
+        show_iontype=TRUE, srt) # call for individual raw_files
     invisible(gc())
 }
 

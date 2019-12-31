@@ -1,0 +1,3 @@
+Raw file	label	Scan number	Sequence	Modified sequence	Charge	Modifications	Gene Names
+inst/extdata/test/q5145.mzML	5	10243	MTIEIDFLQKK	MTIEIDFLQKK	2	Unmodified	NSF
+inst/extdata/test/q5145.mzML	5	10244	MTIEIDFLQKK	M(ox)TIEIDFLQKK	2	Oxidation(M)	NSF

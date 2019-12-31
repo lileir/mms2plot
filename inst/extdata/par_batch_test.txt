@@ -6,3 +6,4 @@ inst/extdata/TMT/mqpar.xml	300	y
 inst/extdata/Dimethyl_Labelling/mqpar.xml	20	y
 inst/extdata/phospho/mqpar.xml	20	y
 inst/extdata/kal/mqpar_K_ala.xml	20	y
+inst/extdata/test/mqpar11.xml	20	y

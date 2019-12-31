@@ -148,7 +148,7 @@ check_input_table<-function(input_table, id_table_path, par_ppm, par_filepath ){
 drawms2plot_samerawfile <- function(MS2FileName, input_table,  mod_xml_path,
     output_path, par_ppm, min_intensity_ratio, pdf_width, pdf_height,
     xmai, ymai, y_ion_col, b_ion_col, peaks_col, ymax, peptide_height,
-    info_height, mod_height, len_annoSpace, lwd, cex, show_iontype, srt){
+    info_height, mod_height, len_annoSpace, lwd, cex, show_iontype=TRUE, srt){
 
     # extract from input_table MS2 info from the same file
     input_table_sameRawFile <-

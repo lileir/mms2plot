@@ -71,7 +71,7 @@ readpar_ppm <- function(par_filename) {
     } else{
         stop("No raw file is included in this par.xml!")
     }
-    browser()
+    #browser()
     return(NULL)
 }
 

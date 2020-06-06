@@ -4,7 +4,7 @@
 #' @param config_table_path file path of the table that contains five columns: the raw MS filepath, 
 #'        the type of modifiation, mass shift, the tolerance of the mass shift and the search result MZID filepath. 
 #'        Please see teh user guide for the details.
-#' @param output_path a character string naming a output file.
+#' @param output_path a character string naming a output file as the identification txt file for mms2plot.
 #' @return No value is returned.
 #' 
 #' @examples
@@ -12,8 +12,8 @@
 #' setwd( general_path )
 #' config_table_path = 'prep/user_table_forMSMS.txt'
 #' path_user_table = 'prep/user_table_forMZID.txt'
-#' output_file = 'prep/comet/conversion/identification.txt'
-#' MZID_prep(path_user_table,output_file)#,dir_mzid)#label.by.Raw_seq_charge)
+#' output_path = 'prep/comet/conversion/identification.txt'
+#' MZID_prep(path_user_table,output_path)#,dir_mzid)#label.by.Raw_seq_charge)
 #' 
 #' 
 #' 
@@ -29,7 +29,7 @@
 # options(stringsAsFactors = FALSE)
 # options(digits = 15)
 
-MZID_prep = function(path_user_table,output_file){#,dir_mzid){#label.by.Raw_seq_charge){
+MZID_prep = function(path_user_table,output_path){#,dir_mzid){#label.by.Raw_seq_charge){
   user_table = data.table::fread(path_user_table)#read user table
   #paths_mzid = list.files(dir_mzid,recursive = T,full.names = T)
   result_df = lapply(X = seq(nrow(user_table)),FUN = Convert_by_usr,
@@ -49,16 +49,16 @@ MZID_prep = function(path_user_table,output_file){#,dir_mzid){#label.by.Raw_seq_
 
   df_sub_ls = lapply(seq(length(key_intersect)),Add_label,df = bind_groups,keys = keys)
   df_labeled = do.call(rbind,df_sub_ls)
-  if(!dir.exists(dirname(output_file))){dir.create(dirname(output_file),recursive = TRUE)}
-  utils::write.table(df_labeled,output_file,quote = F,row.names = F,sep = '\t')
+  if(!dir.exists(dirname(output_path))){dir.create(dirname(output_path),recursive = TRUE)}
+  utils::write.table(df_labeled,output_path,quote = F,row.names = F,sep = '\t')
   print("The conversion is successfully complete.")
 }
 
 
 # path_user_table = 'extdata/user_table_forMZID.txt'
-# output_file = 'extdata/comet/conversion/identification.txt'
+# output_path = 'extdata/comet/conversion/identification.txt'
 # ####Run---MZID_prep
-# MZID_prep(path_user_table,output_file)
+# MZID_prep(path_user_table,output_path)
 
 
 

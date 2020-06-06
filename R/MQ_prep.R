@@ -1,14 +1,11 @@
 #' Conversion of Maxquant search result file (i.e. msms.txt) to the mms2plot-required identification file. 
 #' @export MQ_prep
 #' 
-#' @param config_table_path File path of the table that contains the raw MS filepath, 
+#' @param config_table_path File path of the table that contains four columns:the raw MS filepath, 
 #'        the type of modifiation, mass shift and the tolerance of the mass shift. 
-#'        Please see teh user guide for the details.
+#'        Please see the user guide for the details.
 #' @param msms_path File path of the MaxQuant search result file (i.e. msms.txt).
-#' @param output_file File path of of the parameter batch table that includes
-#'        the parameter xml file and the fragment mass tolerance (ppm). The 
-#'        parameter file format is referred to as par.xml in Maxquant.
-#' @param output_path a character string naming a output file.
+#' @param output_path a character string naming a output file as the identification txt file for mms2plot.
 #' @return No value is returned.
 #' 
 #' @examples
@@ -16,8 +13,8 @@
 #' setwd( general_path )
 #' config_table_path = 'prep/user_table_forMSMS.txt'
 #' msms_path = 'prep/MaxQuant/msms.txt'
-#' output_file = 'prep/MaxQuant/conversion/identification.txt'
-#' MQ_prep(config_table_path,msms_path,output_file)
+#' output_path = 'prep/MaxQuant/conversion/identification.txt'
+#' MQ_prep(config_table_path,msms_path,output_path)
 #'
 #' 
 #rm(list = ls())
@@ -25,7 +22,7 @@
 #library(data.table)
 #library(stringr)
 #
-MQ_prep = function(config_table_path,msms_path,output_file){
+MQ_prep = function(config_table_path,msms_path,output_path){
     
     user_table = data.table::fread(config_table_path,data.table = FALSE)
     msms_read_0 = data.table::fread(msms_path,data.table = FALSE)
@@ -90,17 +87,17 @@ MQ_prep = function(config_table_path,msms_path,output_file){
     raw_ls = lapply(X = raws,Sub_raw,df1 = user_table_1,raws,df2 = label)
     bind = do.call(rbind,raw_ls)
     bind$`Modified sequence` = stringr::str_remove_all(bind$`Modified sequence`,'_')
-    if(!dir.exists(dirname(output_file))){dir.create(dirname(output_file),recursive = TRUE)}
-    utils::write.table(bind,output_file,quote = F,row.names = F,sep = '\t')
+    if(!dir.exists(dirname(output_path))){dir.create(dirname(output_path),recursive = TRUE)}
+    utils::write.table(bind,output_path,quote = F,row.names = F,sep = '\t')
     print("The conversion is successfully complete.")
 }
 
 # config_table_path = 'extdata/user_table_forMSMS.txt'
-# msms_path = 'extdata/MaxQuant/msms.txt'# output_file = 'extdata/MaxQuant/conversion/identification.txt'
+# msms_path = 'extdata/MaxQuant/msms.txt'# output_path = 'extdata/MaxQuant/conversion/identification.txt'
 # 
 # 
 # ####Run---MQ_prep
-# MQ_prep(config_table_path,msms_path,output_file)
+# MQ_prep(config_table_path,msms_path,output_path)
 # 
 
 

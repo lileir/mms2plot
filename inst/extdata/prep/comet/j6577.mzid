@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<MzIdentML id="" creationDate="2020-06-05T23:53:55" version="1.1.0" xsi:schemaLocation="http://psidev.info/psi/pi/mzIdentML/1.1 http://psidev.info/files/mzIdentML1.1.0.xsd" xmlns="http://psidev.info/psi/pi/mzIdentML/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cvList>
+    <cv id="MS" fullName="Proteomics Standards Initiative Mass Spectrometry Ontology" version="23:06:2017" uri="http://psidev.cvs.sourceforge.net/*checkout*/psidev/psi/psi-ms/mzML/controlledVocabulary/psi-ms.obo"/>
+    <cv id="UNIMOD" fullName="UNIMOD" version="2016-07-01" uri="http://www.unimod.org/obo/unimod.obo"/>
+    <cv id="UO" fullName="Unit Ontology" version="12:10:2011" uri="http://obo.cvs.sourceforge.net/*checkout*/obo/obo/ontology/phenotype/unit.obo"/>
+  </cvList>
+  <AnalysisSoftwareList>
+    <AnalysisSoftware id="AS_Comet" name="Comet" version="2019.01 rev. 4">
+      <SoftwareName><cvParam cvRef="MS" accession="MS:1002251" name="Comet" value=""/></SoftwareName>
+    </AnalysisSoftware>
+    <AnalysisSoftware id="pwiz_3.0.11252" name="ProteoWizard MzIdentML" version="3.0.11252">
+      <ContactRole contact_ref="ORG_PWIZ">
+        <Role><cvParam cvRef="MS" accession="MS:1001267" name="software vendor" value=""/></Role>
+      </ContactRole>
+      <SoftwareName><cvParam cvRef="MS" accession="MS:1000615" name="ProteoWizard software" value=""/></SoftwareName>
+    </AnalysisSoftware>
+  </AnalysisSoftwareList>
+  <AuditCollection>
+    <Organization id="ORG_PWIZ" name="ProteoWizard">
+      <cvParam cvRef="MS" accession="MS:1000589" name="contact email" value="support@proteowizard.org"/>
+    </Organization>
+  </AuditCollection>
+  <SequenceCollection>
+    <DBSequence id="DBSeq_sp|O14967|CLGN_HUMAN" accession="sp|O14967|CLGN_HUMAN" searchDatabase_ref="DB_1"/>
+    <DBSequence id="DBSeq_sp|Q5GH72|XKR7_HUMAN" accession="sp|Q5GH72|XKR7_HUMAN" searchDatabase_ref="DB_1"/>
+    <DBSequence id="DBSeq_sp|Q13123|RED_HUMAN" accession="sp|Q13123|RED_HUMAN" searchDatabase_ref="DB_1"/>
+    <DBSequence id="DBSeq_sp|Q765P7|MTSS2_HUMAN" accession="sp|Q765P7|MTSS2_HUMAN" searchDatabase_ref="DB_1"/>
+    <DBSequence id="DBSeq_sp|Q9HCP6|HHATL_HUMAN" accession="sp|Q9HCP6|HHATL_HUMAN" searchDatabase_ref="DB_1"/>
+    <Peptide id="PEP_1">
+      <PeptideSequence>AALEKPMDLEEEKK</PeptideSequence>
+      <Modification location="7" residues="M" avgMassDelta="15.9949153938" monoisotopicMassDelta="15.9949153938">
+        <cvParam cvRef="UNIMOD" accession="UNIMOD:35" name="Oxidation" value=""/>
+      </Modification>
+    </Peptide>
+    <Peptide id="PEP_2"><PeptideSequence>KKYPAWDAHFIDR</PeptideSequence></Peptide>
+    <Peptide id="PEP_3"><PeptideSequence>EKEEEELMEKPQK</PeptideSequence></Peptide>
+    <Peptide id="PEP_4"><PeptideSequence>AALEKPMDLEEEKK</PeptideSequence></Peptide>
+    <Peptide id="PEP_5"><PeptideSequence>AANQLDKDHAKEYK</PeptideSequence></Peptide>
+    <Peptide id="PEP_6"><PeptideSequence>ERERTLALEEEQK</PeptideSequence></Peptide>
+    <PeptideEvidence id="sp|O14967|CLGN_HUMAN_PEP_1" peptide_ref="PEP_1" dBSequence_ref="DBSeq_sp|O14967|CLGN_HUMAN" pre="K" post="Q" isDecoy="false"/>
+    <PeptideEvidence id="sp|Q5GH72|XKR7_HUMAN_PEP_2" peptide_ref="PEP_2" dBSequence_ref="DBSeq_sp|Q5GH72|XKR7_HUMAN" pre="R" post="R" isDecoy="false"/>
+    <PeptideEvidence id="sp|Q13123|RED_HUMAN_PEP_3" peptide_ref="PEP_3" dBSequence_ref="DBSeq_sp|Q13123|RED_HUMAN" pre="K" post="E" isDecoy="false"/>
+    <PeptideEvidence id="sp|O14967|CLGN_HUMAN_PEP_4" peptide_ref="PEP_4" dBSequence_ref="DBSeq_sp|O14967|CLGN_HUMAN" pre="K" post="Q" isDecoy="false"/>
+    <PeptideEvidence id="sp|Q765P7|MTSS2_HUMAN_PEP_5" peptide_ref="PEP_5" dBSequence_ref="DBSeq_sp|Q765P7|MTSS2_HUMAN" pre="K" post="R" isDecoy="false"/>
+    <PeptideEvidence id="sp|Q9HCP6|HHATL_HUMAN_PEP_6" peptide_ref="PEP_6" dBSequence_ref="DBSeq_sp|Q9HCP6|HHATL_HUMAN" pre="K" post="Q" isDecoy="false"/>
+  </SequenceCollection>
+  <AnalysisCollection>
+    <SpectrumIdentification id="SI" spectrumIdentificationProtocol_ref="SIP" spectrumIdentificationList_ref="SIL" activityDate="">
+      <InputSpectra spectraData_ref="SD"/>
+      <SearchDatabaseRef searchDatabase_ref="DB_1"/>
+    </SpectrumIdentification>
+  </AnalysisCollection>
+  <AnalysisProtocolCollection>
+    <SpectrumIdentificationProtocol id="SIP" analysisSoftware_ref="AS_Comet">
+      <SearchType><cvParam cvRef="MS" accession="MS:1001083" name="ms-ms search" value=""/></SearchType>
+      <AdditionalSearchParams>
+        <cvParam cvRef="MS" accession="MS:1001211" name="parent mass type mono" value=""/>
+        <cvParam cvRef="MS" accession="MS:1001256" name="fragment mass type mono" value=""/>
+        <cvParam cvRef="MS" accession="MS:1001118" name="param: b ion" value=""/>
+        <cvParam cvRef="MS" accession="MS:1001262" name="param: y ion" value=""/>
+        <userParam name="# comet_version " value="2019.01 rev. 4"/>
+        <userParam name="activation_method" value="ALL"/>
+        <userParam name="add_A_alanine" value="0.000000"/>
+        <userParam name="add_B_user_amino_acid" value="0.000000"/>
+        <userParam name="add_C_cysteine" value="57.021464"/>
+        <userParam name="add_Cterm_peptide" value="0.000000"/>
+        <userParam name="add_Cterm_protein" value="0.000000"/>
+        <userParam name="add_D_aspartic_acid" value="0.000000"/>
+        <userParam name="add_E_glutamic_acid" value="0.000000"/>
+        <userParam name="add_F_phenylalanine" value="0.000000"/>
+        <userParam name="add_G_glycine" value="0.000000"/>
+        <userParam name="add_H_histidine" value="0.000000"/>
+        <userParam name="add_I_isoleucine" value="0.000000"/>
+        <userParam name="add_J_user_amino_acid" value="0.000000"/>
+        <userParam name="add_K_lysine" value="0.000000"/>
+        <userParam name="add_L_leucine" value="0.000000"/>
+        <userParam name="add_M_methionine" value="0.000000"/>
+        <userParam name="add_N_asparagine" value="0.000000"/>
+        <userParam name="add_Nterm_peptide" value="0.000000"/>
+        <userParam name="add_Nterm_protein" value="0.000000"/>
+        <userParam name="add_O_ornithine" value="0.000000"/>
+        <userParam name="add_P_proline" value="0.000000"/>
+        <userParam name="add_Q_glutamine" value="0.000000"/>
+        <userParam name="add_R_arginine" value="0.000000"/>
+        <userParam name="add_S_serine" value="0.000000"/>
+        <userParam name="add_T_threonine" value="0.000000"/>
+        <userParam name="add_U_selenocysteine" value="0.000000"/>
+        <userParam name="add_V_valine" value="0.000000"/>
+        <userParam name="add_W_tryptophan" value="0.000000"/>
+        <userParam name="add_X_user_amino_acid" value="0.000000"/>
+        <userParam name="add_Y_tyrosine" value="0.000000"/>
+        <userParam name="add_Z_user_amino_acid" value="0.000000"/>
+        <userParam name="allowed_missed_cleavage" value="2"/>
+        <userParam name="clear_mz_range" value="0.000000 0.000000"/>
+        <userParam name="clip_nterm_methionine" value="0"/>
+        <userParam name="database_name" value="D:/fasta_uniprot/uniprot_Homo_sapiens_reviewed.fasta"/>
+        <userParam name="decoy_prefix" value="DECOY_"/>
+        <userParam name="decoy_search" value="0"/>
+        <userParam name="digest_mass_range" value="600.000000 5000.000000"/>
+        <userParam name="equal_I_and_L" value="1"/>
+        <userParam name="fragment_bin_offset" value="0.400000"/>
+        <userParam name="fragment_bin_tol" value="1.000500"/>
+        <userParam name="isotope_error" value="3"/>
+        <userParam name="mass_offsets"/>
+        <userParam name="mass_type_fragment" value="1"/>
+        <userParam name="mass_type_parent" value="1"/>
+        <userParam name="max_duplicate_proteins" value="2"/>
+        <userParam name="max_fragment_charge" value="3"/>
+        <userParam name="max_precursor_charge" value="6"/>
+        <userParam name="max_variable_mods_in_peptide" value="2"/>
+        <userParam name="minimum_intensity" value="0"/>
+        <userParam name="minimum_peaks" value="10"/>
+        <userParam name="ms_level" value="2"/>
+        <userParam name="nucleotide_reading_frame" value="0"/>
+        <userParam name="num_enzyme_termini" value="2"/>
+        <userParam name="num_output_lines" value="3"/>
+        <userParam name="num_results" value="100"/>
+        <userParam name="num_threads" value="2"/>
+        <userParam name="output_pepxmlfile" value="1"/>
+        <userParam name="output_percolatorfile" value="0"/>
+        <userParam name="output_sqtfile" value="0"/>
+        <userParam name="output_sqtstream" value="0"/>
+        <userParam name="output_suffix"/>
+        <userParam name="output_txtfile" value="0"/>
+        <userParam name="override_charge" value="0"/>
+        <userParam name="peff_format" value="0"/>
+        <userParam name="peff_obo"/>
+        <userParam name="peptide_length_range" value="7 25"/>
+        <userParam name="peptide_mass_tolerance" value="20.000000"/>
+        <userParam name="peptide_mass_units" value="2"/>
+        <userParam name="precursor_NL_ions"/>
+        <userParam name="precursor_charge" value="0 0"/>
+        <userParam name="precursor_tolerance_type" value="1"/>
+        <userParam name="print_expect_score" value="1"/>
+        <userParam name="remove_precursor_peak" value="0"/>
+        <userParam name="remove_precursor_tolerance" value="1.500000"/>
+        <userParam name="require_variable_mod" value="0"/>
+        <userParam name="sample_enzyme_number" value="1"/>
+        <userParam name="scan_range" value="0 0"/>
+        <userParam name="search_enzyme2_number" value="0"/>
+        <userParam name="search_enzyme_number" value="1"/>
+        <userParam name="show_fragment_ions" value="0"/>
+        <userParam name="skip_researching" value="1"/>
+        <userParam name="spectrum_batch_size" value="15000"/>
+        <userParam name="theoretical_fragment_ions" value="1"/>
+        <userParam name="use_A_ions" value="0"/>
+        <userParam name="use_B_ions" value="1"/>
+        <userParam name="use_C_ions" value="0"/>
+        <userParam name="use_NL_ions" value="0"/>
+        <userParam name="use_X_ions" value="0"/>
+        <userParam name="use_Y_ions" value="1"/>
+        <userParam name="use_Z_ions" value="0"/>
+        <userParam name="variable_mod01" value="15.994915 M 0 1 -1 0 0 0.000000"/>
+      </AdditionalSearchParams>
+      <ModificationParams>
+        <SearchModification fixedMod="false" massDelta="15.994915" residues="M">
+          <cvParam cvRef="UNIMOD" accession="UNIMOD:35" name="Oxidation" value=""/>
+        </SearchModification>
+        <SearchModification fixedMod="true" massDelta="57.021464" residues="C">
+          <cvParam cvRef="UNIMOD" accession="UNIMOD:4" name="Carbamidomethyl" value=""/>
+        </SearchModification>
+      </ModificationParams>
+      <Enzymes independent="false">
+        <Enzyme id="ENZ_1" cTermGain="OH" nTermGain="H" missedCleavages="2" minDistance="1" semiSpecific="false">
+          <SiteRegexp>(?&lt;=[KR])(?!P)</SiteRegexp>
+          <EnzymeName><cvParam cvRef="MS" accession="MS:1001251" name="Trypsin" value=""/></EnzymeName>
+        </Enzyme>
+      </Enzymes>
+      <FragmentTolerance>
+        <cvParam cvRef="MS" accession="MS:1001413" name="search tolerance minus value" value="1.000500" unitCvRef="UO" unitAccession="UO:0000221" unitName="dalton"/>
+        <cvParam cvRef="MS" accession="MS:1001412" name="search tolerance plus value" value="1.000500" unitCvRef="UO" unitAccession="UO:0000221" unitName="dalton"/>
+      </FragmentTolerance>
+      <ParentTolerance>
+        <cvParam cvRef="MS" accession="MS:1001413" name="search tolerance minus value" value="20.000000" unitCvRef="UO" unitAccession="UO:0000169" unitName="parts per million"/>
+        <cvParam cvRef="MS" accession="MS:1001412" name="search tolerance plus value" value="20.000000" unitCvRef="UO" unitAccession="UO:0000169" unitName="parts per million"/>
+      </ParentTolerance>
+      <Threshold>
+        <cvParam cvRef="MS" accession="MS:1001494" name="no threshold" value=""/>
+      </Threshold>
+    </SpectrumIdentificationProtocol>
+  </AnalysisProtocolCollection>
+  <DataCollection>
+    <Inputs>
+      <SearchDatabase id="DB_1" name="uniprot_Homo_sapiens_reviewed.fasta" location="D:/fasta_uniprot/uniprot_Homo_sapiens_reviewed.fasta">
+        <FileFormat><cvParam cvRef="MS" accession="MS:1001348" name="FASTA format" value=""/></FileFormat>
+        <DatabaseName></DatabaseName>
+        <cvParam cvRef="MS" accession="MS:1001073" name="database type amino acid" value=""/>
+        <cvParam cvRef="MS" accession="MS:1001283" name="decoy DB accession regexp" value="^DECOY_"/>
+      </SearchDatabase>
+      <SpectraData id="SD" name="j6577" location="E:\mingliya\project\mms2plot\raw\j6577">
+        <SpectrumIDFormat><cvParam cvRef="MS" accession="MS:1000768" name="Thermo nativeID format" value=""/></SpectrumIDFormat>
+      </SpectraData>
+    </Inputs>
+    <AnalysisData>
+      <SpectrumIdentificationList id="SIL" numSequencesSearched="0">
+        <SpectrumIdentificationResult id="SIR_1" name="j6577.05384.05384" spectrumID="controllerType=0 controllerNumber=1 scan=5384" spectraData_ref="SD">
+          <SpectrumIdentificationItem id="SII_1" rank="1" chargeState="3" peptide_ref="PEP_1" experimentalMassToCharge="549.61352446688" calculatedMassToCharge="549.61503946688" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|O14967|CLGN_HUMAN_PEP_1"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="24"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="28"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="3.595"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="0.554"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="1094.2"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="1"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="1.59E-04"/>
+          </SpectrumIdentificationItem>
+          <SpectrumIdentificationItem id="SII_2" rank="2" chargeState="3" peptide_ref="PEP_2" experimentalMassToCharge="549.61352446688" calculatedMassToCharge="549.619446800213" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|Q5GH72|XKR7_HUMAN_PEP_2"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="19"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="29"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="1.602"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="0.032"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="449.3"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="2"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="2.75E+00"/>
+          </SpectrumIdentificationItem>
+          <SpectrumIdentificationItem id="SII_3" rank="3" chargeState="3" peptide_ref="PEP_3" experimentalMassToCharge="549.61352446688" calculatedMassToCharge="549.602910800213" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|Q13123|RED_HUMAN_PEP_3"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="18"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="30"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="1.551"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="1.000"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="415.3"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="4"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="3.53E+00"/>
+          </SpectrumIdentificationItem>
+          <cvParam cvRef="MS" accession="MS:1000016" name="scan start time" value="1745.3" unitCvRef="UO" unitAccession="UO:0000010" unitName="second"/>
+        </SpectrumIdentificationResult>
+        <SpectrumIdentificationResult id="SIR_2" name="j6577.07097.07097" spectrumID="controllerType=0 controllerNumber=1 scan=7097" spectraData_ref="SD">
+          <SpectrumIdentificationItem id="SII_4" rank="1" chargeState="3" peptide_ref="PEP_4" experimentalMassToCharge="544.28182846688" calculatedMassToCharge="544.283401133547" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|O14967|CLGN_HUMAN_PEP_4"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="27"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="25"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="4.696"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="0.390"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="1306.4"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="1"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="7.60E-06"/>
+          </SpectrumIdentificationItem>
+          <SpectrumIdentificationItem id="SII_5" rank="2" chargeState="3" peptide_ref="PEP_5" experimentalMassToCharge="544.28182846688" calculatedMassToCharge="544.277637800213" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|Q765P7|MTSS2_HUMAN_PEP_5"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="20"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="32"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="2.865"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="0.361"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="463.4"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="3"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="2.35E-02"/>
+          </SpectrumIdentificationItem>
+          <SpectrumIdentificationItem id="SII_6" rank="3" chargeState="3" peptide_ref="PEP_6" experimentalMassToCharge="544.28182846688" calculatedMassToCharge="544.284680800213" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|Q9HCP6|HHATL_HUMAN_PEP_6"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="17"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="31"/>
+            <cvParam cvRef="MS" accession="MS:1002252" name="Comet:xcorr" value="1.830"/>
+            <cvParam cvRef="MS" accession="MS:1002253" name="Comet:deltacn" value="1.000"/>
+            <cvParam cvRef="MS" accession="MS:1002254" name="Comet:deltacnstar" value="0.000"/>
+            <cvParam cvRef="MS" accession="MS:1002255" name="Comet:spscore" value="378.4"/>
+            <cvParam cvRef="MS" accession="MS:1002256" name="Comet:sprank" value="8"/>
+            <cvParam cvRef="MS" accession="MS:1002257" name="Comet:expectation value" value="2.22E+00"/>
+          </SpectrumIdentificationItem>
+          <cvParam cvRef="MS" accession="MS:1000016" name="scan start time" value="1927.0" unitCvRef="UO" unitAccession="UO:0000010" unitName="second"/>
+        </SpectrumIdentificationResult>
+      </SpectrumIdentificationList>
+    </AnalysisData>
+  </DataCollection>
+</MzIdentML>

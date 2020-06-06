@@ -1,0 +1,3 @@
+Raw file	Scan number	Modifications	Sequence	Modified sequence	Charge	Gene Names	label
+\extdata\j6577.mzML	5384	Oxidation (M)	AALEKPMDLEEEKK	AALEKPM(ox)DLEEEKK	3	sp|O14967|CLGN_HUMAN	1
+\extdata\j6577.mzML	7097	Unmodified	AALEKPMDLEEEKK	AALEKPMDLEEEKK	3	sp|O14967|CLGN_HUMAN	1

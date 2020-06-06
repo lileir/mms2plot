@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<MzIdentML id="" creationDate="2020-06-06T00:08:46" version="1.1.0" xsi:schemaLocation="http://psidev.info/psi/pi/mzIdentML/1.1 http://psidev.info/files/mzIdentML1.1.0.xsd" xmlns="http://psidev.info/psi/pi/mzIdentML/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <cvList>
+    <cv id="MS" fullName="Proteomics Standards Initiative Mass Spectrometry Ontology" version="4.1.12" uri="https://raw.githubusercontent.com/HUPO-PSI/psi-ms-CV/master/psi-ms.obo"/>
+    <cv id="UNIMOD" fullName="UNIMOD" version="2018-08-13" uri="http://www.unimod.org/obo/unimod.obo"/>
+    <cv id="UO" fullName="Unit Ontology" version="09:04:2014" uri="https://raw.githubusercontent.com/bio-ontology-research-group/unit-ontology/master/unit.obo"/>
+  </cvList>
+  <AnalysisSoftwareList>
+    <AnalysisSoftware id="AS_X! Tandem" name="X! Tandem">
+      <SoftwareName><cvParam cvRef="MS" accession="MS:1001476" name="X!Tandem" value=""/></SoftwareName>
+    </AnalysisSoftware>
+    <AnalysisSoftware id="pwiz_3.0.1908" name="ProteoWizard MzIdentML" version="3.0.1908">
+      <ContactRole contact_ref="ORG_PWIZ">
+        <Role><cvParam cvRef="MS" accession="MS:1001267" name="software vendor" value=""/></Role>
+      </ContactRole>
+      <SoftwareName><cvParam cvRef="MS" accession="MS:1000615" name="ProteoWizard software" value=""/></SoftwareName>
+    </AnalysisSoftware>
+  </AnalysisSoftwareList>
+  <AuditCollection>
+    <Organization id="ORG_PWIZ" name="ProteoWizard">
+      <cvParam cvRef="MS" accession="MS:1000589" name="contact email" value="support@proteowizard.org"/>
+    </Organization>
+  </AuditCollection>
+  <SequenceCollection>
+    <DBSequence id="DBSeq_sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1" accession="sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1" searchDatabase_ref="DB_1"/>
+    <Peptide id="PEP_1">
+      <PeptideSequence>AALEKPMDLEEEKK</PeptideSequence>
+      <Modification location="7" residues="M" avgMassDelta="15.9949153938" monoisotopicMassDelta="15.9949153938">
+        <cvParam cvRef="MS" accession="MS:1001460" name="unknown modification" value=""/>
+      </Modification>
+    </Peptide>
+    <Peptide id="PEP_2"><PeptideSequence>AALEKPMDLEEEKK</PeptideSequence></Peptide>
+    <PeptideEvidence id="sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1_PEP_1" peptide_ref="PEP_1" dBSequence_ref="DBSeq_sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1" pre="K" post="Q" isDecoy="false"/>
+    <PeptideEvidence id="sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1_PEP_2" peptide_ref="PEP_2" dBSequence_ref="DBSeq_sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1" pre="K" post="Q" isDecoy="false"/>
+  </SequenceCollection>
+  <AnalysisCollection>
+    <SpectrumIdentification id="SI" spectrumIdentificationProtocol_ref="SIP" spectrumIdentificationList_ref="SIL" activityDate="">
+      <InputSpectra spectraData_ref="SD"/>
+      <SearchDatabaseRef searchDatabase_ref="DB_1"/>
+    </SpectrumIdentification>
+  </AnalysisCollection>
+  <AnalysisProtocolCollection>
+    <SpectrumIdentificationProtocol id="SIP" analysisSoftware_ref="AS_X! Tandem">
+      <SearchType><cvParam cvRef="MS" accession="MS:1001083" name="ms-ms search" value=""/></SearchType>
+      <AdditionalSearchParams>
+        <cvParam cvRef="MS" accession="MS:1001211" name="parent mass type mono" value=""/>
+        <cvParam cvRef="MS" accession="MS:1001256" name="fragment mass type mono" value=""/>
+      </AdditionalSearchParams>
+      <ModificationParams>
+        <SearchModification fixedMod="true" massDelta="57.0215" residues="C">
+          <cvParam cvRef="UNIMOD" accession="UNIMOD:4" name="Carbamidomethyl" value=""/>
+        </SearchModification>
+        <SearchModification fixedMod="false" massDelta="15.9949" residues="M">
+          <cvParam cvRef="UNIMOD" accession="UNIMOD:35" name="Oxidation" value=""/>
+        </SearchModification>
+      </ModificationParams>
+      <Enzymes independent="false">
+        <Enzyme id="ENZ_1" cTermGain="OH" nTermGain="H" missedCleavages="2" minDistance="1" semiSpecific="false">
+          <SiteRegexp>(?&lt;=[KR])(?!P)</SiteRegexp>
+          <EnzymeName><cvParam cvRef="MS" accession="MS:1001251" name="Trypsin" value=""/></EnzymeName>
+        </Enzyme>
+      </Enzymes>
+      <Threshold>
+        <cvParam cvRef="MS" accession="MS:1001494" name="no threshold" value=""/>
+      </Threshold>
+    </SpectrumIdentificationProtocol>
+  </AnalysisProtocolCollection>
+  <DataCollection>
+    <Inputs>
+      <SearchDatabase id="DB_1" name="uniprot_Homo_sapiens_reviewed.fasta" location="D:/fasta_uniprot/uniprot_Homo_sapiens_reviewed.fasta">
+        <FileFormat><cvParam cvRef="MS" accession="MS:1001348" name="FASTA format" value=""/></FileFormat>
+        <DatabaseName></DatabaseName>
+        <cvParam cvRef="MS" accession="MS:1001073" name="database type amino acid" value=""/>
+      </SearchDatabase>
+      <SpectraData id="SD" name="j6577" location="j6577">
+        <SpectrumIDFormat><cvParam cvRef="MS" accession="MS:1000776" name="scan number only nativeID format" value=""/></SpectrumIDFormat>
+      </SpectraData>
+    </Inputs>
+    <AnalysisData>
+      <SpectrumIdentificationList id="SIL" numSequencesSearched="0">
+        <SpectrumIdentificationResult id="SIR_1" name="j6577.1.1" spectrumID="scan=5384" spectraData_ref="SD">
+          <SpectrumIdentificationItem id="SII_1" rank="1" chargeState="3" peptide_ref="PEP_1" experimentalMassToCharge="549.61297646688" calculatedMassToCharge="549.61497646688" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1_PEP_1"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="18"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="34"/>
+            <cvParam cvRef="MS" accession="MS:1001331" name="X!Tandem:hyperscore" value="39.243"/>
+            <cvParam cvRef="MS" accession="MS:1001330" name="X!Tandem:expect" value="9.142e-06"/>
+            <userParam name="nextscore" value="34.772" type="xsd:float"/>
+          </SpectrumIdentificationItem>
+          <cvParam cvRef="MS" accession="MS:1000016" name="scan start time" value="1745.342" unitCvRef="UO" unitAccession="UO:0000010" unitName="second"/>
+        </SpectrumIdentificationResult>
+        <SpectrumIdentificationResult id="SIR_2" name="j6577.2.2" spectrumID="scan=7097" spectraData_ref="SD">
+          <SpectrumIdentificationItem id="SII_2" rank="1" chargeState="3" peptide_ref="PEP_2" experimentalMassToCharge="544.28127646688" calculatedMassToCharge="544.283343133547" passThreshold="true">
+            <PeptideEvidenceRef peptideEvidence_ref="sp|O14967|CLGN_HUMAN Calmegin OS=Homo sapiens OX=9606 GN=CLGN PE=1 SV=1_PEP_2"/>
+            <cvParam cvRef="MS" accession="MS:1001121" name="number of matched peaks" value="21"/>
+            <cvParam cvRef="MS" accession="MS:1001362" name="number of unmatched peaks" value="31"/>
+            <cvParam cvRef="MS" accession="MS:1001331" name="X!Tandem:hyperscore" value="45.718"/>
+            <cvParam cvRef="MS" accession="MS:1001330" name="X!Tandem:expect" value="1.712e-06"/>
+            <userParam name="nextscore" value="37.840" type="xsd:float"/>
+          </SpectrumIdentificationItem>
+          <cvParam cvRef="MS" accession="MS:1000016" name="scan start time" value="1927.047" unitCvRef="UO" unitAccession="UO:0000010" unitName="second"/>
+        </SpectrumIdentificationResult>
+      </SpectrumIdentificationList>
+    </AnalysisData>
+  </DataCollection>
+</MzIdentML>

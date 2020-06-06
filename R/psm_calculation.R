@@ -82,7 +82,7 @@ calculate_AAmz_individual_label <-function(aa_mw_mod_table, seq, charge,
             AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
         }else if( length(mod) - length(seq_sep) == 1  ){ # mod at end of the seq
             if(any(mod == "")){
-                mod = paste0(mod, collapse = "")
+                mod = mod[1:length(mod)-1]
                 AA<-as.vector(unlist(mapply(add_mod_C, seq_sep, mod))) # AA as a AA vector
             } else{
                 stop("Please contact developer. The function calculate_AAmz_individual_label is wrong.")
@@ -234,9 +234,9 @@ test_Ions <- function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_ion_co
             b_ion_col, y_ion_col ) 
     psm <- data.table::rbindlist(psm) # can remove NULL elements
     if(nrow(psm)==0){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
-        paste(AA_mz$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
+        paste(AA_mz[[1]]$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
     else if(nrow(psm)<4){warning(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
-        paste(AA_mz$aa, collapse="") ,"', which is really limited. Please check 
+        paste(AA_mz[[1]]$aa, collapse="") ,"', which is really limited. Please check 
         the ppm threshold or identification results from the search engine.", sep=""))}
     #browser()
     return(psm)
@@ -465,9 +465,9 @@ find_matchedIons<-function(AA_mz, mz_intensity_percent, ion_type, b_ion_col, y_i
         #browser()
         psm <- data.table::rbindlist(psm) # can remove NULL elements
         if(nrow(psm)==0){stop(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
-            paste(AA_mz$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
+            paste(AA_mz[[1]]$aa, collapse="") ,"'. Please check identification results from the search engine.", sep=""))}
         else if(nrow(psm)<4){warning(paste("The number of matched ion peaks is ", nrow(psm), " for the peptide '", 
-            paste(AA_mz$aa, collapse="") ,"', which is really limited. Please check 
+            paste(AA_mz[[1]]$aa, collapse="") ,"', which is really limited. Please check 
             the ppm threshold or identification results from the search engine.", sep=""))}
     }else{ ## list(AA_mz) >= 2; SILAC go this way
         #browser()

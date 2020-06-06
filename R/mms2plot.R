@@ -1,4 +1,4 @@
-#' @author Lei Li
+#' @author Lei Li, Liya Ming
 #' @title mms2plot
 #' @description Visualization of multiple MS/MS spectra for groups of modified 
 #' and non-modified peptides

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <msms_pipeline_analysis date="2020-06-05T23:53:55" xmlns="http://regis-web.systemsbiology.net/pepXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sashimi.sourceforge.net/schema_revision/pepXML/pepXML_v120.xsd" summary_xml="E:\mingliya\project\mms2plot\raw\j6577.pep.xml">
+ <msms_run_summary base_name="E:\mingliya\project\mms2plot\raw\j6577" msManufacturer="UNKNOWN" msModel="UNKNOWN" raw_data_type="raw" raw_data=".mzML">
+ <sample_enzyme name="Trypsin">
+  <specificity cut="KR" no_cut="P" sense="C"/>
+ </sample_enzyme>
+ <search_summary base_name="E:\mingliya\project\mms2plot\raw\j6577" search_engine="Comet" search_engine_version="2019.01 rev. 4" precursor_mass_type="monoisotopic" fragment_mass_type="monoisotopic" search_id="1">
+  <search_database local_path="D:/fasta_uniprot/uniprot_Homo_sapiens_reviewed.fasta" type="AA"/>
+  <enzymatic_search_constraint enzyme="Trypsin" max_num_internal_cleavages="2" min_number_termini="2"/>
+  <aminoacid_modification aminoacid="M" massdiff="15.994915" mass="147.035400" variable="Y" symbol="*"/>
+  <aminoacid_modification aminoacid="C" massdiff="57.021464" mass="160.030649" variable="N"/>
+  <parameter name="# comet_version " value="2019.01 rev. 4"/>
+  <parameter name="activation_method" value="ALL"/>
+  <parameter name="add_A_alanine" value="0.000000"/>
+  <parameter name="add_B_user_amino_acid" value="0.000000"/>
+  <parameter name="add_C_cysteine" value="57.021464"/>
+  <parameter name="add_Cterm_peptide" value="0.000000"/>
+  <parameter name="add_Cterm_protein" value="0.000000"/>
+  <parameter name="add_D_aspartic_acid" value="0.000000"/>
+  <parameter name="add_E_glutamic_acid" value="0.000000"/>
+  <parameter name="add_F_phenylalanine" value="0.000000"/>
+  <parameter name="add_G_glycine" value="0.000000"/>
+  <parameter name="add_H_histidine" value="0.000000"/>
+  <parameter name="add_I_isoleucine" value="0.000000"/>
+  <parameter name="add_J_user_amino_acid" value="0.000000"/>
+  <parameter name="add_K_lysine" value="0.000000"/>
+  <parameter name="add_L_leucine" value="0.000000"/>
+  <parameter name="add_M_methionine" value="0.000000"/>
+  <parameter name="add_N_asparagine" value="0.000000"/>
+  <parameter name="add_Nterm_peptide" value="0.000000"/>
+  <parameter name="add_Nterm_protein" value="0.000000"/>
+  <parameter name="add_O_ornithine" value="0.000000"/>
+  <parameter name="add_P_proline" value="0.000000"/>
+  <parameter name="add_Q_glutamine" value="0.000000"/>
+  <parameter name="add_R_arginine" value="0.000000"/>
+  <parameter name="add_S_serine" value="0.000000"/>
+  <parameter name="add_T_threonine" value="0.000000"/>
+  <parameter name="add_U_selenocysteine" value="0.000000"/>
+  <parameter name="add_V_valine" value="0.000000"/>
+  <parameter name="add_W_tryptophan" value="0.000000"/>
+  <parameter name="add_X_user_amino_acid" value="0.000000"/>
+  <parameter name="add_Y_tyrosine" value="0.000000"/>
+  <parameter name="add_Z_user_amino_acid" value="0.000000"/>
+  <parameter name="allowed_missed_cleavage" value="2"/>
+  <parameter name="clear_mz_range" value="0.000000 0.000000"/>
+  <parameter name="clip_nterm_methionine" value="0"/>
+  <parameter name="database_name" value="D:/fasta_uniprot/uniprot_Homo_sapiens_reviewed.fasta"/>
+  <parameter name="decoy_prefix" value="DECOY_"/>
+  <parameter name="decoy_search" value="0"/>
+  <parameter name="digest_mass_range" value="600.000000 5000.000000"/>
+  <parameter name="equal_I_and_L" value="1"/>
+  <parameter name="fragment_bin_offset" value="0.400000"/>
+  <parameter name="fragment_bin_tol" value="1.000500"/>
+  <parameter name="isotope_error" value="3"/>
+  <parameter name="mass_offsets" value=""/>
+  <parameter name="mass_type_fragment" value="1"/>
+  <parameter name="mass_type_parent" value="1"/>
+  <parameter name="max_duplicate_proteins" value="2"/>
+  <parameter name="max_fragment_charge" value="3"/>
+  <parameter name="max_precursor_charge" value="6"/>
+  <parameter name="max_variable_mods_in_peptide" value="2"/>
+  <parameter name="minimum_intensity" value="0"/>
+  <parameter name="minimum_peaks" value="10"/>
+  <parameter name="ms_level" value="2"/>
+  <parameter name="nucleotide_reading_frame" value="0"/>
+  <parameter name="num_enzyme_termini" value="2"/>
+  <parameter name="num_output_lines" value="3"/>
+  <parameter name="num_results" value="100"/>
+  <parameter name="num_threads" value="2"/>
+  <parameter name="output_pepxmlfile" value="1"/>
+  <parameter name="output_percolatorfile" value="0"/>
+  <parameter name="output_sqtfile" value="0"/>
+  <parameter name="output_sqtstream" value="0"/>
+  <parameter name="output_suffix" value=""/>
+  <parameter name="output_txtfile" value="0"/>
+  <parameter name="override_charge" value="0"/>
+  <parameter name="peff_format" value="0"/>
+  <parameter name="peff_obo" value=""/>
+  <parameter name="peptide_length_range" value="7 25"/>
+  <parameter name="peptide_mass_tolerance" value="20.000000"/>
+  <parameter name="peptide_mass_units" value="2"/>
+  <parameter name="precursor_NL_ions" value=""/>
+  <parameter name="precursor_charge" value="0 0"/>
+  <parameter name="precursor_tolerance_type" value="1"/>
+  <parameter name="print_expect_score" value="1"/>
+  <parameter name="remove_precursor_peak" value="0"/>
+  <parameter name="remove_precursor_tolerance" value="1.500000"/>
+  <parameter name="require_variable_mod" value="0"/>
+  <parameter name="sample_enzyme_number" value="1"/>
+  <parameter name="scan_range" value="0 0"/>
+  <parameter name="search_enzyme2_number" value="0"/>
+  <parameter name="search_enzyme_number" value="1"/>
+  <parameter name="show_fragment_ions" value="0"/>
+  <parameter name="skip_researching" value="1"/>
+  <parameter name="spectrum_batch_size" value="15000"/>
+  <parameter name="theoretical_fragment_ions" value="1"/>
+  <parameter name="use_A_ions" value="0"/>
+  <parameter name="use_B_ions" value="1"/>
+  <parameter name="use_C_ions" value="0"/>
+  <parameter name="use_NL_ions" value="0"/>
+  <parameter name="use_X_ions" value="0"/>
+  <parameter name="use_Y_ions" value="1"/>
+  <parameter name="use_Z_ions" value="0"/>
+  <parameter name="variable_mod01" value="15.994915 M 0 1 -1 0 0 0.000000"/>
+ </search_summary>
+ <spectrum_query spectrum="j6577.05384.05384.3" spectrumNativeID="controllerType=0 controllerNumber=1 scan=5384" start_scan="5384" end_scan="5384" precursor_neutral_mass="1645.818744" assumed_charge="3" index="1" retention_time_sec="1745.3">
+  <search_result>
+   <search_hit hit_rank="1" peptide="AALEKPMDLEEEKK" peptide_prev_aa="K" peptide_next_aa="Q" protein="sp|O14967|CLGN_HUMAN" num_tot_proteins="1" num_matched_ions="24" tot_num_ions="52" calc_neutral_pep_mass="1645.823289" massdiff="-0.004545" num_tol_term="2" num_missed_cleavages="1" num_matched_peptides="1552">
+    <modification_info modified_peptide="AALEKPM[147]DLEEEKK">
+     <mod_aminoacid_mass position="7" mass="147.035400" variable="15.994915" source="param"/>
+    </modification_info>
+    <search_score name="xcorr" value="3.595"/>
+    <search_score name="deltacn" value="0.554"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="1094.2"/>
+    <search_score name="sprank" value="1"/>
+    <search_score name="expect" value="1.59E-04"/>
+   </search_hit>
+   <search_hit hit_rank="2" peptide="KKYPAWDAHFIDR" peptide_prev_aa="R" peptide_next_aa="R" protein="sp|Q5GH72|XKR7_HUMAN" num_tot_proteins="1" num_matched_ions="19" tot_num_ions="48" calc_neutral_pep_mass="1645.836511" massdiff="-0.017767" num_tol_term="2" num_missed_cleavages="2" num_matched_peptides="1552">
+    <search_score name="xcorr" value="1.602"/>
+    <search_score name="deltacn" value="0.032"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="449.3"/>
+    <search_score name="sprank" value="2"/>
+    <search_score name="expect" value="2.75E+00"/>
+   </search_hit>
+   <search_hit hit_rank="3" peptide="EKEEEELMEKPQK" peptide_prev_aa="K" peptide_next_aa="E" protein="sp|Q13123|RED_HUMAN" num_tot_proteins="1" num_matched_ions="18" tot_num_ions="48" calc_neutral_pep_mass="1645.786903" massdiff="0.031841" num_tol_term="2" num_missed_cleavages="1" num_matched_peptides="1552">
+    <search_score name="xcorr" value="1.551"/>
+    <search_score name="deltacn" value="1.000"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="415.3"/>
+    <search_score name="sprank" value="4"/>
+    <search_score name="expect" value="3.53E+00"/>
+   </search_hit>
+  </search_result>
+ </spectrum_query>
+ <spectrum_query spectrum="j6577.07097.07097.3" spectrumNativeID="controllerType=0 controllerNumber=1 scan=7097" start_scan="7097" end_scan="7097" precursor_neutral_mass="1629.823656" assumed_charge="3" index="2" retention_time_sec="1927.0">
+  <search_result>
+   <search_hit hit_rank="1" peptide="AALEKPMDLEEEKK" peptide_prev_aa="K" peptide_next_aa="Q" protein="sp|O14967|CLGN_HUMAN" num_tot_proteins="1" num_matched_ions="27" tot_num_ions="52" calc_neutral_pep_mass="1629.828374" massdiff="-0.004718" num_tol_term="2" num_missed_cleavages="1" num_matched_peptides="1591">
+    <search_score name="xcorr" value="4.696"/>
+    <search_score name="deltacn" value="0.390"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="1306.4"/>
+    <search_score name="sprank" value="1"/>
+    <search_score name="expect" value="7.60E-06"/>
+   </search_hit>
+   <search_hit hit_rank="2" peptide="AANQLDKDHAKEYK" peptide_prev_aa="K" peptide_next_aa="R" protein="sp|Q765P7|MTSS2_HUMAN" num_tot_proteins="1" num_matched_ions="20" tot_num_ions="52" calc_neutral_pep_mass="1629.811084" massdiff="0.012572" num_tol_term="2" num_missed_cleavages="2" num_matched_peptides="1591">
+    <search_score name="xcorr" value="2.865"/>
+    <search_score name="deltacn" value="0.361"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="463.4"/>
+    <search_score name="sprank" value="3"/>
+    <search_score name="expect" value="2.35E-02"/>
+   </search_hit>
+   <search_hit hit_rank="3" peptide="ERERTLALEEEQK" peptide_prev_aa="K" peptide_next_aa="Q" protein="sp|Q9HCP6|HHATL_HUMAN" num_tot_proteins="1" num_matched_ions="17" tot_num_ions="48" calc_neutral_pep_mass="1629.832213" massdiff="-0.008558" num_tol_term="2" num_missed_cleavages="2" num_matched_peptides="1591">
+    <search_score name="xcorr" value="1.830"/>
+    <search_score name="deltacn" value="1.000"/>
+    <search_score name="deltacnstar" value="0.000"/>
+    <search_score name="spscore" value="378.4"/>
+    <search_score name="sprank" value="8"/>
+    <search_score name="expect" value="2.22E+00"/>
+   </search_hit>
+  </search_result>
+ </spectrum_query>
+ </msms_run_summary>
+</msms_pipeline_analysis>

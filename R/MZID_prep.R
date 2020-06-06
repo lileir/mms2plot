@@ -8,14 +8,12 @@
 #' @return No value is returned.
 #' 
 #' @examples
-#' \dontrun{
 #' general_path = system.file( package = "mms2plot",dir = "extdata" )
 #' setwd( general_path )
-#' config_table_path = 'extdata/prep/user_table_forMSMS.txt'
-#' path_user_table = 'extdata/prep/user_table_forMZID.txt'
-#' output_file = 'extdata/prep/comet/conversion/identification.txt'
+#' config_table_path = 'prep/user_table_forMSMS.txt'
+#' path_user_table = 'prep/user_table_forMZID.txt'
+#' output_file = 'prep/comet/conversion/identification.txt'
 #' MZID_prep(path_user_table,output_file)#,dir_mzid)#label.by.Raw_seq_charge)
-#' }
 #' 
 #' 
 #' 

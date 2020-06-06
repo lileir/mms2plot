@@ -26,12 +26,18 @@ No value is returned.
 Conversion of Maxquant search result file (i.e. msms.txt) to the mms2plot-required identification file.
 }
 \examples{
+general_path = system.file( package = "mms2plot",dir = "extdata" )
+setwd( general_path )
+config_table_path = 'prep/user_table_forMSMS.txt'
+msms_path = 'prep/MaxQuant/msms.txt'
+output_file = 'prep/MaxQuant/conversion/identification.txt'
+MQ_prep(config_table_path,msms_path,output_file)
 \dontrun{
 general_path = system.file( package = "mms2plot",dir = "extdata" )
 setwd( general_path )
-config_table_path = 'extdata/prep/user_table_forMSMS.txt'
-msms_path = 'extdata/prep/MaxQuant/msms.txt'
-output_file = 'extdata/prep/MaxQuant/conversion/identification.txt'
+config_table_path = 'prep/user_table_forMSMS.txt'
+msms_path = 'prep/MaxQuant/msms.txt'
+output_file = 'prep/MaxQuant/conversion/identification.txt'
 MQ_prep(config_table_path,msms_path,output_file)
 }
 

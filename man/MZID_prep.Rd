@@ -4,14 +4,14 @@
 \alias{MZID_prep}
 \title{Conversion of the research result with the mzid format to the mms2plot-required identification file.}
 \usage{
-MZID_prep(path_user_table, output_file)
+MZID_prep(path_user_table, output_path)
 }
 \arguments{
+\item{output_path}{a character string naming a output file as the identification txt file for mms2plot.}
+
 \item{config_table_path}{file path of the table that contains five columns: the raw MS filepath, 
 the type of modifiation, mass shift, the tolerance of the mass shift and the search result MZID filepath. 
 Please see teh user guide for the details.}
-
-\item{output_path}{a character string naming a output file.}
 }
 \value{
 No value is returned.
@@ -20,14 +20,12 @@ No value is returned.
 Conversion of the research result with the mzid format to the mms2plot-required identification file.
 }
 \examples{
-\dontrun{
 general_path = system.file( package = "mms2plot",dir = "extdata" )
 setwd( general_path )
 config_table_path = 'prep/user_table_forMSMS.txt'
 path_user_table = 'prep/user_table_forMZID.txt'
-output_file = 'prep/comet/conversion/identification.txt'
-MZID_prep(path_user_table,output_file)#,dir_mzid)#label.by.Raw_seq_charge)
-}
+output_path = 'prep/comet/conversion/identification.txt'
+MZID_prep(path_user_table,output_path)#,dir_mzid)#label.by.Raw_seq_charge)
 
 
 

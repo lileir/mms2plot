@@ -21,68 +21,49 @@
 #gc()
 #library(data.table)
 #library(stringr)
-#
+
 MQ_prep = function(config_table_path,msms_path,output_path){
     
     user_table = data.table::fread(config_table_path,data.table = FALSE)
-    msms_read_0 = data.table::fread(msms_path,data.table = FALSE)
-    ions_match = msms_read_0[,Find_cols(msms_read_0,rex = '[Mm]atches')]
-    count_ions_butNOTneu = stringr::str_count(ions_match,';') + 1 - stringr::str_count(ions_match,'-')
-    msms_read = msms_read_0[which(count_ions_butNOTneu > 6),]
-    
-    raws_user = basename(stringr::str_split(user_table$rawfilepath,'\\.',simplify = TRUE)[,1])###Raw(s) in usr's table
+    msms_read = data.table::fread(msms_path,data.table = FALSE)
     raws = unique(msms_read$`Raw file`)###Raw(s) in msms.txt
+    
+    if(stringr::str_detect(basename(user_table$rawfilepath),'\\.mzML')){
+        raws_user = stringr::str_remove(basename(user_table$rawfilepath),'\\.mzML')###Raw(s) in usr's table
+    }else{
+        stop(paste0('Can not find the full path of raw file ...mzML ! Please check the user table.'))
+    }
     
     if(any(!raws %in% raws_user)){
         stop(paste0('Can not find the full path of "',
                     raws[!raws %in% raws_user],'.mzML" ! Please check the user table.'))
     }
-    
+    ###>>>>>
     user_table_1 = user_table[raws_user %in% raws,]
-    raws_user_1 = basename(stringr::str_split(user_table_1$rawfilepath,'\\.',simplify = TRUE)[,1])
-    ls = lapply(raws,Score_fil,df = data.frame(msms_read))
-    bind_score = data.frame(do.call(rbind,ls),check.names = FALSE)
+    ###>>>>>    
     cols_fix = c('[Rr]aw.?[Ff]ile','[Ss]can.?[Nn]umber','[Mm]odifications?',
                  '[Ss]equence','[Mm]odified.?[Ss]equence','[Cc]harge')
     
-    if(any(stringr::str_detect(colnames(bind_score),'^[Gg]ene.?[Nn]ames?$'))){
+    if(any(stringr::str_detect(colnames(msms_read),'^[Gg]ene.?[Nn]ames?$'))){
         cols_select = c(cols_fix,'[Gg]ene.?[Nn]ames?')
-        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = bind_score))
-        sel = bind_score[,num_cols]
-    }else if(any(stringr::str_detect(colnames(bind_score),'^[Pp]roteins?$'))){
+        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = msms_read))
+        sel = msms_read[,num_cols]
+    }else if(any(stringr::str_detect(colnames(msms_read),'^[Pp]roteins?$'))){
         cols_select = c(cols_fix,'[Pp]roteins?')
-        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = bind_score))
-        sel = bind_score[,num_cols]
+        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = msms_read))
+        sel = msms_read[,num_cols]
     }else{
         cols_select = cols_fix
-        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = bind_score))
-        sel = bind_score[,num_cols]
+        num_cols = unlist(lapply(X = cols_select,FUN = Find_cols,df = msms_read))
+        sel = msms_read[,num_cols]
         sel$`Gene Names` = NA
     }
     colnames(sel) = c('Raw file','Scan number','Modifications','Sequence',
                       'Modified sequence','Charge','Gene Names')
-    ###---Only pairs/groups---###
-    msms_unmod = sel[with(sel,`Modifications` == 'Unmodified'),]
-    msms_mod = sel[with(sel,`Modifications` != 'Unmodified'),]
     
-    if(all(nrow(msms_unmod)!=0,nrow(msms_mod)!=0)){
-        key_unmod = unique(paste(msms_unmod$`Raw file`,msms_unmod$Sequence,msms_unmod$Charge))
-        key_mod = unique(paste(msms_mod$`Raw file`,msms_mod$Sequence,msms_mod$Charge))
-        key_intersect = intersect(key_unmod,key_mod)
-        
-        if(length(key_intersect) != 0){
-            keep_unmod = msms_unmod[with(msms_unmod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
-            keep_mod = msms_mod[with(msms_mod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
-            bind_groups = rbind(keep_mod,keep_unmod)
-            keys = paste(bind_groups$`Raw file`,bind_groups$Sequence,bind_groups$Charge)
-        }else{
-            stop('There are no pairs/groups in msms.txt')
-        }
-    }else{
-        stop('There are no pairs/groups in msms.txt')
-    }
-    #Add lables to msms.txt by raw_sequence_charge...
-    label_ls = lapply(seq(length(key_intersect)),Add_label,df = bind_groups,keys = keys)
+    keys = paste(sel$`Raw file`,sel$Sequence,sel$Charge,sep = '_')
+    
+    label_ls = lapply(seq(length(unique(keys))),Add_label,df = sel,keys = keys)
     label = do.call(rbind,label_ls)
     raw_ls = lapply(X = raws,Sub_raw,df1 = user_table_1,raws,df2 = label)
     bind = do.call(rbind,raw_ls)
@@ -92,12 +73,11 @@ MQ_prep = function(config_table_path,msms_path,output_path){
     print("The conversion is successfully complete.")
 }
 
-# config_table_path = 'extdata/user_table_forMSMS.txt'
-# msms_path = 'extdata/MaxQuant/msms.txt'# output_path = 'extdata/MaxQuant/conversion/identification.txt'
-# 
-# 
-# ####Run---MQ_prep
+# ###For test >>>
+# general = 'E:/mingliya/mms2plot-master/inst/extdata'
+# setwd(general)
+# config_table_path = 'prep/user_table_forMSMS.txt'
+# msms_path = 'prep/MaxQuant/msms.txt'
+# output_path = 'prep/MaxQuant/test.txt'
+# # ####Run---MQ_prep
 # MQ_prep(config_table_path,msms_path,output_path)
-# 
-
-

@@ -4,20 +4,16 @@
 \alias{MQ_prep}
 \title{Conversion of Maxquant search result file (i.e. msms.txt) to the mms2plot-required identification file.}
 \usage{
-MQ_prep(config_table_path, msms_path, output_file)
+MQ_prep(config_table_path, msms_path, output_path)
 }
 \arguments{
-\item{config_table_path}{File path of the table that contains the raw MS filepath, 
+\item{config_table_path}{File path of the table that contains four columns:the raw MS filepath, 
 the type of modifiation, mass shift and the tolerance of the mass shift. 
-Please see teh user guide for the details.}
+Please see the user guide for the details.}
 
 \item{msms_path}{File path of the MaxQuant search result file (i.e. msms.txt).}
 
-\item{output_file}{File path of of the parameter batch table that includes
-the parameter xml file and the fragment mass tolerance (ppm). The 
-parameter file format is referred to as par.xml in Maxquant.}
-
-\item{output_path}{a character string naming a output file.}
+\item{output_path}{a character string naming a output file as the identification txt file for mms2plot.}
 }
 \value{
 No value is returned.
@@ -30,15 +26,8 @@ general_path = system.file( package = "mms2plot",dir = "extdata" )
 setwd( general_path )
 config_table_path = 'prep/user_table_forMSMS.txt'
 msms_path = 'prep/MaxQuant/msms.txt'
-output_file = 'prep/MaxQuant/conversion/identification.txt'
-MQ_prep(config_table_path,msms_path,output_file)
-\dontrun{
-general_path = system.file( package = "mms2plot",dir = "extdata" )
-setwd( general_path )
-config_table_path = 'prep/user_table_forMSMS.txt'
-msms_path = 'prep/MaxQuant/msms.txt'
-output_file = 'prep/MaxQuant/conversion/identification.txt'
-MQ_prep(config_table_path,msms_path,output_file)
-}
+output_path = 'prep/MaxQuant/conversion/identification.txt'
+MQ_prep(config_table_path,msms_path,output_path)
+
 
 }

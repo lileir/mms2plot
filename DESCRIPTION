@@ -1,7 +1,7 @@
 Package: mms2plot
 Type: Package
 Title: Visualization of multiple MS/MS spectra for modified and non-modified peptides
-Version: 1.01.12
+Version: 1.01.13
 Author: Lei Li.
 Maintainer: Lei Li <leili@qdu.edu.cn>
 Description: Visualization of multiple tandem mass spectrometry (MS2) for 
@@ -19,7 +19,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5)
 biocViews: MassSpectrometry
-Imports: xml2, data.table, DescTools, MSnbase, scales, Biobase, gsubfn, graphics, grDevices
+Imports: xml2, data.table, DescTools, MSnbase, scales, Biobase, gsubfn, graphics, grDevices,dplyr
 Suggests: 
     knitr,
     roxygen2,

@@ -29,36 +29,41 @@
 # options(stringsAsFactors = FALSE)
 # options(digits = 15)
 
-MZID_prep = function(path_user_table,output_path){#,dir_mzid){#label.by.Raw_seq_charge){
+MZID_prep = function(path_user_table,output_path){
   user_table = data.table::fread(path_user_table)#read user table
-  #paths_mzid = list.files(dir_mzid,recursive = T,full.names = T)
-  result_df = lapply(X = seq(nrow(user_table)),FUN = Convert_by_usr,
-                     table = user_table)#,paths_mzid = paths_mzid)
+  result_df = lapply(X = seq(nrow(user_table)),FUN = Convert_by_usr,table = user_table)#,paths_mzid = paths_mzid)
+  
   df = do.call(rbind,result_df)
   #browser()
+  
   df_mod = df[with(df,Modifications == 'Unmodified'),]
   df_unmod = df[with(df,Modifications != 'Unmodified'),]
-
+  
   key_unmod = unique(paste(df_unmod$`Raw file`,df_unmod$Sequence,df_unmod$Charge))
   key_mod = unique(paste(df_mod$`Raw file`,df_mod$Sequence,df_mod$Charge))
   key_intersect = intersect(key_unmod,key_mod)
-  keep_unmod = df_unmod[with(df_unmod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
-  keep_mod = df_mod[with(df_mod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
-  bind_groups = rbind(keep_mod,keep_unmod)
+  
+  if(length(key_intersect) > 0){
+      keep_unmod = df_unmod[with(df_unmod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
+      keep_mod = df_mod[with(df_mod,paste(`Raw file`,`Sequence`,`Charge`) %in% key_intersect),]
+      bind_groups = rbind(keep_mod,keep_unmod)
+  }else{
+      bind_groups = df
+  }
+  
   keys = paste(bind_groups$`Raw file`,bind_groups$Sequence,bind_groups$Charge)
-
   df_sub_ls = lapply(seq(length(key_intersect)),Add_label,df = bind_groups,keys = keys)
   df_labeled = do.call(rbind,df_sub_ls)
+  
   if(!dir.exists(dirname(output_path))){dir.create(dirname(output_path),recursive = TRUE)}
   utils::write.table(df_labeled,output_path,quote = F,row.names = F,sep = '\t')
   print("The conversion is successfully complete.")
 }
 
-
-# path_user_table = 'extdata/user_table_forMZID.txt'
-# output_path = 'extdata/comet/conversion/identification.txt'
+# path_user_table = 'inst/extdata/prep/user_table_forMZID.txt'
+# output_path = 'inst/extdata/prep/comet/conversion/identification.txt'
 # ####Run---MZID_prep
 # MZID_prep(path_user_table,output_path)
-
-
-
+# path_user_table = 'E:\\mingliya\\project\\mms2plot\\search_result\\comet\\user_table_forMZID.txt'
+# output_path = paste(dirname(path_user_table),'test_out.txt',sep = '/')
+# MZID_prep(path_user_table,output_path)
